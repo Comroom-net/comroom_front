@@ -11,7 +11,11 @@ var webstore = new Vue({
             availInventory: 5
         },
         cart: [],
-        showProduct: false
+        showProduct: true,
+        order: {
+            firstName: '',
+            lastName: ''
+        }
     },
     filters: {
         formatPrice: function(price) {
@@ -37,7 +41,7 @@ var webstore = new Vue({
         addToCart: function() {
             this.cart.push(this.product.id);
         },
-        showCheckOut() {
+        showCheckout() {
             this.showProduct = this.showProduct ? false : true;
         }
     },
