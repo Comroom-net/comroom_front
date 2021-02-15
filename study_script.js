@@ -6,9 +6,10 @@ var webstore = new Vue({
             id: 1001,
             title: "cat food, 25won",
             description: "for your cat <em>good</em>," + "cat food",
-            price: 2000000000,
+            price: 2000,
             image: "assets/images/product-fullsize.png",
-            availInventory: 5
+            availableInventory: 6,
+            rating: 3
         },
         cart: [],
         showProduct: true,
@@ -62,14 +63,17 @@ var webstore = new Vue({
         },
         submitForm() {
             alert("ordered")
-        }
+        },
+        checkRating(n) {
+            return this.product.rating - n >= 0;
+        },
     },
     computed: {
         cartItemCount: function() {
             return this.cart.length || '';
         },
         canAddToCart: function() {
-            return this.product.availInventory > this.cartItemCount;
+            return this.product.availableInventory > this.cartItemCount;
         },
 
     }
