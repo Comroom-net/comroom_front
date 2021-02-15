@@ -19,8 +19,18 @@ var webstore = new Vue({
             city: '',
             zip: '',
             state: '',
-            method: 'Home',
-            gift: false
+            method: 'my home address',
+            home: 'my home address',
+            business: 'my work address',
+            gift: 'send gift',
+            sendGift: 'send gift',
+            dontSendGift: "don't send gift"
+        },
+        states: {
+            AL: '알리바마',
+            AR: '애리조나',
+            CA: '캘리포니아',
+            NV: '네바다'
         }
     },
     filters: {
