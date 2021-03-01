@@ -2,15 +2,7 @@ var webstore = new Vue({
     el: '#app',
     data: {
         sitename: "Shop for Vue",
-        product: {
-            id: 1001,
-            title: "cat food, 25won",
-            description: "for your cat <em>good</em>," + "cat food",
-            price: 2000,
-            image: "assets/images/product-fullsize.png",
-            availableInventory: 6,
-            rating: 3
-        },
+        products: [],
         cart: [],
         showProduct: true,
         order: {
@@ -32,7 +24,8 @@ var webstore = new Vue({
             AR: '애리조나',
             CA: '캘리포니아',
             NV: '네바다'
-        }
+        },
+
     },
     filters: {
         formatPrice: function(price) {
@@ -52,11 +45,19 @@ var webstore = new Vue({
             } else {
                 return "$" + (price / 100).toFixed(2);
             }
-        }
+        },
+    },
+    created: function() {
+        axios.get('./products.json')
+            .then((response) => {
+                console.log("hi")
+                this.products = response.data.products;
+                console.log(this.products)
+            })
     },
     methods: {
-        addToCart: function() {
-            this.cart.push(this.product.id);
+        addToCart(aProduct) {
+            this.cart.push(aProduct.id);
         },
         showCheckout() {
             this.showProduct = this.showProduct ? false : true;
@@ -64,17 +65,39 @@ var webstore = new Vue({
         submitForm() {
             alert("ordered")
         },
-        checkRating(n) {
-            return this.product.rating - n >= 0;
+        checkRating(n, myProduct) {
+            return myProduct.rating - n >= 0;
         },
+        canAddToCart(aProduct) {
+            return aProduct.availableInventory > this.cartCount(aProduct.id);
+        },
+        cartCount(id) {
+            let count = 0;
+            for (var i = 0; i < this.cart.length; i++) {
+                if (this.cart[i] === id) {
+                    count++;
+                }
+            }
+            return count;
+        }
     },
     computed: {
         cartItemCount: function() {
             return this.cart.length || '';
         },
-        canAddToCart: function() {
-            return this.product.availableInventory > this.cartItemCount;
-        },
+        sortedProducts() {
+            if (this.products.length > 0) {
+                let productsArray = this.products.slice(0);
 
-    }
+                function compare(a, b) {
+                    if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+                    if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+                    return 0;
+                }
+                return productsArray.sort(compare);
+            }
+        }
+
+    },
+
 });
