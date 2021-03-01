@@ -7,13 +7,34 @@
 
 <body>
     <div id="app">
-        <my-component></my-component>
-        <my-component></my-component>
-        <my-component></my-component>
+        <my-component :num="myNumber" :str="passedString" :even="myNumber" :obj="passedObject"></my-component>
     </div>
     <script>
         const MyComponent = {
-            template: '<div><button v-on:click="counter +=1"> {{ counter }} </button></div>',
+            template: '<div>num: {{num}}<br>str: {{str}}<br>even?: {{even}}<br>object: {{obj.message}}</div>',
+            props: {
+                num: {
+                    type: Number,
+                    required: true
+                },
+                str: {
+                    type: String,
+                    default: "Hello"
+                },
+                obj: {
+                    type: Object,
+                    default: () => {
+                        return {
+                            message: 'Hi, from object'
+                        }
+                    }
+                },
+                even: {
+                    validator: (value) => {
+                        return (value % 2 === 0)
+                    }
+                },
+            },
             data() {
                 return {
                     counter: 0
@@ -28,7 +49,11 @@
             },
             data() {
                 return {
-                    message: ''
+                    passedString: 'Hi, from parents',
+                    myNumber: 42,
+                    passedObject: {
+                        message: 'passed object'
+                    }
                 }
             }
         });
