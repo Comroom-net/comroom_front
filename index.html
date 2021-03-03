@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <form-component :author="authorLable" :title="titleLable">
+            <h1>{{header}}</h1>
+            <label for="title" slot="titleSlot">{{titleLable}}</label>
+            <label for="author" slot="authorSlot">{{authorLable}}</label>
+        </form-component>
+    </div>
+    <script>
+        const FormComponent = {
+            template: `
+            <div>
+                <form>
+                    <slot></slot>
+                    <slot name="titleSlot"></slot><input id="title" type="text"><br>
+                    <slot name="authorSlot"></slot><input id="author" type="text"><br>
+                    <button>submit</button>
+                </form>
+            </div>
+            `,
+            props: ['title', 'author']
+        }
+
+        new Vue({
+            el: "#app",
+            components: {
+                'form-component': FormComponent
+            },
+            data() {
+                return {
+                    titleLable: 'title:',
+                    authorLable: 'author',
+                    header: 'Book author form'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
