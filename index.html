@@ -7,37 +7,45 @@
 
 <body>
     <div id="app">
-        <form-component :author="authorLable" :title="titleLable">
-            <h1>{{header}}</h1>
-            <label for="title" slot="titleSlot">{{titleLable}}</label>
-            <label for="author" slot="authorSlot">{{authorLable}}</label>
-        </form-component>
+        <book-component :books="books">
+            <h1 slot="header">{{header}}</h1>
+            <template slot="book" slot-scope="props">
+                <h2>
+                    <i>{{props.text.title}}</i>
+                    <small>by: {{props.text.author}}</small>
+                </h2>
+            </template>
+        </book-component>
     </div>
     <script>
-        const FormComponent = {
+        const BookComponent = {
             template: `
             <div>
-                <form>
-                    <slot></slot>
-                    <slot name="titleSlot"></slot><input id="title" type="text"><br>
-                    <slot name="authorSlot"></slot><input id="author" type="text"><br>
-                    <button>submit</button>
-                </form>
+                <slot name="header"></slot>
+                <slot name="book" v-for="book in books" :text="book"></slot>
             </div>
             `,
-            props: ['title', 'author']
+            props: ['books']
         }
 
         new Vue({
             el: "#app",
             components: {
-                'form-component': FormComponent
+                'book-component': BookComponent
             },
             data() {
                 return {
-                    titleLable: 'title:',
-                    authorLable: 'author',
-                    header: 'Book author form'
+                    header: 'Book List',
+                    books: [{
+                        author: 'Jone smith',
+                        title: 'Best of Times'
+                    }, {
+                        author: 'Jane Doe',
+                        title: 'Go West Young'
+                    }, {
+                        author: 'Avery Katz',
+                        title: 'The life'
+                    }]
                 }
             }
         })
