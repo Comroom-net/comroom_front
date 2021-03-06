@@ -6,46 +6,54 @@
 </head>
 
 <body>
-    <div id="app">
-        <book-component :books="books">
-            <h1 slot="header">{{header}}</h1>
-            <template slot="book" slot-scope="props">
-                <h2>
-                    <i>{{props.text.title}}</i>
-                    <small>by: {{props.text.author}}</small>
-                </h2>
-            </template>
-        </book-component>
+    <div class="app">
+        <button @click="cycle">cycle</button>
+        <h1>
+            <component :is="currentView" />
+
+        </h1>
     </div>
     <script>
         const BookComponent = {
             template: `
             <div>
-                <slot name="header"></slot>
-                <slot name="book" v-for="book in books" :text="book"></slot>
+                Book Component
             </div>
             `,
-            props: ['books']
+        }
+
+        const FormComponent = {
+            template: `
+            <div>
+                form component
+            </div>
+            `
+        }
+
+        const HeaderComponent = {
+            template: `
+            <div>
+                header component
+            </div>
+            `
         }
 
         new Vue({
-            el: "#app",
+            el: ".app",
             components: {
-                'book-component': BookComponent
+                'book-component': BookComponent,
+                'form-component': FormComponent,
+                'header-component': HeaderComponent
             },
             data() {
                 return {
-                    header: 'Book List',
-                    books: [{
-                        author: 'Jone smith',
-                        title: 'Best of Times'
-                    }, {
-                        author: 'Jane Doe',
-                        title: 'Go West Young'
-                    }, {
-                        author: 'Avery Katz',
-                        title: 'The life'
-                    }]
+                    currentView: BookComponent
+                }
+            },
+            methods: {
+                cycle() {
+                    if (this.currentView === HeaderComponent) this.currentView = BookComponent
+                    else this.currentView = this.currentView === BookComponent ? FormComponent : HeaderComponent;
                 }
             }
         })
