@@ -1,14 +1,18 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-  <home />
+  <div id="app">
+    <Header />
+    <home />
+  </div>
 </template>
 
 <script>
+import Header from "./components/Header.vue";
 import home from "./components/home.vue";
 
 export default {
   name: "App",
   components: {
+    Header,
     home
   }
 };
