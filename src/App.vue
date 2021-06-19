@@ -1,33 +1,30 @@
 <template>
-  <!--최상단 부모 container entry component -->
-  <v-app id="app">
-    <!--실제 paging routing시 이 부분에서 페이지 변환이 일어남-->
-    <router-view />
-    <vue-progress-bar></vue-progress-bar>
-  </v-app>
+  <div id="app">
+    <Header />
+    <home />
+  </div>
 </template>
 
 <script>
+import Header from "./components/Header.vue";
+import home from "./components/home.vue";
+
 export default {
-  mounted() {
-    this.$Progress.finish();
-  },
-  created() {
-    this.$Progress.start();
-
-    this.$router.beforeEach((to, from, next) => {
-      if (to.meta.progress !== undefined) {
-        let meta = to.meta.progress;
-        this.$Progress.parseMeta(meta);
-      }
-
-      this.$Progress.start();
-      next();
-    });
-
-    this.$router.afterEach((to, from) => {
-      this.$Progress.finish();
-    });
+  name: "App",
+  components: {
+    Header,
+    home
   }
 };
 </script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
