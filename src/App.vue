@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Navbar />
     <Header />
     <home />
   </div>
@@ -8,12 +9,14 @@
 <script>
 import Header from "./components/Header.vue";
 import home from "./components/home.vue";
+import Navbar from "./components/Navbar";
 
 export default {
   name: "App",
   components: {
     Header,
-    home
+    home,
+    Navbar
   }
 };
 </script>
