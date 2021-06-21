@@ -1,29 +1,19 @@
 <template>
   <div id="app">
-    <Navbar />
-    <Header />
-    <home />
+    <img src="./assets/logo.png">
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import home from "./components/home.vue";
-import Navbar from "./components/Navbar";
-
 export default {
-  name: "App",
-  components: {
-    Header,
-    home,
-    Navbar
-  }
-};
+  name: 'App'
+}
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
