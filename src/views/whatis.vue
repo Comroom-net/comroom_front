@@ -5,15 +5,15 @@
       <h4>컴퓨터실 쓸 때마다~</h4>
       <br />
       <figure class="figure">
-        <img class="img-thumbnail d-block mx-auto figure-img" src="{% static 'whatis/2.png' %}" />
+        <img class="img-thumbnail d-block mx-auto figure-img" src="static/whatis/2.png" />
         <figcaption class="figure-caption">눈치게임</figcaption>
       </figure>
       <figure class="figure d-none d-sm-block">
-        <img class="img-thumbnail mx-auto figure-img" src="{% static 'whatis/1.png' %}" />
+        <img class="img-thumbnail mx-auto figure-img" src="static/whatis/1.png" />
         <figcaption class="figure-caption">혹은 허락구하기</figcaption>
       </figure>
       <figure class="figure">
-        <img class="img-thumbnail d-block mx-auto figure-img" src="{% static 'whatis/3.png' %}" />
+        <img class="img-thumbnail d-block mx-auto figure-img" src="static/whatis/3.png" />
         <figcaption class="figure-caption">나는 안쓸건데 자꾸 귀찮게 날라오는 쪽지들</figcaption>
       </figure>
       <br />
@@ -27,6 +27,13 @@
 
 <script>
 export default {
-  name: "Whatis"
+  name: "Whatis",
+  data() {
+    return {
+      images: {
+        first: require("../assets/whatis/2.png")
+      }
+    };
+  }
 };
 </script>
