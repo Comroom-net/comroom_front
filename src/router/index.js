@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import home from '@/views/home'
 import About from '@/views/about'
 import Howto from '@/views/Howto'
+import Whatis from '@/views/whatis'
+import Faq from '@/views/faq'
 
 Vue.use(Router)
 
@@ -20,10 +22,20 @@ export default new Router({
 
         },
         {
+            path: '/howto',
+            name: 'howto',
+            component: Howto
+        },
+        {
             path: '/whatis',
             name: 'whatis',
-            component: Howto
-        }
+            component: Whatis
+        },
+        {
+            path: '/faq',
+            name: 'faq',
+            component: Faq
+        },
 
     ]
 })
