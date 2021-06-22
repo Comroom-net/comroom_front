@@ -20,7 +20,7 @@
             <a class="nav-link" href="/">HOME</a>
           </li>
           <li class="nav-item {% block nav-about %}{% endblock %}">
-            <a class="nav-link" href="{% url 'about' %}">Made by</a>
+            <a class="nav-link" href="/about">Made by</a>
           </li>
           <li class="nav-item {% block nav-whatis %}{% endblock %}">
             <a class="nav-link" href="/whatis">What is?</a>
