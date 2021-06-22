@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/views/home'
 import About from '@/views/about'
+import Howto from '@/views/Howto'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
             component: About
 
         },
+        {
+            path: '/whatis',
+            name: 'whatis',
+            component: Howto
+        }
 
     ]
 })
