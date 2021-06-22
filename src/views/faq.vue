@@ -14,7 +14,7 @@
             <p class="card-text">앞으로도 쭉 무료로 제공될 예정이며, 서버(GCP)운영비용은 후원을 통해 충당할 예정입니다.</p>
             <!-- <img src="/media/images/qrcodes/kakaopay_1000w.png" alt="1000won" width="20%"> -->
             <h6>--후원하기--</h6>
-            <img src="{% static 'kakaopay_2000w.png' %}" alt="2000won" width="20%" />
+            <img src="static/faq/kakaopay_2000w.png" alt="2000won" width="20%" />
             <small>카카오뱅크 3333-01-5955317 이은섭</small>
             <!-- <img src="/media/images/qrcodes/kakaopay_5000w.png" alt="5000won" width="20%"> -->
             <!-- <img src="/media/images/qrcodes/kakaopay_10000w.png" alt="10000won" width="20%"> -->
