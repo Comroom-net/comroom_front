@@ -10,7 +10,7 @@
     </div>
     <div class="row mt-5">
       <div class="col-12">
-        <form method="POST" action="http://localhost:8000/school/api/login/">
+        <form method="POST" action="http://127.0.0.1:8000/school/api/login/">
           <div class="form-group">
             <label for="id_user">아이디</label>
             <input type="text" class="form-control" id="id_user" placeholder="아이디" name="user" />
