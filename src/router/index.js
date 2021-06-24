@@ -6,6 +6,7 @@ import Howto from '@/views/Howto'
 import Whatis from '@/views/whatis'
 import Faq from '@/views/faq'
 import Nocookie from '@/views/nocookie'
+import Login from '@/views/login'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
             path: '/nocookie',
             name: 'nocookie',
             component: Nocookie
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
         },
 
     ]

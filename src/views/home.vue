@@ -1,9 +1,11 @@
 <template>
-  <home>
+  <div>
     <div class="row mt-5">
       <div class="col-12">
-        <!-- <h2>Hello {{username|default:"Stranger"}}</h2> -->
-        <h2>Hello Stranger</h2>
+        <h2>Hello {{username}}</h2>
+        <a href="login/" class="btn btn-primary" role="button">관리자 로그인</a>
+        <a href="school/privacy_agreement/" class="btn btn-primary" role="button">관리자 등록</a>
+        <a href="school/ex_login/" class="btn btn-info" role="button">샘플계정 로그인</a>
         <!-- {% if username %}
     {% if is_active %}
     <p>
@@ -42,9 +44,23 @@
         {% endif %}-->
       </div>
     </div>
-  </home>
+    <Notice />
+  </div>
 </template>
 
 <script>
-export default {};
+import Notice from "@/components/notice";
+
+export default {
+  name: "Home",
+  components: {
+    Notice
+  },
+  data() {
+    return {
+      username: "Ssamko",
+      is_active: false
+    };
+  }
+};
 </script>
