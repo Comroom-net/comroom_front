@@ -7,6 +7,7 @@ import Whatis from '@/views/whatis'
 import Faq from '@/views/faq'
 import Nocookie from '@/views/nocookie'
 import Login from '@/views/login'
+import ForgotPassword from '@/views/forgot_password'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/forgot-password',
+            name: 'forgot-passowrd',
+            component: ForgotPassword
         },
 
     ]

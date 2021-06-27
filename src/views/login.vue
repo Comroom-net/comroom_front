@@ -27,7 +27,8 @@
           </div>
           <button type="submit" class="btn btn-primary">로그인</button>
         </form>
-        <a id="reset_btn" role="button" data-toggle="modal" data-target="#resetModal">
+        <!-- <a id="reset_btn" role="button" data-toggle="modal" data-target="#resetModal"> -->
+        <a href="/forgot-password">
           <small>
             <u>비밀번호가 기억나지 않아요</u>
           </small>
