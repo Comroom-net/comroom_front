@@ -8,6 +8,7 @@ import Faq from '@/views/faq'
 import Nocookie from '@/views/nocookie'
 import Login from '@/views/login'
 import ForgotPassword from '@/views/forgot_password'
+import Timetable from '@/views/timetable'
 
 Vue.use(Router)
 
@@ -53,6 +54,11 @@ export default new Router({
             path: '/forgot-password',
             name: 'forgot-passowrd',
             component: ForgotPassword
+        },
+        {
+            path: '/timetable',
+            name: 'timetable',
+            component: Timetable
         },
 
     ]
