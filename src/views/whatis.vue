@@ -29,11 +29,7 @@
 export default {
   name: "Whatis",
   data() {
-    return {
-      images: {
-        first: require("../assets/whatis/2.png")
-      }
-    };
+    return {};
   }
 };
 </script>
