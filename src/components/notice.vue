@@ -4,13 +4,9 @@
     <div class="row mt-5">
       <div class="col-12">
         <ul>
-          <!-- {% for notice in notices %} -->
-          <li>
-            <!-- {{notice.context|safe}} -->
-            <!-- <small class="text-muted">- {{notice.last_update|date:"y.n.j"}}</small> -->
-            hi
-          </li>
-          <!-- {% endfor %} -->
+          <div v-for="notice in notices">
+            <li v-html="notice.context"></li>
+          </div>
         </ul>
       </div>
     </div>
@@ -18,7 +14,26 @@
 </template>
 
 <script>
+const axios = require("axios");
+
 export default {
-  name: "Notice"
+  name: "Notice",
+  data() {
+    return {
+      notices: []
+    };
+  },
+  methods: {},
+  created: function() {
+    axios
+      .get("http://localhost:8000/school/notice/")
+      .then(response => {
+        this.notices = response.data.results;
+        console.log(this.notices);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 };
 </script>
