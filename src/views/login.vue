@@ -33,8 +33,8 @@
             <u>비밀번호가 기억나지 않아요</u>
           </small>
         </a>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        <button href="#" @click="signOut()">Sign out</button>
+        <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+        <!-- <button href="#" @click="signOut()">Sign out</button> -->
       </div>
     </div>
   </div>
