@@ -9,6 +9,7 @@ import Nocookie from '@/views/nocookie'
 import Login from '@/views/login'
 import ForgotPassword from '@/views/forgot_password'
 import Timetable from '@/views/timetable'
+import PrivacyConsent from '@/views/privacy_consent'
 
 Vue.use(Router)
 
@@ -60,6 +61,12 @@ export default new Router({
             name: 'timetable',
             component: Timetable
         },
+        {
+            path: '/school/privacy_consent',
+            name: 'privacy-consent',
+            component: PrivacyConsent
+        },
+
 
     ]
 })

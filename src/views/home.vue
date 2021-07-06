@@ -4,7 +4,7 @@
       <div class="col-12">
         <h2>Hello {{username}}</h2>
         <a href="login/" class="btn btn-primary" role="button">관리자 로그인</a>
-        <a href="school/privacy_agreement/" class="btn btn-primary" role="button">관리자 등록</a>
+        <a href="school/privacy_consent/" class="btn btn-primary" role="button">관리자 등록</a>
         <a href="school/ex_login/" class="btn btn-info" role="button">샘플계정 로그인</a>
         <!-- {% if username %}
     {% if is_active %}
