@@ -10,6 +10,7 @@ import Login from '@/views/login'
 import ForgotPassword from '@/views/forgot_password'
 import Timetable from '@/views/timetable'
 import PrivacyConsent from '@/views/privacy_consent'
+import Register from '@/views/register'
 
 Vue.use(Router)
 
@@ -65,6 +66,11 @@ export default new Router({
             path: '/school/privacy_consent',
             name: 'privacy-consent',
             component: PrivacyConsent
+        },
+        {
+            path: '/school/register',
+            name: 'register',
+            component: Register
         },
 
 
