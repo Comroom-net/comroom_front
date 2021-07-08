@@ -37,49 +37,16 @@
               </div>
             </div>
             <small class="form-text text-muted">'초등학교'를 제외한, 정확한 명칭을 입력해주세요.</small>
-            <div class="form-group">
-              <label for="ea">교내 컴퓨터실 수</label>
-              <input type="number" name="ea" id="ea" placeholder="교내 컴퓨터실 수" class="form-control" />
-              <small class="form-text text-muted">특별실(스마트패드)을 포함한 수. 최대 5개.</small>
-            </div>
-            <div class="form-group">
-              <label for="user">아이디</label>
-              <input type="text" name="user" id="user" placeholder="ID" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label for="password">비밀번호</label>
+            <div class="form-group" v-for="form in forms" :key="form.id">
+              <label :for="form.name">{{form.label}}</label>
               <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="비밀번호"
+                :type="form.type"
+                :name="form.name"
+                :id="form.name"
+                :placeholder="form.label"
                 class="form-control"
               />
-            </div>
-            <div class="form-group">
-              <label for="re_password">비밀번호 확인</label>
-              <input
-                type="password"
-                name="re_password"
-                id="re_password"
-                placeholder="비밀번호 확인"
-                class="form-control"
-              />
-            </div>
-            <div class="form-group">
-              <label for="realname">담당자 이름</label>
-              <input
-                type="text"
-                name="realname"
-                id="realname"
-                placeholder="담당자 이름"
-                class="form-control"
-              />
-            </div>
-            <div class="form-group">
-              <label for="email">이메일</label>
-              <input type="email" name="email" id="email" placeholder="e-mail" class="form-control" />
-              <small class="form-text text-muted">비밀번호 분실시 사용됩니다.</small>
+              <small class="form-text text-muted" v-if="form.small">{{ form.small }}</small>
             </div>
           </div>
           <button type="submit" class="btn btn-primary">등록</button>
@@ -113,6 +80,40 @@ export default {
         ["경상북도교육청", "경북"],
         ["경상남도교육청", "경남"],
         ["제주특별자치도교육청", "제주"]
+      ],
+      forms: [
+        {
+          label: "교내 컴퓨터실 수",
+          type: "number",
+          name: "ea",
+          small: "특별실(스마트패드)을 포함한 수. 최대 5개."
+        },
+        {
+          label: "아이디",
+          type: "text",
+          name: "user"
+        },
+        {
+          label: "비밀번호",
+          type: "password",
+          name: "password"
+        },
+        {
+          label: "비밀번호 확인",
+          type: "password",
+          name: "re_password"
+        },
+        {
+          label: "담당자 이름",
+          type: "text",
+          name: "realname"
+        },
+        {
+          label: "이메일",
+          type: "email",
+          name: "email",
+          small: "비밀번호 분실시 사용됩니다."
+        }
       ]
     };
   }
