@@ -4,8 +4,11 @@
     <div class="row mt-5">
       <div class="col-12">
         <ul>
-          <div v-for="notice in notices">
-            <li v-html="notice.context"></li>
+          <div v-for="notice in notices" :key="notice.id">
+            <li>
+              <span v-html="notice.context"></span>
+              <small class="text-muted">- {{notice.last_update | formatDate}}</small>
+            </li>
           </div>
         </ul>
       </div>
@@ -14,6 +17,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 const axios = require("axios");
 
 export default {
@@ -34,6 +39,13 @@ export default {
       .catch(err => {
         console.log(err);
       });
+  },
+  filters: {
+    formatDate: function(value) {
+      if (value) {
+        return moment(String(value)).format("YYYY.MM.DD");
+      }
+    }
   }
 };
 </script>
