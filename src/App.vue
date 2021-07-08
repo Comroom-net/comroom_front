@@ -20,6 +20,8 @@ export default {
 </script>
 
 <style>
+@import url(https://fonts.googleapis.com/css?family=Sunflower:300&display=swap);
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -27,5 +29,23 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
+body {
+  padding-top: 3rem;
+}
+
+.navbar-brand {
+  font-family: "Sunflower", sans-serif;
+}
+
+.kakao-ads {
+  max-width: 1140px;
 }
 </style>
