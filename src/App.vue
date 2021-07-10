@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header />
-    <router-view />
+    <b-container>
+      <router-view />
+    </b-container>
     <Footer />
   </div>
 </template>
@@ -29,6 +31,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  box-sizing: content-box;
 }
 #footer {
   position: absolute;

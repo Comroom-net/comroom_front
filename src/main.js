@@ -9,6 +9,7 @@ import vuetify from '@/plugins/vuetify'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import './assets/app.scss'
 
 
 Vue.use(BootstrapVue)
@@ -18,12 +19,12 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-        vuetify,
-        el: '#app',
-        router,
-        components: { App },
-        template: '<App/>'
-    })
+    vuetify,
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
+})
     // new Vue({
     //     vuetify,
     // }).$mount('#app')
