@@ -5,7 +5,7 @@
         <h2>Hello {{username}}</h2>
         <a href="login/" class="btn btn-primary" role="button">관리자 로그인</a>
         <a href="school/privacy_consent/" class="btn btn-primary" role="button">관리자 등록</a>
-        <a href="school/ex_login/" class="btn btn-info" role="button">샘플계정 로그인</a>
+        <a class="btn btn-info" @click="ex_login">샘플계정 로그인</a>
         <!-- {% if username %}
     {% if is_active %}
     <p>
@@ -50,6 +50,7 @@
 
 <script>
 import Notice from "@/components/notice";
+import school from "Api/functions/school";
 
 export default {
   name: "Home",
@@ -58,9 +59,24 @@ export default {
   },
   data() {
     return {
-      username: "Ssamko",
+      username: "Stranger",
       is_active: false
     };
+  },
+  methods: {
+    ex_login() {
+      school.ex_login(this);
+    },
+    onLoginSuccess(response) {
+      var resData = response["data"];
+      this.$log.debug(resData);
+      this.$session.set("username", resData["username"]);
+      this.$session.set("user_id", resData["user_id"]);
+      this.$session.set("school", resData["school"]);
+    },
+    onLoginFalied(statusCode) {
+      this.$log.debug(statusCode);
+    }
   }
 };
 </script>
