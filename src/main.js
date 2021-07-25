@@ -12,12 +12,14 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 // import './assets/app.scss'
 
 import VueLogger from 'vuejs-logger';
+import VueSession from 'vue-session'
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(VueSession)
 
 // vue logger
 const vueLoggerOptions = {
