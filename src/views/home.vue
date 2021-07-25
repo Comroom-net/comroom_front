@@ -76,7 +76,15 @@ export default {
     },
     onLoginFalied(statusCode) {
       this.$log.debug(statusCode);
+    },
+    checkLogin() {
+      if (this.$session.has("school")) {
+        this.$log.debug("logged in");
+      }
     }
+  },
+  mounted() {
+    this.checkLogin();
   }
 };
 </script>
