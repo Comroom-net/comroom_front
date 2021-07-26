@@ -34,10 +34,10 @@ export default {
       .get("http://localhost:8000/school/notice/")
       .then(response => {
         this.notices = response.data.results;
-        console.log(this.notices);
+        this.$log.debug(this.notices);
       })
       .catch(err => {
-        console.log(err);
+        this.$log.error(err);
       });
   },
   filters: {
