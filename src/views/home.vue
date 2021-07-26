@@ -3,9 +3,13 @@
     <div class="row mt-5">
       <div class="col-12">
         <h2>Hello {{username ? username : "stranger"}}</h2>
+        <p v-if="school">http://comroom.net/timetable?school={{encodeURI(school)}}&s_code={{s_code}}</p>
+        <a :href="timetable_url" class="btn btn-primary" role="button">시간표</a>
+        <button class="copy btn btn-primary">링크 복사</button>
         <div v-if="username">
-          <div v-if="is_active">
-            <activeHome />
+          <activeHome v-if="is_active" />
+          <div v-else>
+            <p>이메일 인증을 완료해주세요.</p>
           </div>
         </div>
         <a href="login/" class="btn btn-primary" role="button">관리자 로그인</a>
@@ -68,7 +72,9 @@ export default {
     return {
       username: null,
       is_active: false,
-      logged_in: false
+      logged_in: false,
+      school: null,
+      s_code: null
     };
   },
   methods: {
@@ -81,8 +87,9 @@ export default {
       this.$session.set("username", resData["username"]);
       this.$session.set("user_id", resData["user_id"]);
       this.$session.set("school", resData["school"]);
+      this.$session.set("s_code", resData["s_code"]);
       this.$session.set("is_active", resData["is_active"]);
-      this.login();
+      this.getSessionInfo();
     },
     onLoginFalied(statusCode) {
       this.$log.debug(statusCode);
@@ -93,14 +100,16 @@ export default {
         this.login();
       }
     },
-    login() {
+    getSessionInfo() {
       this.is_active = this.$session.get("is_active");
       this.username = this.$session.get("username");
+      this.s_code = this.$session.get("s_code");
+      this.school = this.$session.get("school");
       this.logged_in = true;
     }
   },
   mounted() {
-    this.checkLogin();
+    this.getSessionInfo();
   }
 };
 </script>
