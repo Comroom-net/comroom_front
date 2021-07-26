@@ -3,8 +3,14 @@
     <div class="row mt-5">
       <div class="col-12">
         <h2>Hello {{username ? username : "stranger"}}</h2>
-        <p v-if="school">http://comroom.net/timetable?school={{encodeURI(school)}}&s_code={{s_code}}</p>
-        <a :href="timetable_url" class="btn btn-primary" role="button">시간표</a>
+        <p v-if="school">{{api_host}}/timetable?school={{encodeURI(school)}}&s_code={{s_code}}</p>
+        <a
+          :href="`${api_host}/timetable?school=${encodeURI(
+        school
+      )}&s_code=${s_code}`"
+          class="btn btn-primary"
+          role="button"
+        >시간표</a>
         <button class="copy btn btn-primary">링크 복사</button>
         <div v-if="username">
           <activeHome v-if="is_active" />
@@ -74,7 +80,8 @@ export default {
       is_active: false,
       logged_in: false,
       school: null,
-      s_code: null
+      s_code: null,
+      api_host: window.location.origin
     };
   },
   methods: {
@@ -97,7 +104,7 @@ export default {
     checkLogin() {
       if (this.$session.has("school")) {
         this.$log.debug("logged in");
-        this.login();
+        this.getSessionInfo();
       }
     },
     getSessionInfo() {
@@ -109,7 +116,10 @@ export default {
     }
   },
   mounted() {
-    this.getSessionInfo();
+    this.checkLogin();
+  },
+  updated() {
+    this.checkLogin();
   }
 };
 </script>
