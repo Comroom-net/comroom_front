@@ -2,7 +2,12 @@
   <div>
     <div class="row mt-5">
       <div class="col-12">
-        <h2>Hello {{username}}</h2>
+        <h2>Hello {{username ? username : "stranger"}}</h2>
+        <div v-if="username">
+          <div v-if="is_active">
+            <activeHome />
+          </div>
+        </div>
         <a href="login/" class="btn btn-primary" role="button">관리자 로그인</a>
         <a href="school/privacy_consent/" class="btn btn-primary" role="button">관리자 등록</a>
         <a class="btn btn-info" @click="ex_login">샘플계정 로그인</a>
@@ -50,17 +55,20 @@
 
 <script>
 import Notice from "@/components/notice";
+import activeHome from "@/components/home/active_home";
 import school from "Api/functions/school";
 
 export default {
   name: "Home",
   components: {
-    Notice
+    Notice,
+    activeHome
   },
   data() {
     return {
-      username: "Stranger",
-      is_active: false
+      username: null,
+      is_active: false,
+      logged_in: false
     };
   },
   methods: {
@@ -73,6 +81,8 @@ export default {
       this.$session.set("username", resData["username"]);
       this.$session.set("user_id", resData["user_id"]);
       this.$session.set("school", resData["school"]);
+      this.$session.set("is_active", resData["is_active"]);
+      this.login();
     },
     onLoginFalied(statusCode) {
       this.$log.debug(statusCode);
@@ -80,7 +90,13 @@ export default {
     checkLogin() {
       if (this.$session.has("school")) {
         this.$log.debug("logged in");
+        this.login();
       }
+    },
+    login() {
+      this.is_active = this.$session.get("is_active");
+      this.username = this.$session.get("username");
+      this.logged_in = true;
     }
   },
   mounted() {
