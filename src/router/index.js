@@ -17,61 +17,72 @@ Vue.use(Router)
 export default new Router({
     mode: 'history',
     routes: [{
-            path: '/',
-            name: 'home',
-            component: home
-        },
-        {
-            path: '/about',
-            name: 'about',
-            component: About
+        path: '/',
+        name: 'home',
+        component: home
+    },
+    {
+        path: '/about',
+        name: 'about',
+        component: About
 
-        },
-        {
-            path: '/howto',
-            name: 'howto',
-            component: Howto
-        },
-        {
-            path: '/whatis',
-            name: 'whatis',
-            component: Whatis
-        },
-        {
-            path: '/faq',
-            name: 'faq',
-            component: Faq
-        },
-        {
-            path: '/nocookie',
-            name: 'nocookie',
-            component: Nocookie
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: Login
-        },
-        {
-            path: '/forgot-password',
-            name: 'forgot-passowrd',
-            component: ForgotPassword
-        },
-        {
-            path: '/timetable',
-            name: 'timetable',
-            component: Timetable
-        },
-        {
-            path: '/school/privacy_consent',
-            name: 'privacy-consent',
-            component: PrivacyConsent
-        },
-        {
-            path: '/school/register',
-            name: 'register',
-            component: Register
-        },
+    },
+    {
+        path: '/howto',
+        name: 'howto',
+        component: Howto
+    },
+    {
+        path: '/whatis',
+        name: 'whatis',
+        component: Whatis
+    },
+    {
+        path: '/faq',
+        name: 'faq',
+        component: Faq
+    },
+    {
+        path: '/nocookie',
+        name: 'nocookie',
+        component: Nocookie
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: Login
+    },
+    {
+        path: '/forgot-password',
+        name: 'forgot-passowrd',
+        component: ForgotPassword
+    },
+    {
+        path: '/timetable',
+        name: 'timetable',
+        component: Timetable,
+        props: (route) => (
+            {
+                school: route.query.school,
+                s_code: route.query.s_code,
+            }
+        )
+    },
+    {
+        path: '/school/privacy_consent',
+        name: 'privacy-consent',
+        component: PrivacyConsent
+    },
+    {
+        path: '/school/register',
+        name: 'register',
+        component: Register
+    },
+    {
+        path: '/search',
+        component: Timetable,
+        props: (route) => ({ school: route.query.school })
+    },
 
 
     ]
