@@ -11,7 +11,7 @@
         <a href="/" role="button" class="btn btn-outline-secondary btn-block">취소</a>
       </div>
       <div class="col-6">
-        <a href="/school/agree_priv" role="button" class="btn btn-outline-primary btn-block">동의</a>
+        <a href="/school/register" role="button" class="btn btn-outline-primary btn-block">동의</a>
       </div>
     </div>
   </div>
