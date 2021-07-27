@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import api from "../index";                                                     //gloabal instance로 정의한 axios 참조
+import api from "../index"; //gloabal instance로 정의한 axios 참조
 import API_URL from "Api/url";
 // import common from '../../lib/common';
 
@@ -14,7 +14,7 @@ export default {
 
     /**샘플 로그인 ( Home component에서 호출 )
      * @param component : 해당 api 를 호출한 component 객체
-    * */
+     * */
     ex_login(component) {
         const REQUEST_URL = API_URL.SCHOOL_EX_LOGIN_URL;
 
@@ -42,5 +42,26 @@ export default {
                 // }
             })
     },
+    register(reqData, component) {
+        const REQUEST_URL = API_URL.SCHOOL_REGISTER;
+
+        api.post(REQUEST_URL, reqData)
+            .then((response) => {
+                Vue.$log.debug(`response ok ${response.status}`);
+                //api 호출한 component(Login.Vue)의 callback method 호출
+                component.onRegisterSuccess(response);
+                return;
+            }).catch((error) => {
+                Vue.$log.debug(error);
+                // this.$toasted.show("Something went wrong", {duration: 3000});
+                // TODO : 401 에러에 대해서 핸들링 해야합니다. charlie 
+                component.onRegisterFalied();
+                // if (error.response) {
+                //     component.onLoginFalied(error.response.status);
+                // } else {
+                //     component.onLoginFalied(500);
+                // }
+            })
+    }
 
 }
