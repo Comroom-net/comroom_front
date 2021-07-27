@@ -5,52 +5,52 @@
         <h1>학교 관리자 등록</h1>
       </div>
     </div>
-    <div class="row mt-5" v-if="error">
-      <div class="col-12">{{ error }}</div>
+    <div class="row mt-5" v-if="errors">
+      <div class="col-12">{{ errors }}</div>
     </div>
     <div class="row mt-5">
       <div class="col-12">
-        <form method="POST" action=".">
-          <div class="form-group">
-            <label for="province">교육청</label>
-            <select name="province" id="province" class="form-control">
-              <option
-                :value="province[0]"
-                v-for="province in provinces"
-                :key="province.id"
-              >{{province[1]}}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="school">학교명</label>
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                name="name"
-                class="form-control"
-                placeholder="삼양"
-                aria-label="학교명"
-                aria-describedby="basic-addon2"
-              />
-              <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon2">초등학교</span>
-              </div>
-            </div>
-            <small class="form-text text-muted">'초등학교'를 제외한, 정확한 명칭을 입력해주세요.</small>
-            <div class="form-group" v-for="form in forms" :key="form.id">
-              <label :for="form.name">{{form.label}}</label>
-              <input
-                :type="form.type"
-                :name="form.name"
-                :id="form.name"
-                :placeholder="form.label"
-                class="form-control"
-              />
-              <small class="form-text text-muted" v-if="form.small">{{ form.small }}</small>
+        <div class="form-group">
+          <label for="province">교육청</label>
+          <select name="province" id="province" class="form-control" v-model="reqData.province">
+            <option
+              :value="province[0]"
+              v-for="province in provinces"
+              :key="province.id"
+            >{{province[1]}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="school">학교명</label>
+          <div class="input-group mb-3">
+            <input
+              v-model="reqData.schoolName"
+              type="text"
+              name="name"
+              class="form-control"
+              placeholder="삼양"
+              aria-label="학교명"
+              aria-describedby="basic-addon2"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">초등학교</span>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">등록</button>
-        </form>
+          <small class="form-text text-muted">'초등학교'를 제외한, 정확한 명칭을 입력해주세요.</small>
+          <div class="form-group" v-for="form in forms" :key="form.id">
+            <label :for="form.name">{{form.label}}</label>
+            <input
+              v-model="reqData[form.name]"
+              :type="form.type"
+              :name="form.name"
+              :id="form.name"
+              :placeholder="form.label"
+              class="form-control"
+            />
+            <small class="form-text text-muted" v-if="form.small">{{ form.small }}</small>
+          </div>
+        </div>
+        <button class="btn btn-primary" @click="registerSubmit">등록</button>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@ export default {
   name: "Register",
   data() {
     return {
-      error: null,
+      errors: null,
       provinces: [
         ["서울특별시교육청", "서울"],
         ["부산광역시교육청", "부산"],
@@ -114,8 +114,23 @@ export default {
           name: "email",
           small: "비밀번호 분실시 사용됩니다."
         }
-      ]
+      ],
+      reqData: {
+        province: null,
+        schoolName: null,
+        ea: null,
+        user: null,
+        password: null,
+        realname: null,
+        email: null
+      }
     };
+  },
+  methods: {
+    registerSubmit() {
+      this.$log.debug("submit");
+      this.$log.debug(this.reqData);
+    }
   }
 };
 </script>
