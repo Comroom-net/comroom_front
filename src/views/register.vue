@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import api from "Api/functions/school";
+
 export default {
   name: "Register",
   data() {
@@ -130,6 +132,14 @@ export default {
     registerSubmit() {
       this.$log.debug("submit");
       this.$log.debug(this.reqData);
+      api.register(this.reqData, this);
+    },
+    onRegisterSuccess() {
+      this.$router.push("/");
+    },
+    onRegisterFail() {
+      this.$router.push("/");
+      this.$log.error("register failed");
     }
   }
 };
