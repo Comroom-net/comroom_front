@@ -15,6 +15,19 @@ export default {
     /**샘플 로그인 ( Home component에서 호출 )
      * @param component : 해당 api 를 호출한 component 객체
      * */
+    user_active(token, component) {
+        const REQUEST_URL = API_URL.SCHOOL_USER_ACITVE_URL;
+
+        api.get(REQUEST_URL + token)
+            .then((response) => {
+                Vue.$log.debug(`response ok ${response.status}`);
+                component.active_good(response);
+                return;
+            }).catch((error) => {
+                Vue.$log.debug(error);
+                component.active_bad(error.response.status);
+            })
+    },
     ex_login(component) {
         const REQUEST_URL = API_URL.SCHOOL_EX_LOGIN_URL;
 
