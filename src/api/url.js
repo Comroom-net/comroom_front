@@ -17,6 +17,7 @@ export default {
     SCHOOL_SIGNUP_URL: "/school/",
     SCHOOL_EX_LOGIN_URL: "/school/api/ex_login/",
     SCHOOL_REGISTER: "/school/api/register/",
+    SCHOOL_USER_ACITVE_URL: "/school/api/active/",
     USERS_ME_URL: "/users/me", //회원 정보 확인
     USERS_USERINFO_URL: (id) => { //회원 정보 갱신
         return `/users/${id}`
