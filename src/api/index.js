@@ -1,6 +1,6 @@
-import Vue from 'vue';                                                              //Vue Instance에 연결된 모듈들을 사용하기 위한 Vue 참조
-import axios from 'axios';                                                          //vue http 처리 라이브러리
-import URL from 'Api/url'//URL 상수 모음 스크립트 : 모든 API 호출시 사용되는 URL이 정의되어 있음
+import Vue from 'vue'; //Vue Instance에 연결된 모듈들을 사용하기 위한 Vue 참조
+import axios from 'axios'; //vue http 처리 라이브러리
+import URL from 'Api/url' //URL 상수 모음 스크립트 : 모든 API 호출시 사용되는 URL이 정의되어 있음
 
 // Request URL 설정
 let url = URL.DEVELOPMENT_URL;
@@ -15,7 +15,7 @@ if (process.env.NODE_ENV == 'production') {
 
 //전역에서 사용할 axios intance정의
 const api = axios.create({
-    baseURL: url,   //실제 운영 시 URL.BASE_URL 사용
+    baseURL: url, //실제 운영 시 URL.BASE_URL 사용
     //withCredentials : true,   //session 사용시 credential 포함 여부 설정 (session 필요 없는 요청에 대해선 개별 request에서 withCredential: false 설정 필요)
     // headers: {'Accept' : 'application/json'} //헤더 설정 : 서버에서 api 호출을 위한 url과 front-end router로 fallback할 page url 을 구분하기 위해 사용
 });
@@ -23,14 +23,14 @@ const api = axios.create({
 //api response에 따라 global 처리 로직을 정의하는 부분
 api.interceptors.response.use(
     //response fulfilled 실행 전 로직 => then 으로 연결됨
-    function (response) {
+    function(response) {
         Vue.$log.debug(`URL Check - ${response.config.baseURL}`);
 
         //Vue.$log.debug("!intercept fulfilled!", Vue.$router);
         return response;
     },
     //response error 실행 전 로직 => catch 로 연결됨.
-    function (error) {
+    function(error) {
         //error 분기 처리
         if (error) {
             Vue.$log.error("!intercept error!", error);
@@ -44,8 +44,8 @@ api.interceptors.response.use(
             switch (status) {
 
                 //이메일 중복 : 개별 api error callback에서 처리
-                case 400:
-                    break;
+                // case 400:
+                //     break;
 
                 //Unauthorized
                 // case 401:
@@ -64,7 +64,7 @@ api.interceptors.response.use(
                     alert(message);
                     location.href = "/";
                     break;
-                //Not Found
+                    //Not Found
                 case 404:
 
                     //not found page로 redirect
@@ -72,7 +72,7 @@ api.interceptors.response.use(
 
                     break;
 
-                //Internal Server Error
+                    //Internal Server Error
                 case 500:
 
                     break;
