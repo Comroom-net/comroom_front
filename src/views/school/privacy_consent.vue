@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import Privacy from "!raw-loader!../assets/com_privacy.txt";
+import Privacy from "!raw-loader!@/assets/com_privacy.txt";
 
 export default {
   name: "PrivacyConsent",
