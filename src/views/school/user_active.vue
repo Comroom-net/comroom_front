@@ -30,6 +30,12 @@ export default {
     active_good(response) {
       this.$log.debug(response);
       this.message = "인증되었습니다. 불편한 사항은 언제든 말씀해주세요 ^^";
+      var resData = response["data"];
+      this.$session.set("username", resData["username"]);
+      this.$session.set("user_id", resData["user_id"]);
+      this.$session.set("school", resData["school"]);
+      this.$session.set("s_code", resData["s_code"]);
+      this.$session.set("is_active", resData["is_active"]);
       this.afterResponse();
     },
     active_bad(err_code) {
