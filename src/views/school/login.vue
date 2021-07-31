@@ -5,15 +5,16 @@
         <h1>학교관리자 로그인</h1>
       </div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-5"
+    v-if="error">
       <div class="col-12">{{ error }}</div>
     </div>
     <div class="row mt-5">
       <div class="col-12">
-        <form method="POST" action=".">
+        
           <div class="form-group">
             <label for="id_user">아이디</label>
-            <input type="text" class="form-control" id="id_user" placeholder="아이디" name="user" />
+            <input type="text" class="form-control" id="id_user" placeholder="아이디" name="user" v-model="user"/>
           </div>
           <div class="form-group">
             <label for="id_password">비밀번호</label>
@@ -23,10 +24,11 @@
               id="id_password"
               placeholder="비밀번호"
               name="password"
+              v-model="password"
             />
           </div>
           <button class="btn btn-primary" @click="login()">로그인</button>
-        </form>
+        
         <!-- <a id="reset_btn" role="button" data-toggle="modal" data-target="#resetModal"> -->
         <a href="/forgot-password">
           <small>
@@ -41,25 +43,31 @@
 </template>
 
 <script>
-const axios = require("axios");
+import api from "Api/functions/school";
 
 export default {
   name: "Login",
   created() {
-    console.log("created");
+    
     window.onSignIn = this.onSignIn;
     window.signOut = this.signOut;
   },
+  data() {
+    return {
+      user: null,
+      password: null,
+      error: null,
+    }
+  },
   methods: {
     login() {
-      axios
-        .post("http://localhost:8000/school/api/login/", data)
-        .then(response => {
-          console.log(response);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      let login_info = {
+        user: this.user,
+        password: this.password
+      }
+      this.$log.debug(login_info)
+      api.login(this, login_info)
+      
     },
     signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
