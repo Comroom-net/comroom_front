@@ -15,6 +15,7 @@ export default {
 
     /** users **/
     SCHOOL_SIGNUP_URL: "/school/",
+    SCHOOL_LOGIN_URL: "/school/api/login/",
     SCHOOL_EX_LOGIN_URL: "/school/api/ex_login/",
     SCHOOL_REGISTER: "/school/api/register/",
     SCHOOL_USER_ACITVE_URL: "/school/api/active/",
