@@ -5,6 +5,7 @@
         <h2>Hello {{username ? username : "stranger"}}</h2>
         <div v-if="school">
         <p>{{api_host}}/timetable?school={{encodeURI(school)}}&s_code={{s_code}}</p>
+        <input id="schoolUrl" type="hidden">
         <a
           :href="`${api_host}/timetable?school=${encodeURI(
         school
@@ -12,7 +13,8 @@
           class="btn btn-primary"
           role="button"
         >시간표</a>
-        <button class="copy btn btn-primary">링크 복사</button>
+        <button class="copy btn btn-primary" @click="copyLink">링크 복사</button>
+        <p v-if="copied">복사완료</p>
         </div>
         <div v-if="username">
           <activeHome v-if="is_active" />
@@ -50,7 +52,8 @@ export default {
       logged_in: false,
       school: null,
       s_code: null,
-      api_host: window.location.origin
+      api_host: window.location.origin,
+      copied: false,
     };
   },
   methods: {
@@ -82,6 +85,16 @@ export default {
       this.s_code = this.$session.get("s_code");
       this.school = this.$session.get("school");
       this.logged_in = true;
+    },
+    copyLink() {
+      let school_url = document.querySelector('#schoolUrl')
+      school_url.value = `${this.api_host}/timetable?school=${encodeURI(this.school)}&s_code=${this.s_code}`
+      school_url.setAttribute('type', 'text')
+      school_url.select()
+      
+      var successful = document.execCommand('copy');
+      this.copied = successful ? true : false
+      school_url.setAttribute('type', 'hidden')
     }
   },
   mounted() {
