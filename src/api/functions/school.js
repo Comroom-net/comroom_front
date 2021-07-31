@@ -28,6 +28,30 @@ export default {
                 component.active_bad(error.response.status);
             })
     },
+    login(component, login_info) {
+        const REQUEST_URL = API_URL.SCHOOL_LOGIN_URL;
+
+        api
+        .post(REQUEST_URL, login_info)
+          .then(response => {
+            Vue.$log.debug(response);
+            var resData = response["data"];
+            this.add_user_session(component, resData)
+            component.$router.push("/")
+          })
+          .catch(err => {
+            Vue.$log.debug(err);
+            component.error = err;
+          });
+
+    },
+    add_user_session(component, resData){
+        component.$session.set("username", resData["username"]);
+        component.$session.set("user_id", resData["user_id"]);
+        component.$session.set("school", resData["school"]);
+        component.$session.set("s_code", resData["s_code"]);
+        component.$session.set("is_active", resData["is_active"]);
+    },
     ex_login(component) {
         const REQUEST_URL = API_URL.SCHOOL_EX_LOGIN_URL;
 
