@@ -7,7 +7,7 @@
         <b-dropdown-item class="dropdown-item" href="timetable/fix_time/">고정시간 등록</b-dropdown-item>
       </b-dropdown>
     </div>
-    <a href="school/logout/" class="btn btn-secondary" role="button">로그아웃</a>
+    
   </div>
 </template>
 
