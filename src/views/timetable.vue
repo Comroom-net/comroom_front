@@ -1,5 +1,7 @@
 <template>
-  <Calendar></Calendar>
+  <div data-app>
+    <Calendar />
+  </div>
 </template>
 
 <script>
