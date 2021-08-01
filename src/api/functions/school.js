@@ -21,6 +21,7 @@ export default {
         api.get(REQUEST_URL + token)
             .then((response) => {
                 Vue.$log.debug(`response ok ${response.status}`);
+                this.add_user_session(component, response["data"])
                 component.active_good(response);
                 return;
             }).catch((error) => {
@@ -32,23 +33,23 @@ export default {
         const REQUEST_URL = API_URL.SCHOOL_LOGIN_URL;
 
         api
-        .post(REQUEST_URL, login_info)
-          .then(response => {
-            Vue.$log.debug(response);
-            var resData = response["data"];
-            this.add_user_session(component, resData)
-            component.$router.push("/")
-          })
-          .catch(err => {
-            Vue.$log.debug(err);
-            component.error = err;
-          });
+            .post(REQUEST_URL, login_info)
+            .then(response => {
+                Vue.$log.debug(response);
+                this.add_user_session(component, response["data"])
+                component.$router.push("/")
+            })
+            .catch(err => {
+                Vue.$log.debug(err);
+                component.error = err;
+            });
 
     },
-    add_user_session(component, resData){
+    add_user_session(component, resData) {
         component.$session.set("username", resData["username"]);
         component.$session.set("user_id", resData["user_id"]);
         component.$session.set("school", resData["school"]);
+        component.$session.set("school_id", resData["school_id"]);
         component.$session.set("s_code", resData["s_code"]);
         component.$session.set("is_active", resData["is_active"]);
     },
@@ -65,6 +66,7 @@ export default {
             .then((response) => {
                 Vue.$log.debug(`response ok ${response.status}`);
                 //api 호출한 component(Login.Vue)의 callback method 호출
+                this.add_user_session(component, response["data"])
                 component.onLoginSuccess(response);
                 return;
             }).catch((error) => {

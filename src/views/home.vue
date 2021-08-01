@@ -61,13 +61,7 @@ export default {
       school.ex_login(this);
     },
     onLoginSuccess(response) {
-      var resData = response["data"];
-      this.$log.debug(resData);
-      this.$session.set("username", resData["username"]);
-      this.$session.set("user_id", resData["user_id"]);
-      this.$session.set("school", resData["school"]);
-      this.$session.set("s_code", resData["s_code"]);
-      this.$session.set("is_active", resData["is_active"]);
+      this.$log.debug(response);
       this.getSessionInfo();
     },
     onLoginFalied(statusCode) {
@@ -102,6 +96,7 @@ export default {
       this.$session.remove("is_active");
       this.$session.remove("username");
       this.$session.remove("user_id");
+      this.getSessionInfo();
     }
   },
   mounted() {
