@@ -4,29 +4,29 @@
       <div class="col-12">
         <h2>Hello {{username ? username : "stranger"}}</h2>
         <div v-if="school">
-        <p>{{api_host}}/timetable?school={{encodeURI(school)}}&s_code={{s_code}}</p>
-        <input id="schoolUrl" type="hidden">
-        <a
-          :href="`${api_host}/timetable?school=${encodeURI(
+          <p>{{api_host}}/timetable?school={{encodeURI(school)}}&s_code={{s_code}}</p>
+          <input id="schoolUrl" type="hidden" />
+          <a
+            :href="`${api_host}/timetable?school=${encodeURI(
         school
       )}&s_code=${s_code}`"
-          class="btn btn-primary"
-          role="button"
-        >시간표</a>
-        <button class="copy btn btn-primary" @click="copyLink">링크 복사</button>
-        <p v-if="copied">복사완료</p>
+            class="btn btn-primary"
+            role="button"
+          >시간표</a>
+          <button class="copy btn btn-primary" @click="copyLink">링크 복사</button>
+          <p v-if="copied">복사완료</p>
         </div>
         <div v-if="username">
           <activeHome v-if="is_active" />
           <div v-else>
             <p>이메일 인증을 완료해주세요.</p>
           </div>
-          <a href="school/logout/" class="btn btn-secondary" role="button">로그아웃</a>
+          <a class="btn btn-secondary" role="button" @click="logout">로그아웃</a>
         </div>
         <div v-if="!username">
-        <a href="login/" class="btn btn-primary" role="button">관리자 로그인</a>
-        <a href="school/privacy_consent/" class="btn btn-primary" role="button">관리자 등록</a>
-        <a class="btn btn-info" @click="ex_login">샘플계정 로그인</a>
+          <a href="login/" class="btn btn-primary" role="button">관리자 로그인</a>
+          <a href="school/privacy_consent/" class="btn btn-primary" role="button">관리자 등록</a>
+          <a class="btn btn-info" @click="ex_login">샘플계정 로그인</a>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@ export default {
       school: null,
       s_code: null,
       api_host: window.location.origin,
-      copied: false,
+      copied: false
     };
   },
   methods: {
@@ -87,14 +87,21 @@ export default {
       this.logged_in = true;
     },
     copyLink() {
-      let school_url = document.querySelector('#schoolUrl')
-      school_url.value = `${this.api_host}/timetable?school=${encodeURI(this.school)}&s_code=${this.s_code}`
-      school_url.setAttribute('type', 'text')
-      school_url.select()
-      
-      var successful = document.execCommand('copy');
-      this.copied = successful ? true : false
-      school_url.setAttribute('type', 'hidden')
+      let school_url = document.querySelector("#schoolUrl");
+      school_url.value = `${this.api_host}/timetable?school=${encodeURI(
+        this.school
+      )}&s_code=${this.s_code}`;
+      school_url.setAttribute("type", "text");
+      school_url.select();
+
+      var successful = document.execCommand("copy");
+      this.copied = successful ? true : false;
+      school_url.setAttribute("type", "hidden");
+    },
+    logout() {
+      this.$session.remove("is_active");
+      this.$session.remove("username");
+      this.$session.remove("user_id");
     }
   },
   mounted() {
