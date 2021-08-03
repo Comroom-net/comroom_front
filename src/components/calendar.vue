@@ -34,6 +34,21 @@
                   <v-spacer></v-spacer>
                   <v-icon right>mdi-close</v-icon>
                 </v-toolbar>
+                <v-btn color="primary" outlined @click="datePickerShow = !datePickerShow">날짜선택</v-btn>
+                <v-expand-transition>
+                  <div v-show="datePickerShow">
+                    <v-row justify="center">
+                      <v-date-picker
+                        v-model="newDate"
+                        :allowed-dates="allowedDates"
+                        class="mt-4"
+                        min="2021-06-15"
+                        max="2022-03-20"
+                      ></v-date-picker>
+                    </v-row>
+                  </div>
+                </v-expand-transition>
+
                 <v-card-text>
                   <span>학년</span>
                   <v-chip-group
@@ -89,7 +104,11 @@
             @click:more="viewDay"
             @click:date="viewDay"
             @change="updateRange"
-          ></v-calendar>
+          >
+            <template v-slot:event="{event}">
+              <div class="fill-height pl-2">{{event.schoolTime}}교시 {{event.name}}</div>
+            </template>
+          </v-calendar>
           <v-menu
             v-model="selectedOpen"
             :close-on-content-click="false"
@@ -135,7 +154,10 @@ export default {
     date: String
   },
   data: () => ({
+    newDate: "",
     newGrade: 1,
+    newClass: null,
+    datePickerShow: false,
     grades: [1, 2, 3, 4, 5, 6],
     month: 5,
     year: 2020,
@@ -200,7 +222,8 @@ export default {
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
     },
-    addNew() {}
+    addNew() {},
+    allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0
   }
 };
 </script>
