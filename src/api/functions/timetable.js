@@ -12,7 +12,47 @@ import API_URL from "Api/url";
 
 export default {
 
-    get_event_color(time) {
+
+    get_monthly(component) {
+        const REQUEST_URL = API_URL.TIMETABLE_URL;
+
+        let cal_info = {
+            school: component.$session.school_id,
+            room: component.$route.params.roomNo,
+            year: component.year,
+            month: component.month
+        }
+
+        const get_event_color = this._get_event_color
+        const get_realtime = this._get_realtime
+
+        api.get(REQUEST_URL, { params: cal_info })
+            .then((response) => {
+                Vue.$log.debug(`response ok ${response.status}`);
+                Vue.$log.debug(response['data'])
+                let timetables = response["data"]["results"]
+                Vue.$log.debug(`time tables = ${timetables[0].grade}`);
+                let events = []
+                timetables.forEach(function(event) {
+                    let name = `${event.grade}학년${event.classNo}반`
+                    const realTime = get_realtime(event.time - 1)
+                    events.push({
+                        name: name,
+                        start: new Date(`${event.date}T${realTime[0]}`),
+                        end: new Date(`${event.date}T${realTime[1]}`),
+                        color: get_event_color(event.time - 1),
+                        timed: true,
+                        details: `${event.teacher} 선생님`
+                    })
+
+                })
+                component.events.push(...events)
+                return events;
+            }).catch((error) => {
+                Vue.$log.debug(error);
+            })
+    },
+    _get_event_color(time) {
         let colors = [
             "blue",
             "indigo",
@@ -24,49 +64,17 @@ export default {
         ]
         return colors[time]
     },
-    get_monthly(component) {
-        const REQUEST_URL = API_URL.TIMETABLE_URL;
-
-        let cal_info = {
-            school: component.school_id,
-            room: component.room,
-            year: component.year,
-            month: component.month
-        }
-
-        let colors = [
-            "blue",
-            "indigo",
-            "deep-purple",
-            "cyan",
-            "green",
-            "orange",
-            "grey darken-1"
+    _get_realtime(time) {
+        let timetable = [
+            ["09:00:00", "09:40:00"],
+            ["09:50:00", "10:30:00"],
+            ["10:40:00", "11:20:00"],
+            ["11:30:00", "12:10:00"],
+            ["12:20:00", "13:00:00"],
+            ["13:10:00", "13:50:00"],
+            ["14:00:00", "14:40:00"],
         ]
-
-        api.get(REQUEST_URL, { params: cal_info })
-            .then((response) => {
-                Vue.$log.debug(`response ok ${response.status}`);
-                Vue.$log.debug(response['data'])
-                let timetables = response["data"]["results"]
-                Vue.$log.debug(`time tables = ${timetables[0].grade}`);
-                let events = []
-                timetables.forEach(function(event) {
-                    let name = `${event.grade}학년${event.classNo}반`
-                    events.push({
-                        name: name,
-                        start: new Date(event.date),
-                        end: new Date(event.date),
-                        color: colors[event.time - 1],
-                        timed: true
-                    })
-
-                })
-                component.events.push(...events)
-                return events;
-            }).catch((error) => {
-                Vue.$log.debug(error);
-            })
+        return timetable[time]
     },
     add_time(component, login_info) {
         const REQUEST_URL = API_URL.SCHOOL_LOGIN_URL;
@@ -95,6 +103,8 @@ export default {
         api.get(REQUEST_URL, { params: params })
             .then(response => {
                 Vue.$log.debug("checkschool", response)
+                component.$session.set("school_id", response.data["school_id"]);
+                component.$router.push({ name: 'timetable', params: { roomNo: 1 } })
             })
             .catch(err => {
                 Vue.$log.debug(err)
