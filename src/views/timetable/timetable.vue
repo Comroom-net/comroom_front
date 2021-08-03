@@ -1,17 +1,12 @@
 <template>
   <div data-app>
-    <Calendar />
+    <router-view />
   </div>
 </template>
 
 <script>
-import Calendar from "@/components/calendar";
-
 export default {
   name: "Timetable",
-  components: {
-    Calendar
-  },
   props: {
     school: {
       type: String,

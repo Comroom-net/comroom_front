@@ -16,6 +16,7 @@ import UserActive from '@/views/school/user_active'
 
 import Timetable from '@/views/timetable/timetable'
 import validSchool from '@/views/timetable/valid_school'
+import Calendar from "@/components/calendar";
 
 Vue.use(Router)
 
@@ -64,22 +65,24 @@ export default new Router({
         },
         {
             path: '/timetable',
-            name: 'timetable',
-            component: validSchool,
-            props: (route) => ({
-                school: route.query.school,
-                s_code: route.query.s_code,
-            })
-        },
-        {
-            path: '/timetable/:roomNo/:date',
-            name: 'timetable',
             component: Timetable,
-            // props: (route) => ({
-            //     school: route.param.roomNo,
-            //     s_code: route.param.date,
-            // })
+            children: [{
+                    path: '',
+                    name: 'validschool',
+                    component: validSchool,
+                    props: (route) => ({
+                        school: route.query.school,
+                        s_code: route.query.s_code,
+                    }),
+                },
+                {
+                    path: 'room/:roomNo',
+                    name: 'timetable',
+                    component: Calendar,
+                },
+            ]
         },
+
         {
             path: '/school/privacy_consent',
             name: 'privacy-consent',
