@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <Header />
-    <b-container>
-      <router-view />
-    </b-container>
-    <Footer />
+    <v-app>
+      <Header />
+      <b-container>
+        <router-view />
+      </b-container>
+      <Footer />
+    </v-app>
   </div>
 </template>
 
