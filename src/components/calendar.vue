@@ -26,23 +26,25 @@
                 <v-spacer></v-spacer>
                 <v-toolbar-title>시간표 등록</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-icon right>mdi-close</v-icon>
+                <v-icon right @click="datePickerShow = true">mdi-close</v-icon>
               </v-toolbar>
               <v-expand-transition>
                 <div v-show="datePickerShow">
                   <v-row justify="center">
                     <v-date-picker
                       v-model="newDate"
-                      :allowed-dates="allowedDates"
                       class="mt-2"
-                      min="2021-06-15"
-                      max="2022-03-20"
+                      :min="getToday()"
+                      :max="getNextyear()"
+                      @click:date="datePickerShow = false"
                     ></v-date-picker>
                   </v-row>
                 </div>
               </v-expand-transition>
 
               <v-card-text>
+                <span v-show="!datePickerShow">{{newDate}}</span>
+                <br />
                 <span>시간</span>
 
                 <span>학년</span>
@@ -230,7 +232,20 @@ export default {
       return Math.floor((b - a + 1) * Math.random()) + a;
     },
     addNew() {},
-    allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0
+    allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0,
+    getToday() {
+      var date = new Date();
+      var month = ("0" + (date.getMonth() + 1)).slice(-2);
+      var day = ("0" + date.getDate()).slice(-2);
+      return `${date.getFullYear()}-${month}-${day}`;
+    },
+    getNextyear() {
+      var date = new Date();
+      date.setFullYear(date.getFullYear() + 1);
+      var month = ("0" + (date.getMonth() + 1)).slice(-2);
+      var day = ("0" + date.getDate()).slice(-2);
+      return `${date.getFullYear()}-${month}-${day}`;
+    }
   }
 };
 </script>
