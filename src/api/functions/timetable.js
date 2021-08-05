@@ -34,7 +34,7 @@ export default {
                 Vue.$log.debug(`time tables = ${timetables[0].grade}`);
                 let events = []
                 timetables.forEach(function(event) {
-                    let name = `${event.grade}학년${event.classNo}반`
+                    let name = `${event.grade}학년 ${event.classNo}반`
                     const realTime = get_realtime(event.time - 1)
                     events.push({
                         name: name,
@@ -42,7 +42,8 @@ export default {
                         end: new Date(`${event.date}T${realTime[1]}`),
                         color: get_event_color(event.time - 1),
                         timed: true,
-                        details: `${event.teacher} 선생님`
+                        details: `${event.teacher} 선생님`,
+                        schoolTime: event.time
                     })
 
                 })
