@@ -16,7 +16,7 @@ import UserActive from '@/views/school/user_active'
 
 import Timetable from '@/views/timetable/timetable'
 import validSchool from '@/views/timetable/valid_school'
-import Calendar from "@/components/calendar";
+import Calendar from "@/components/timetable/calendar";
 
 Vue.use(Router)
 
