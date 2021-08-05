@@ -12,7 +12,7 @@
           </v-btn>
           <v-toolbar-title v-if="$refs.calendar">{{ $refs.calendar.title }}</v-toolbar-title>
           <v-spacer></v-spacer>
-          <newTime v-if="type == 'day'" />
+          <newTime v-if="type == 'day'" :date="focus" />
           <v-spacer></v-spacer>
           <v-menu bottom right>
             <template v-slot:activator="{ on, attrs }">
