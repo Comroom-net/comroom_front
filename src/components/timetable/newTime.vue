@@ -21,7 +21,7 @@
 
         <v-card-text>
           <span>시간</span>
-          {{showNew}}
+          {{date}}
           <span>학년</span>
           <v-chip-group
             v-model="newGrade"
@@ -35,7 +35,7 @@
           <v-text-field label="선생님 이름" placeholder="이은섭"></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn text color="primary" @click="selectedOpen = false">등록</v-btn>
+          <v-btn text color="primary" @click="addNew()">등록</v-btn>
           <v-spacer></v-spacer>
           <v-card-actions>
             <v-btn text color="secondary" @click="showNew = false">취소</v-btn>
@@ -50,7 +50,7 @@
 export default {
   name: "newTime",
   props: {
-    isDay: Boolean
+    date: String
   },
   data() {
     return {
@@ -84,6 +84,10 @@ export default {
       var month = ("0" + (date.getMonth() + 1)).slice(-2);
       var day = ("0" + date.getDate()).slice(-2);
       return `${date.getFullYear()}-${month}-${day}`;
+    },
+    addNew() {
+      this.showNew = false;
+      console.log(date);
     }
   }
 };
