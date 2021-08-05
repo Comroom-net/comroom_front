@@ -56,12 +56,6 @@ export default {
     ex_login(component) {
         const REQUEST_URL = API_URL.SCHOOL_EX_LOGIN_URL;
 
-        //login post request의 form data 정의 부분
-        // const requestBody = {
-        //     email: loginObject.email,
-        //     password: loginObject.password
-        // };
-        //request call 및 response/error catch
         api.get(REQUEST_URL)
             .then((response) => {
                 Vue.$log.debug(`response ok ${response.status}`);
