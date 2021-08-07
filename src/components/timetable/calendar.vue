@@ -44,6 +44,7 @@
           :event-color="getEventColor"
           :type="type"
           :weekdays="weekday"
+          first-time="08:30"
           @click:event="showEvent"
           @click:more="viewDay"
           @click:date="viewDay"
