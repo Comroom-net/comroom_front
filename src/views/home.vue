@@ -6,14 +6,10 @@
         <div v-if="school">
           <p>{{api_host}}/timetable?school={{encodeURI(school)}}&s_code={{s_code}}</p>
           <input id="schoolUrl" type="hidden" />
-          <a
-            :href="`${api_host}/timetable?school=${encodeURI(
+          <v-btn :to="`timetable?school=${encodeURI(
         school
-      )}&s_code=${s_code}`"
-            class="btn btn-primary"
-            role="button"
-          >시간표</a>
-          <button class="copy btn btn-primary" @click="copyLink">링크 복사</button>
+      )}&s_code=${s_code}`">시간표</v-btn>
+          <v-btn @click="copyLink">링크 복사</v-btn>
           <p v-if="copied">복사완료</p>
         </div>
         <div v-if="username">
@@ -21,12 +17,12 @@
           <div v-else>
             <p>이메일 인증을 완료해주세요.</p>
           </div>
-          <a class="btn btn-secondary" role="button" @click="logout">로그아웃</a>
+          <v-btn color="cyan" @click="logout">로그아웃</v-btn>
         </div>
         <div v-if="!username">
-          <a href="login/" class="btn btn-primary" role="button">관리자 로그인</a>
-          <a href="school/privacy_consent/" class="btn btn-primary" role="button">관리자 등록</a>
-          <a class="btn btn-info" @click="ex_login">샘플계정 로그인</a>
+          <v-btn to="login">관리자 로그인</v-btn>
+          <v-btn to="school/register">관리자 등록</v-btn>
+          <v-btn @click="ex_login">샘플계정 로그인</v-btn>
         </div>
       </div>
     </div>
