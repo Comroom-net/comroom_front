@@ -9,23 +9,44 @@
           <span>시간표 등록</span>
         </v-tooltip>
       </template>
-      <v-card min-width="200px" flat>
-        <v-toolbar color="blue lighten-4">
+      <v-card min-width="200px" flat :loading="loading">
+        <template slot="progress">
+          <v-progress-linear color="teal lighten-3" height="10" indeterminate></v-progress-linear>
+        </template>
+
+        <v-toolbar color="blue dark-4 white--text">
           <v-spacer></v-spacer>
           <v-toolbar-title>시간표 등록</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon>
-            <v-icon right @click="showNew = false">mdi-close</v-icon>
+            <v-icon mid @click="cancel">mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
 
         <v-card-text>
-          <span>시간</span>
           {{date}}
+          <p>시간</p>
+          <div class="text-center">
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on">
+                  {{times[newTime][0]}} - {{times[newTime][1]}}
+                  <v-icon>mdi-menu-down</v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item-group v-model="newTime">
+                  <v-list-item v-for="(time, index) in times" :key="index">
+                    <v-list-item-title>{{ time[0] }} - {{time[1]}}</v-list-item-title>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-menu>
+          </div>
           <span>학년</span>
           <v-chip-group
             v-model="newGrade"
-            active-class="deep-purple accent-4 white--text"
+            active-class="blue accent-4 white--text"
             column
             mandatory
           >
@@ -35,10 +56,10 @@
           <v-text-field label="선생님 이름" placeholder="이은섭"></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn text color="primary" @click="addNew()">등록</v-btn>
+          <v-btn text color="primary" @click="addNew">등록</v-btn>
           <v-spacer></v-spacer>
           <v-card-actions>
-            <v-btn text color="secondary" @click="showNew = false">취소</v-btn>
+            <v-btn text color="secondary" @click="cancel">취소</v-btn>
           </v-card-actions>
         </v-card-actions>
       </v-card>
@@ -54,20 +75,21 @@ export default {
   },
   data() {
     return {
+      loading: false,
       showNew: false,
       newDate: "",
       newGrade: 1,
       newClass: null,
-      newtime: null,
+      newTime: 0,
       grades: [1, 2, 3, 4, 5, 6],
       times: [
-        ["09:00:00", "09:40:00"],
-        ["09:50:00", "10:30:00"],
-        ["10:40:00", "11:20:00"],
-        ["11:30:00", "12:10:00"],
-        ["12:20:00", "13:00:00"],
-        ["13:10:00", "13:50:00"],
-        ["14:00:00", "14:40:00"]
+        ["09:00", "09:40"],
+        ["09:50", "10:30"],
+        ["10:40", "11:20"],
+        ["11:30", "12:10"],
+        ["12:20", "13:00"],
+        ["13:10", "13:50"],
+        ["14:00", "14:40"]
       ]
     };
   },
@@ -85,9 +107,13 @@ export default {
       var day = ("0" + date.getDate()).slice(-2);
       return `${date.getFullYear()}-${month}-${day}`;
     },
-    addNew() {
+    cancel() {
+      this.loading = false;
       this.showNew = false;
-      console.log(date);
+    },
+    addNew() {
+      this.loading = true;
+      console.log(this.date);
     }
   }
 };
