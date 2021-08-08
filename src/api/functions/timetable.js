@@ -11,13 +11,11 @@ import API_URL from "Api/url";
  * **/
 
 export default {
-
-
     get_monthly(component) {
         const REQUEST_URL = API_URL.TIMETABLE_URL;
 
         let cal_info = {
-            school: component.$session.school_id,
+            school: component.$session.get("school_id"),
             room: component.$route.params.roomNo,
             year: component.year,
             month: component.month
@@ -31,9 +29,9 @@ export default {
                 Vue.$log.debug(`response ok ${response.status}`);
                 Vue.$log.debug(response['data'])
                 let timetables = response["data"]["results"]
-                Vue.$log.debug(`time tables = ${timetables[0].grade}`);
+                // Vue.$log.debug(`time tables = ${timetables[0].grade}`);
                 let events = []
-                timetables.forEach(function(event) {
+                timetables.forEach(function (event) {
                     let name = `${event.grade}학년 ${event.classNo}반`
                     const realTime = get_realtime(event.time - 1)
                     events.push({
@@ -77,19 +75,29 @@ export default {
         ]
         return timetable[time]
     },
-    add_time(component, login_info) {
-        const REQUEST_URL = API_URL.SCHOOL_LOGIN_URL;
+    addTime(component) {
+        const REQUEST_URL = API_URL.TIMETABLE_URL;
 
-        api
-            .post(REQUEST_URL, login_info)
+        var timeInfo = {
+            classNo: component.newClass,
+            grade: component.newGrade,
+            date: component.date,
+            time: component.newTime + 1,
+            teacher: component.teacher,
+            school: component.$session.get("school_id"),
+            roomNo: component.$route.params.roomNo
+        }
+
+        Vue.$log.info(timeInfo)
+
+        api.post(REQUEST_URL, timeInfo)
             .then(response => {
                 Vue.$log.debug(response);
-                this.add_user_session(component, response["data"])
-                component.$router.push("/")
+                component.loading = false
             })
             .catch(err => {
                 Vue.$log.debug(err);
-                component.error = err;
+                component.apiError = err;
             });
 
     },
