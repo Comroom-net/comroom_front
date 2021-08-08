@@ -24,9 +24,9 @@
         </v-toolbar>
 
         <v-card-text>
-          {{date}}
+          <v-text-field :value="date" label="날짜" outlined disabled></v-text-field>
           <p>시간</p>
-          <div class="text-center">
+          <div>
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn v-bind="attrs" v-on="on">
@@ -52,8 +52,21 @@
           >
             <v-chip v-for="grade in grades" :key="grade" :value="grade">{{grade}}</v-chip>
           </v-chip-group>
-          <v-text-field label="반" placeholder="1"></v-text-field>
-          <v-text-field label="선생님 이름" placeholder="이은섭"></v-text-field>
+          <v-text-field
+            label="반"
+            placeholder="1"
+            v-model="newClass"
+            :error-messages="errors.class"
+            :rules="[rules.required]"
+          ></v-text-field>
+          <v-text-field
+            label="선생님 이름"
+            placeholder="이은섭"
+            v-model="teacher"
+            :rules="[rules.required]"
+            :error-messages="errors.teacher"
+          ></v-text-field>
+          <p v-show="apiError">{{apiError}}</p>
         </v-card-text>
         <v-card-actions>
           <v-btn text color="primary" @click="addNew">등록</v-btn>
@@ -68,6 +81,8 @@
 </template>
 
 <script>
+import api from "@/api/functions/timetable";
+
 export default {
   name: "newTime",
   props: {
@@ -81,6 +96,12 @@ export default {
       newGrade: 1,
       newClass: null,
       newTime: 0,
+      teacher: null,
+      errors: {
+        teacher: null,
+        class: null
+      },
+      roomNo: 1,
       grades: [1, 2, 3, 4, 5, 6],
       times: [
         ["09:00", "09:40"],
@@ -90,7 +111,16 @@ export default {
         ["12:20", "13:00"],
         ["13:10", "13:50"],
         ["14:00", "14:40"]
-      ]
+      ],
+      rules: {
+        required: value => !!value || "Required.",
+        counter: value => value.length <= 20 || "Max 20 characters",
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "Invalid e-mail.";
+        }
+      },
+      apiError: null
     };
   },
   methods: {
@@ -112,8 +142,12 @@ export default {
       this.showNew = false;
     },
     addNew() {
-      this.loading = true;
-      console.log(this.date);
+      if (!this.newClass) this.errors.class = "required";
+      if (!this.teacher) this.errors.teacher = "required";
+      if (this.newClass && this.teacher) {
+        this.loading = true;
+        api.addTime(this);
+      }
     }
   }
 };
