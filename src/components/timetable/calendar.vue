@@ -12,7 +12,7 @@
           </v-btn>
           <v-toolbar-title v-if="$refs.calendar">{{ $refs.calendar.title }}</v-toolbar-title>
           <v-spacer></v-spacer>
-          <newTime v-if="type == 'day'" :date="focus" />
+          <newTime v-if="type == 'day'" :date="focus" v-on:addNew="addNew" />
           <v-spacer></v-spacer>
           <v-menu bottom right>
             <template v-slot:activator="{ on, attrs }">
@@ -164,17 +164,17 @@ export default {
       return event.color;
     },
     updateRange({ start, end }) {
-      const events = [];
       this.month = start.month;
       this.year = start.year;
 
       api.get_monthly(this);
-      this.events = events;
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
     },
-    addNew() {},
+    addNew() {
+      api.get_monthly(this);
+    },
     allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0
   }
 };
