@@ -35,7 +35,7 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item-group v-model="newTime">
+                <v-list-item-group v-model="newTime" mandatory>
                   <v-list-item v-for="(time, index) in times" :key="index">
                     <v-list-item-title>{{ time[0] }} - {{time[1]}}</v-list-item-title>
                   </v-list-item>
