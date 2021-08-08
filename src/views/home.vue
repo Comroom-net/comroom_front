@@ -21,7 +21,7 @@
         </div>
         <div v-if="!username">
           <v-btn to="login">관리자 로그인</v-btn>
-          <v-btn to="school/register">관리자 등록</v-btn>
+          <v-btn to="school/privacy-consent">관리자 등록</v-btn>
           <v-btn @click="ex_login">샘플계정 로그인</v-btn>
         </div>
       </div>

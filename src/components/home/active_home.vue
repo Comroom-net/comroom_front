@@ -7,7 +7,7 @@
       <v-list>
         <v-list-item v-for="(item, index) in adminItems" :key="index">
           <v-list-item-title>
-            <router-link :to="item.path">{{ item.name }}</router-link>
+            <router-link :to="{name: item.routeName}">{{ item.name }}</router-link>
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -23,15 +23,19 @@ export default {
       adminItems: [
         {
           name: "컴퓨터실 정보 수정",
-          path: "login"
+          routeName: "roomManager"
         },
         {
           name: "시간표 수정",
-          path: "timetable/time_admin"
+          routeName: "timeManager"
         },
         {
           name: "고정시간 등록",
-          path: "timetable/fix_time/"
+          routeName: "fixedTime"
+        },
+        {
+          name: "시간표 설정",
+          routeName: "timeMap"
         }
       ]
     };
