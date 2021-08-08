@@ -17,6 +17,7 @@ export default {
         api.get(REQUEST_URL + component.$session.get('school_id'))
             .then((response) => {
                 Vue.$log.debug(response)
+                component.rooms = response.data
             })
             .catch((err) => {
                 Vue.$log.error(err)
@@ -96,7 +97,7 @@ export default {
             time: component.newTime + 1,
             teacher: component.teacher,
             school: component.$session.get("school_id"),
-            roomNo: component.$route.params.roomNo
+            roomNo: component.roomNo
         }
 
         Vue.$log.info(timeInfo)

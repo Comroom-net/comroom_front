@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on: menu, attrs }">
         <v-tooltip bottom>
           <template v-slot:activator="{ on: tooltip }">
-            <v-btn color="primary" outlined v-bind="attrs" v-on="{ ...tooltip, ...menu }">New</v-btn>
+            <v-btn color="primary" outlined v-bind="attrs" v-on="{ ...tooltip, ...menu }">사용 신청</v-btn>
           </template>
           <span>시간표 등록</span>
         </v-tooltip>
@@ -87,7 +87,8 @@ import api from "@/api/functions/timetable";
 export default {
   name: "newTime",
   props: {
-    date: String
+    date: String,
+    roomNo: Number
   },
   data() {
     return {
@@ -102,7 +103,6 @@ export default {
         teacher: null,
         class: null
       },
-      roomNo: 1,
       grades: [1, 2, 3, 4, 5, 6],
       times: [
         ["09:00", "09:40"],

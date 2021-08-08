@@ -18,17 +18,15 @@
                 <v-icon right>mdi-menu-down</v-icon>
               </v-btn>
             </template>
-            <v-list>
-              <v-list-item @click="roomNo = 1">
-                <v-list-item-title>2</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = 'week'">
-                <v-list-item-title>Week</v-list-item-title>
+            <v-list v-model="roomNo" mandatory>
+              <v-list-item @click="changeRoom(index)" v-for="(room, index) in rooms" :key="index">
+                <v-list-item-title>{{room.name}}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
           <v-spacer></v-spacer>
-          <newTime v-if="type == 'day'" :date="focus" v-on:addNew="addNew" />
+          <span v-show="type != 'day'">사용할 날짜를 선택해주세요</span>
+          <newTime v-if="type == 'day'" :date="focus" v-on:addNew="addNew" :roomNo="roomNo + 1" />
           <v-spacer></v-spacer>
           <v-menu bottom right>
             <template v-slot:activator="{ on, attrs }">
@@ -198,7 +196,10 @@ export default {
     addNew() {
       api.get_monthly(this);
     },
-    allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0
+    changeRoom(roomNo) {
+      this.roomNo = roomNo;
+      api.get_monthly(this);
+    }
   }
 };
 </script>
