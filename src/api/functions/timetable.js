@@ -45,7 +45,7 @@ export default {
                     })
 
                 })
-                component.events.push(...events)
+                component.events = events
                 return events;
             }).catch((error) => {
                 Vue.$log.debug(error);
@@ -94,6 +94,8 @@ export default {
             .then(response => {
                 Vue.$log.debug(response);
                 component.loading = false
+                component.showNew = false
+                component.$emit("addNew")
             })
             .catch(err => {
                 Vue.$log.debug(err);
