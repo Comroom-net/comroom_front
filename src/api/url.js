@@ -26,6 +26,8 @@ export default {
     TIMETABLE_VALID_URL: "/timetable/api/",
     TIMETABLE_URL: "/timetable/api/time/",
     FIXED_TIME_URL: "/timetable/api/fixed/",
+    MAP_TIME_URL: "/timetable/api/map/",
+
     /** users **/
     USERS_ME_URL: "/users/me", //회원 정보 확인
     USERS_USERINFO_URL: (id) => { //회원 정보 갱신
