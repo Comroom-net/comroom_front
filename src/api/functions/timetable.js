@@ -11,6 +11,18 @@ import API_URL from "Api/url";
  * **/
 
 export default {
+    get_all_timetable(component) {
+        const REQUEST_URL = API_URL.SCHOOL_GET_ALL_TIMETABLE_URL;
+
+        api.get(REQUEST_URL + component.$session.get('school_id'))
+            .then((response) => {
+                Vue.$log.debug(response)
+                component.timetables = response.data
+            })
+            .catch((err) => {
+                Vue.$log.error(err)
+            })
+    },
     get_comroom(component) {
         const REQUEST_URL = API_URL.SCHOOL_GET_COMROOM_URL;
 

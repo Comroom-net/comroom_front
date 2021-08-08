@@ -20,6 +20,7 @@ export default {
     SCHOOL_REGISTER: "/school/api/register/",
     SCHOOL_USER_ACITVE_URL: "/school/api/active/",
     SCHOOL_GET_COMROOM_URL: "/school/api/comrooms/",
+    SCHOOL_GET_ALL_TIMETABLE_URL: "/school/api/get-all-timetable/",
 
     /** timetable **/
     TIMETABLE_VALID_URL: "/timetable/api/",
