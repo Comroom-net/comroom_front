@@ -11,6 +11,22 @@
             <v-icon small>mdi-chevron-right</v-icon>
           </v-btn>
           <v-toolbar-title v-if="$refs.calendar">{{ $refs.calendar.title }}</v-toolbar-title>
+          <v-menu bottom right>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
+                <span>{{ rooms[roomNo].name }}</span>
+                <v-icon right>mdi-menu-down</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item @click="roomNo = 1">
+                <v-list-item-title>2</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="type = 'week'">
+                <v-list-item-title>Week</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
           <v-spacer></v-spacer>
           <newTime v-if="type == 'day'" :date="focus" v-on:addNew="addNew" />
           <v-spacer></v-spacer>
@@ -104,10 +120,16 @@ export default {
     newTime
   },
   props: {
-    roomNo: String,
     date: String
   },
   data: () => ({
+    roomNo: 0,
+    rooms: [
+      {
+        id: 1,
+        name: "컴룸"
+      }
+    ],
     month: 5,
     year: 2020,
     focus: "",
@@ -127,6 +149,7 @@ export default {
   }),
   mounted() {
     this.$refs.calendar.checkChange();
+    api.get_comroom(this);
   },
   methods: {
     showEvent({ nativeEvent, event }) {

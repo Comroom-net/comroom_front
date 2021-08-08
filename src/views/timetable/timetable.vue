@@ -1,25 +1,44 @@
 <template>
   <div data-app>
-    <router-view />
+    <Calendar v-show="valid_school" />
+    <div v-show="!valid_school">
+      {{error_msg}}
+      {{school}}
+    </div>
   </div>
 </template>
 
 <script>
+import Calendar from "@/components/timetable/calendar";
+import api from "Api/functions/timetable";
+
 export default {
   name: "Timetable",
+  components: {
+    Calendar
+  },
   props: {
     school: {
-      type: String,
-      default: "school"
+      type: String
     },
     s_code: {
-      type: String,
-      default: "1111"
+      type: String
     }
   },
+  data() {
+    return {
+      error_msg: "ok",
+      valid_school: false
+    };
+  },
   mounted() {
-    this.$log.debug(this.school);
-    this.$log.debug(this.s_code);
+    if (this.school && this.s_code) {
+      this.$log.debug(this.school);
+      this.$log.debug(this.s_code);
+      api.check_school(this);
+    } else {
+      if (this.$session.get("school_id")) this.valid_school = true;
+    }
   }
 };
 </script>

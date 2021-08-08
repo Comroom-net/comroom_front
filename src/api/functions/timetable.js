@@ -11,12 +11,23 @@ import API_URL from "Api/url";
  * **/
 
 export default {
+    get_comroom(component) {
+        const REQUEST_URL = API_URL.SCHOOL_GET_COMROOM_URL;
+
+        api.get(REQUEST_URL + component.$session.get('school_id'))
+            .then((response) => {
+                Vue.$log.debug(response)
+            })
+            .catch((err) => {
+                Vue.$log.error(err)
+            })
+    },
     get_monthly(component) {
         const REQUEST_URL = API_URL.TIMETABLE_URL;
 
         let cal_info = {
             school: component.$session.get("school_id"),
-            room: component.$route.params.roomNo,
+            room: component.roomNo + 1,
             year: component.year,
             month: component.month
         }
@@ -115,7 +126,9 @@ export default {
             .then(response => {
                 Vue.$log.debug("checkschool", response)
                 component.$session.set("school_id", response.data["school_id"]);
-                component.$router.push({ name: 'timetable', params: { roomNo: 1 } })
+                component.valid_school = true
+                component.$router.push({ name: 'timetable' })
+
             })
             .catch(err => {
                 Vue.$log.debug(err)
