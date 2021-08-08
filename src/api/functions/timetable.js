@@ -75,6 +75,22 @@ export default {
                 Vue.$log.debug(error);
             })
     },
+    get_all_fixed_times(component) {
+        const REQUEST_URL = API_URL.FIXED_TIME_URL;
+
+        let cal_info = {
+            school: component.$session.get("school_id"),
+            year: component.year,
+        }
+
+        api.get(REQUEST_URL, { params: cal_info })
+            .then((response) => {
+                Vue.$log.debug(response['data'])
+                let timetables = response["data"]["results"]
+                Vue.$log.debug(timetables)
+                component.timetables = timetables
+            })
+    },
     _get_event_color(time) {
         let colors = [
             "blue",
