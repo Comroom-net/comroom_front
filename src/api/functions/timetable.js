@@ -11,6 +11,37 @@ import API_URL from "Api/url";
  * **/
 
 export default {
+    set_start_time(component) {
+        const REQUEST_URL = API_URL.MAP_TIME_URL;
+
+        const reqData = { school_id: component.$session.get('school_id'), start_time: component.selectTimes[component.startTime] }
+
+        api.post(REQUEST_URL, reqData)
+            .then((response) => {
+                Vue.$log.debug(response.status)
+            })
+            .catch((err) => {
+                Vue.$log.error(err)
+            })
+    },
+    get_start_time(component) {
+        const REQUEST_URL = API_URL.MAP_TIME_URL;
+
+        const reqParam = { school_id: component.$session.get('school_id') }
+
+        api.get(REQUEST_URL, { params: reqParam })
+            .then((response) => {
+                Vue.$log.debug(response)
+                if (response.data) {
+                    component.startTime = response.data['start_time']
+                        // component.startTime = component.selectTimes.findIndex(ele => ele == response.data['start_time'])
+                }
+                return response.data['start_time']
+            })
+            .catch((err) => {
+                Vue.$log.error(err)
+            })
+    },
     get_all_timetable(component) {
         const REQUEST_URL = API_URL.SCHOOL_GET_ALL_TIMETABLE_URL;
 
@@ -53,9 +84,9 @@ export default {
                 Vue.$log.debug(`response ok ${response.status}`);
                 Vue.$log.debug(response['data'])
                 let timetables = response["data"]["results"]
-                // Vue.$log.debug(`time tables = ${timetables[0].grade}`);
+                    // Vue.$log.debug(`time tables = ${timetables[0].grade}`);
                 let events = []
-                timetables.forEach(function (event) {
+                timetables.forEach(function(event) {
                     let name = `${event.grade}학년 ${event.classNo}반`
                     const realTime = get_realtime(event.time - 1)
                     events.push({
