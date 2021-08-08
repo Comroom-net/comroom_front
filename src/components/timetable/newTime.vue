@@ -54,10 +54,11 @@
           </v-chip-group>
           <v-text-field
             label="반"
-            placeholder="1"
+            type="number"
+            placeholder="1 (숫자를 입력해주세요)"
             v-model="newClass"
             :error-messages="errors.class"
-            :rules="[rules.required]"
+            :rules="[rules.required, rules.number]"
           ></v-text-field>
           <v-text-field
             label="선생님 이름"
@@ -114,6 +115,10 @@ export default {
       ],
       rules: {
         required: value => !!value || "Required.",
+        number: value => {
+          const pattern = /^[0-9]+$/;
+          return pattern.test(value) || "숫자를 입력해주세요.";
+        },
         counter: value => value.length <= 20 || "Max 20 characters",
         email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -142,7 +147,12 @@ export default {
       this.showNew = false;
     },
     addNew() {
-      if (!this.newClass) this.errors.class = "required";
+      const isNumber = /^[0-9]+$/;
+      if (!this.newClass) {
+        this.errors.class = "required";
+      } else if (!isNumber(this.newClass)) {
+        this.errors.class = "숫자를 입력해주세요";
+      }
       if (!this.teacher) this.errors.teacher = "required";
       if (this.newClass && this.teacher) {
         this.loading = true;
