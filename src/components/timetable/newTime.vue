@@ -150,7 +150,7 @@ export default {
       const isNumber = /^[0-9]+$/;
       if (!this.newClass) {
         this.errors.class = "required";
-      } else if (!isNumber(this.newClass)) {
+      } else if (!isNumber.test(this.newClass)) {
         this.errors.class = "숫자를 입력해주세요";
       }
       if (!this.teacher) this.errors.teacher = "required";
