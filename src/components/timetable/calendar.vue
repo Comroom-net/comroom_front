@@ -26,7 +26,13 @@
           </v-menu>
           <v-spacer></v-spacer>
           <span v-show="type != 'day'">사용할 날짜를 선택해주세요</span>
-          <newTime v-if="type == 'day'" :date="focus" v-on:addNew="addNew" :roomNo="roomNo + 1" />
+          <newTime
+            v-if="type == 'day'"
+            :date="focus"
+            v-on:addNew="addNew"
+            :roomNo="roomNo + 1"
+            :startTime="startTime"
+          />
           <v-spacer></v-spacer>
           <v-menu bottom right>
             <template v-slot:activator="{ on, attrs }">
@@ -121,6 +127,7 @@ export default {
     date: String
   },
   data: () => ({
+    startTime: "09:10",
     roomNo: 0,
     rooms: [
       {
@@ -148,6 +155,7 @@ export default {
   mounted() {
     this.$refs.calendar.checkChange();
     api.get_comroom(this);
+    api.get_start_time(this);
   },
   methods: {
     showEvent({ nativeEvent, event }) {

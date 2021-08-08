@@ -88,7 +88,11 @@ export default {
   name: "newTime",
   props: {
     date: String,
-    roomNo: Number
+    roomNo: Number,
+    startTime: String
+  },
+  mounted() {
+    this.makeTimes();
   },
   data() {
     return {
@@ -105,7 +109,7 @@ export default {
       },
       grades: [1, 2, 3, 4, 5, 6],
       times: [
-        ["09:00", "09:40"],
+        ["09:30", "09:40"],
         ["09:50", "10:30"],
         ["10:40", "11:20"],
         ["11:30", "12:10"],
@@ -158,6 +162,29 @@ export default {
         this.loading = true;
         api.addTime(this);
       }
+    },
+    makeTimes() {
+      var times = [];
+      let [h, m] = this.startTime.split(":");
+      let minute = 60000;
+      let classMin = 40 * minute;
+      let breakMin = 10 * minute;
+      var start = new Date();
+      start.setHours(+h);
+      start.setMinutes(m);
+      var end = new Date(start.getTime() + classMin);
+      for (let i = 0; i < 7; i++) {
+        times.push([this.convertTime(start), this.convertTime(end)]);
+        start = new Date(end.getTime() + breakMin);
+        end = new Date(start.getTime() + classMin);
+      }
+      this.times = times;
+    },
+    convertTime(t) {
+      return t
+        .toTimeString()
+        .split(" ")[0]
+        .slice(0, 5);
     }
   }
 };
