@@ -19,6 +19,7 @@ export default {
     SCHOOL_EX_LOGIN_URL: "/school/api/ex_login/",
     SCHOOL_REGISTER: "/school/api/register/",
     SCHOOL_USER_ACITVE_URL: "/school/api/active/",
+    SCHOOL_GET_COMROOM_URL: "/school/api/comrooms/",
 
     /** timetable **/
     TIMETABLE_VALID_URL: "/timetable/api/",
