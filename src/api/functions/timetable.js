@@ -11,6 +11,25 @@ import API_URL from "Api/url";
  * **/
 
 export default {
+    set_comroom(component, room) {
+        component.isSending = true
+
+        const REQUEST_URL = API_URL.COMROOM_URL + room.id + '/';
+
+        const reqData = {
+            name: room.name,
+            caption: room.description,
+        }
+
+        api.patch(REQUEST_URL, reqData)
+            .then((response) => {
+                Vue.$log.debug(response.status)
+                component.isSending = false
+            })
+            .catch((err) => {
+                Vue.$log.error(err)
+            })
+    },
     set_start_time(component) {
         const REQUEST_URL = API_URL.MAP_TIME_URL;
 
@@ -55,7 +74,7 @@ export default {
             })
     },
     get_comroom(component) {
-        const REQUEST_URL = API_URL.SCHOOL_GET_COMROOM_URL;
+        const REQUEST_URL = API_URL.SCHOOL_GET_COMROOMS_URL;
 
         api.get(REQUEST_URL + component.$session.get('school_id'))
             .then((response) => {
