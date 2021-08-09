@@ -19,7 +19,8 @@ export default {
     SCHOOL_EX_LOGIN_URL: "/school/api/ex_login/",
     SCHOOL_REGISTER: "/school/api/register/",
     SCHOOL_USER_ACITVE_URL: "/school/api/active/",
-    SCHOOL_GET_COMROOM_URL: "/school/api/comrooms/",
+    SCHOOL_GET_COMROOMS_URL: "/school/api/comrooms/",
+    COMROOM_URL: "/school/comroom/",
     SCHOOL_GET_ALL_TIMETABLE_URL: "/school/api/get-all-timetable/",
 
     /** timetable **/
