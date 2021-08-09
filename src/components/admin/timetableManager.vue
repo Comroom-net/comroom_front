@@ -5,7 +5,20 @@
         <span>{{ new Date(item.reg_date).toLocaleString() }}</span>
       </template>
       <template v-slot:item.delete="{ item }">
-        <v-btn color="error" @click="deleteTime(item.id)">삭제</v-btn>
+        <v-menu top offset-y close-on-content-click>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="error" dark v-bind="attrs" v-on="on">삭제</v-btn>
+          </template>
+          <v-card>
+            <v-card-text>
+              <p>정말 해당 시간표를 삭제하시겠습니까?</p>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="error" @click="deleteTime(item.id)">삭제</v-btn>
+              <v-btn color="info">취소</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-menu>
       </template>
     </v-data-table>
   </div>
