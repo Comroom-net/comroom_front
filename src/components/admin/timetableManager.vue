@@ -5,7 +5,7 @@
         <span>{{ new Date(item.reg_date).toLocaleString() }}</span>
       </template>
       <template v-slot:item.delete="{ item }">
-        <v-btn color="error">삭제</v-btn>
+        <v-btn color="error" @click="deleteTime(item.id)">삭제</v-btn>
       </template>
     </v-data-table>
   </div>
@@ -38,6 +38,11 @@ export default {
   },
   mounted() {
     api.get_all_timetable(this);
+  },
+  methods: {
+    deleteTime(idx) {
+      api.delete_time(this, idx);
+    }
   }
 };
 </script>

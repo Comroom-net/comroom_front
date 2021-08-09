@@ -11,6 +11,18 @@ import API_URL from "Api/url";
  * **/
 
 export default {
+    delete_time(component, idx) {
+        const REQUEST_URL = API_URL.TIMETABLE_URL + idx + '/';
+
+        api.delete(REQUEST_URL)
+            .then((response) => {
+                Vue.$log.debug(response.status)
+                this.get_all_timetable(component)
+            })
+            .catch((err) => {
+                Vue.$log.error(err)
+            })
+    },
     set_comroom(component, room) {
         component.isSending = true
 
