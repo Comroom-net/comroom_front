@@ -28,7 +28,7 @@ export default {
 
         const reqData = {
             fixed_day: component.day,
-            fixed_time: component.time,
+            fixed_time: component.time + 1,
             fixed_name: component.title,
             fixed_from: component.start_date,
             fixed_until: component.end_date,
