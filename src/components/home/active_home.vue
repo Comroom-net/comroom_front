@@ -26,7 +26,7 @@ export default {
           routeName: "roomManager"
         },
         {
-          name: "시간표 수정",
+          name: "예약시간 수정",
           routeName: "timeManager"
         },
         {
@@ -34,7 +34,7 @@ export default {
           routeName: "fixedTime"
         },
         {
-          name: "시간표 설정",
+          name: "일과시간 설정",
           routeName: "timeMap"
         }
       ]
