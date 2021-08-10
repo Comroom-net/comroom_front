@@ -5,7 +5,7 @@
     <v-data-table :headers="headers" :items="timetables" :items-per-page="5" class="elevation-1">
       <template v-slot:item.fixed_day="{ item }">{{dayOfWeek[item.fixed_day][0]}}</template>
       <template v-slot:item.delete="{ item }">
-        <v-btn color="error">삭제</v-btn>
+        <v-btn color="error" @click="deleteFix(item.id)">삭제</v-btn>
       </template>
     </v-data-table>
     <div>
@@ -173,6 +173,9 @@ export default {
     api.get_start_time(this);
   },
   methods: {
+    deleteFix(idx) {
+      api.delete_fix(this, idx);
+    },
     newFix() {
       if (this.$refs.form.validate()) api.add_new_fixed(this);
     },

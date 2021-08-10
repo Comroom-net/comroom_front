@@ -11,6 +11,18 @@ import API_URL from "Api/url";
  * **/
 
 export default {
+    delete_fix(component, idx) {
+        const REQUEST_URL = API_URL.FIXED_TIME_URL + idx + '/';
+
+        api.delete(REQUEST_URL)
+            .then((response) => {
+                Vue.$log.debug(response.status)
+                this.get_all_fixed_times(component)
+            })
+            .catch((err) => {
+                Vue.$log.error(err)
+            })
+    },
     add_new_fixed(component) {
         const REQUEST_URL = API_URL.FIXED_TIME_URL
 
