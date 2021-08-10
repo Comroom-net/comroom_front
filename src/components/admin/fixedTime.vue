@@ -122,7 +122,7 @@ export default {
   name: "FixedTime",
   data() {
     return {
-      rules: [v => !!v || "required"],
+      rules: [v => v != null || "required"],
       isFixedTime: true,
       year: new Date().getFullYear(),
       day: null,
