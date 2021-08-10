@@ -11,6 +11,31 @@ import API_URL from "Api/url";
  * **/
 
 export default {
+    add_new_fixed(component) {
+        const REQUEST_URL = API_URL.FIXED_TIME_URL
+
+        const reqData = {
+            fixed_day: component.day,
+            fixed_time: component.time,
+            fixed_name: component.title,
+            fixed_from: component.start_date,
+            fixed_until: component.end_date,
+            school: component.$session.get("school_id"),
+            comroom_id: component.room
+        }
+
+        Vue.$log.debug("add new fixed", reqData)
+
+        api.post(REQUEST_URL, reqData)
+            .then((response) => {
+                Vue.$log.debug(response.status)
+                this.get_all_fixed_times(component)
+                component.$refs.form.reset()
+            })
+            .catch((err) => {
+                Vue.$log.error(err)
+            })
+    },
     delete_time(component, idx) {
         const REQUEST_URL = API_URL.TIMETABLE_URL + idx + '/';
 
@@ -65,6 +90,7 @@ export default {
                 Vue.$log.debug(response)
                 if (response.data) {
                     component.startTime = response.data['start_time']
+                    if (component.isFixedTime) component.makeTimes()
                         // component.startTime = component.selectTimes.findIndex(ele => ele == response.data['start_time'])
                 }
                 return response.data['start_time']
