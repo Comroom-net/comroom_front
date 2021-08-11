@@ -5,7 +5,7 @@ const API_VERSION = "";
 
 export default {
     API_URL: `http://api.comroom.net/${API_VERSION}`, //기본 베이스 URL
-    TEST_URL: `http://test-api.comroom.net/${API_VERSION}`, //임시 테스트 URL
+    TEST_URL: `http://dev-api.comroom.net/${API_VERSION}`, //임시 테스트 URL
     DEVELOPMENT_URL: `http://localhost:8000/${API_VERSION}`,
     BASE_URL: 'http://comroom.net',
     LOCAL_URL: `http://localhost:8080/${API_VERSION}`,
