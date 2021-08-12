@@ -136,6 +136,7 @@ export default {
             })
     },
     get_monthly(component) {
+        // TODO: add fixed timetable
         const REQUEST_URL = API_URL.TIMETABLE_URL;
 
         let cal_info = {
@@ -156,31 +157,72 @@ export default {
                     // Vue.$log.debug(`time tables = ${timetables[0].grade}`);
                 let events = []
                 timetables.forEach(function(event) {
-                    let name = `${event.grade}학년 ${event.classNo}반`
-                    const realTime = get_realtime(event.time - 1)
-                    events.push({
-                        name: name,
-                        start: new Date(`${event.date}T${realTime[0]}`),
-                        end: new Date(`${event.date}T${realTime[1]}`),
-                        color: get_event_color(event.time - 1),
-                        timed: true,
-                        details: `${event.teacher} 선생님`,
-                        schoolTime: event.time
-                    })
+                        let name = `${event.grade}학년 ${event.classNo}반`
+                        const realTime = get_realtime(event.time - 1)
+                        events.push({
+                            name: name,
+                            start: new Date(`${event.date}T${realTime[0]}`),
+                            end: new Date(`${event.date}T${realTime[1]}`),
+                            color: get_event_color(event.time - 1),
+                            timed: true,
+                            details: `${event.teacher} 선생님`,
+                            schoolTime: event.time
+                        })
 
-                })
-                component.events = events
-                return events;
+                    })
+                    // component.events = events
+                component.events.push(...events)
             }).catch((error) => {
                 Vue.$log.debug(error);
+            })
+    },
+    get_fixed_monthly(component) {
+        const REQUEST_URL = API_URL.FIXED_TIME_URL;
+
+        let cal_info = {
+            ymc: `${component.year}-${component.month}-${component.roomNo + 1}`,
+        }
+
+        const get_event_color = this._get_event_color
+        const get_realtime = this._get_realtime
+
+        api.get(REQUEST_URL, { params: cal_info })
+            .then((response) => {
+                let timetables = response["data"]["results"]
+                let events = []
+                timetables.forEach(function(fix) {
+                    let endDate = new Date(fix.fixed_until).getTime()
+                    let fixedDay = fix.fixed_day + 1
+                    var tmpDate = new Date(fix.fixed_from)
+                    let aDay = 24 * 60 * 60 * 1000
+                    while (tmpDate.getTime() <= endDate) {
+                        if (tmpDate.getDay() == fixedDay) {
+                            const realTime = get_realtime(fix.fixed_time - 1)
+                            var month = ("0" + (tmpDate.getMonth() + 1)).slice(-2);
+                            var day = ("0" + tmpDate.getDate()).slice(-2);
+                            var d = `${tmpDate.getFullYear()}-${month}-${day}`
+                            events.push({
+                                name: fix.fixed_name,
+                                start: new Date(`${d}T${realTime[0]}`),
+                                end: new Date(`${d}T${realTime[1]}`),
+                                color: get_event_color(fix.fixed_time - 1),
+                                timed: true,
+                                details: fix.fixed_name,
+                                schoolTime: fix.fixed_time
+                            })
+                        }
+                        tmpDate = new Date(tmpDate.getTime() + aDay)
+                    }
+                })
+                component.events.push(...events)
+
             })
     },
     get_all_fixed_times(component) {
         const REQUEST_URL = API_URL.FIXED_TIME_URL;
 
         let cal_info = {
-            school: component.$session.get("school_id"),
-            year: component.year,
+            ys: `${component.year}-${component.$session.get("school_id")}`,
         }
 
         api.get(REQUEST_URL, { params: cal_info })

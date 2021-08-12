@@ -192,8 +192,9 @@ export default {
     updateRange({ start, end }) {
       this.month = start.month;
       this.year = start.year;
-
+      this.events = [];
       api.get_monthly(this);
+      api.get_fixed_monthly(this);
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
@@ -203,7 +204,9 @@ export default {
     },
     changeRoom(roomNo) {
       this.roomNo = roomNo;
+      this.events = [];
       api.get_monthly(this);
+      api.get_fixed_monthly(this);
     }
   }
 };
