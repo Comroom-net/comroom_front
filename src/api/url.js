@@ -15,6 +15,7 @@ export default {
 
     /** school **/
     SCHOOL_SIGNUP_URL: "/school/",
+    SCHOOL_NOTICE_URL: "/school/notice/",
     SCHOOL_LOGIN_URL: "/school/api/login/",
     SCHOOL_EX_LOGIN_URL: "/school/api/ex_login/",
     SCHOOL_REGISTER: "/school/api/register/",

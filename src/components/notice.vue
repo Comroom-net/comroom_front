@@ -18,8 +18,7 @@
 
 <script>
 import moment from "moment";
-
-const axios = require("axios");
+import api from "Api/fucntions/common";
 
 export default {
   name: "Notice",
@@ -30,15 +29,7 @@ export default {
   },
   methods: {},
   created: function() {
-    axios
-      .get("http://localhost:8000/school/notice/")
-      .then(response => {
-        this.notices = response.data.results;
-        this.$log.debug(this.notices);
-      })
-      .catch(err => {
-        this.$log.error(err);
-      });
+    api.getNotice(this);
   },
   filters: {
     formatDate: function(value) {
