@@ -18,7 +18,7 @@
 
 <script>
 import moment from "moment";
-import api from "Api/fucntions/common";
+import api from "Api/functions/common";
 
 export default {
   name: "Notice",
