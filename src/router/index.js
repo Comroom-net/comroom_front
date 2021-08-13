@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import home from '@/views/home'
 
 import About from '@/views/common/about'
-import Howto from '@/views/common/Howto'
+import Howto from '@/views/common/howto'
 import Whatis from '@/views/common/whatis'
 import Faq from '@/views/common/faq'
 import Nocookie from '@/views/common/nocookie'
