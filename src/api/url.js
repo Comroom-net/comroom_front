@@ -30,6 +30,10 @@ export default {
     FIXED_TIME_URL: "/timetable/api/fixed/",
     MAP_TIME_URL: "/timetable/api/map/",
 
+    /** ETC **/
+    ETC_NOTICE_NOCOOKIE_URL: "/etc/nocookie/",
+    ETC_DISABLED_CHANNEL_URL: "/etc/disabled-ch/",
+
     /** users **/
     USERS_ME_URL: "/users/me", //회원 정보 확인
     USERS_USERINFO_URL: (id) => { //회원 정보 갱신
