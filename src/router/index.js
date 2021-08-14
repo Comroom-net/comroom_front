@@ -23,6 +23,8 @@ import TimeMap from '@/components/admin/timeMap'
 import TimetableManager from '@/components/admin/timetableManager'
 import RoomManager from '@/components/admin/roomManager'
 
+import OrderPage from '@/views/namu/order_page'
+
 Vue.use(Router)
 
 export default new Router({
@@ -130,7 +132,10 @@ export default new Router({
         component: Timetable,
         props: (route) => ({ school: route.query.school })
     },
-
+    {
+        path: '/namu',
+        component: OrderPage
+    }
 
     ]
 })
