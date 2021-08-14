@@ -20,8 +20,8 @@
         label="원본 유튜브 링크"
       ></v-text-field>
       <div class="buttons">
-        <v-btn id="option_title" @click="more_options">{{optionBtnText}}</v-btn>
-        <v-btn id="option_reset_btn" @click="reset_options" v-show="showResetBtn">옵션 초기화</v-btn>
+        <v-btn id="option_title" @click="moreOptions">{{optionBtnText}}</v-btn>
+        <v-btn id="option_reset_btn" @click="reset_options" v-show="showMoreOptions">옵션 초기화</v-btn>
       </div>
 
       <div id="options" class="mt-1" v-show="showMoreOptions">
@@ -33,23 +33,23 @@
         <v-switch v-model="showTimeline" label="타임라인 표시" color="info" hide-details></v-switch>
       </div>
       <v-btn @click="convert_url" :disabled="!!!inputUrl">변환</v-btn>
-      <div class="row mt-3" id="converted_title" style="display: none;">
+      <div class="row mt-3" id="converted_title" v-show="!!result">
         <div class="col-12">
           <h5>변환된 링크</h5>
         </div>
       </div>
-      <p id="result"></p>
+      <p id="result" v-show="!!result">{{result}}</p>
       <div
         id="copied"
         class="alert alert-success mt-3"
         role="alert"
-        style="display: none;"
+        v-show="isCopied"
       >클립보드에 복사되었습니다! :)</div>
       <div
         id="wrong_url"
         class="alert alert-danger mt-3"
         role="alert"
-        style="display: none;"
+        v-show="isInvalid"
       >링크를 확인해주세요 😥</div>
     </div>
     <div class="row mt-3">
@@ -104,7 +104,6 @@ export default {
     return {
       inputUrl: null,
       showMoreOptions: false,
-      showResetBtn: false,
       start: null,
       end: null,
       checkboxOpts: [
@@ -126,7 +125,10 @@ export default {
       autoplay: false,
       optionBtnText: "옵션 보기",
       notices: [],
-      disabledChannels: []
+      disabledChannels: [],
+      result: null,
+      isInvalid: false,
+      isCopied: false
     };
   },
   created() {
@@ -135,7 +137,7 @@ export default {
   },
   methods: {
     convert_url() {
-      if (valid_url(this.inputUrl)) {
+      if (this.valid_url(this.inputUrl)) {
         const nocookie_prefix = "https://www.youtube-nocookie.com/embed/";
         var temp = this.inputUrl.split("/");
         temp = temp[temp.length - 1];
@@ -147,8 +149,8 @@ export default {
           temp = temp.split("?")[0];
         }
         var video_id = temp;
-        var result = nocookie_prefix + video_id + "?rel=0" + options();
-        document.getElementById("result").innerText = result;
+        var result = nocookie_prefix + video_id + "?rel=0" + this.options();
+        this.result = result;
 
         // copy url to clipboard
         var tempElem = document.createElement("textarea");
@@ -158,65 +160,40 @@ export default {
         tempElem.select();
         document.execCommand("copy");
         document.body.removeChild(tempElem);
-        document.getElementById("copied").style.display = "block";
-        document.getElementById("converted_title").style.display = "block";
-        document.getElementById("wrong_url").style.display = "none";
+        this.isCopied = true;
+        this.isInvalid = false;
       } else {
-        document.getElementById("wrong_url").style.display = "block";
-        document.getElementById("copied").style.display = "none";
-        document.getElementById("converted_title").style.display = "none";
-        document.getElementById("result").innerText = "";
+        this.isInvalid = true;
+        this.isCopied = false;
+        this.result = null;
       }
     },
-    more_options() {
-      this.showMoreOptions = true;
-      this.optionBtnText = "옵션 닫기";
-      this.showResetBtn = true;
-      var x = document.getElementById("options");
-      var reset_btn = document.getElementById("option_reset_btn");
-      var o_title = document.getElementById("option_title");
-      if (x.style.display == "none") {
-        x.style.display = "block";
-        o_title.innerText = "옵션 닫기";
-        reset_btn.style.display = "inline";
-      } else {
-        x.style.display = "none";
-        o_title.innerText = "옵션 보기";
-        reset_btn.style.display = "none";
-      }
+    moreOptions() {
+      this.showMoreOptions = !this.showMoreOptions;
+      this.optionBtnText = this.showMoreOptions ? "옵션 닫기" : "옵션 보기";
     },
     reset_options() {
-      var start = document.getElementById("start");
-      var end = document.getElementById("end");
-      var disablekb = document.getElementById("disablekb");
-      var contorls = document.getElementById("contorls");
-      var autoplay = document.getElementById("autoplay");
-      start.value = NaN;
-      end.value = NaN;
-      disablekb.checked = false;
-      controls.checked = 1;
-      autoplay.checked = false;
+      this.start = null;
+      this.end = null;
+      this.keyboardDisable = false;
+      this.autoplay = false;
+      this.showTimeline = true;
     },
     options() {
-      var start = document.getElementById("start");
-      var end = document.getElementById("end");
-      var disablekb = document.getElementById("disablekb");
-      var controls = document.getElementById("controls");
-      var autoplay = document.getElementById("autoplay");
       var url_suffix = "";
-      if (start.value) {
-        url_suffix += "&start=" + start.value;
+      if (!!this.start) {
+        url_suffix += "&start=" + this.start;
       }
-      if (end.value) {
-        url_suffix += "&end=" + end.value;
+      if (!!this.end) {
+        url_suffix += "&end=" + this.end;
       }
-      if (autoplay.checked) {
+      if (!!this.autoplay) {
         url_suffix += "&autoplay=1&mute=1";
       }
-      if (disablekb.checked) {
+      if (!!this.keyboardDisable) {
         url_suffix += "&disablekb=1";
       }
-      if (!controls.checked) {
+      if (!!!this.showTimeline) {
         url_suffix += "&controls=0";
       }
 
