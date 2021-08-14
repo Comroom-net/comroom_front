@@ -11,64 +11,28 @@
           <h5>링크입력</h5>
         </div>
       </div>
-      <input
-        type="text"
-        class="form-control"
-        id="input_url"
-        placeholder="복사한 유튜브 링크를 붙여넣기 하세요"
+
+      <v-text-field
         v-model="inputUrl"
-      />
+        placeholder="복사한 유튜브 링크를 붙여넣기 하세요"
+        filled
+        rounded
+        label="원본 유튜브 링크"
+      ></v-text-field>
       <div class="buttons">
-        <v-btn
-          id="option_title"
-          class="btn btn-sm btn-outline-primary"
-          @click="more_options"
-        >{{optionBtnText}}</v-btn>
-        <v-btn
-          id="option_reset_btn"
-          class="btn btn-sm btn-outline-secondary"
-          @click="reset_options"
-          v-show="showResetBtn"
-        >옵션 초기화</v-btn>
+        <v-btn id="option_title" @click="more_options">{{optionBtnText}}</v-btn>
+        <v-btn id="option_reset_btn" @click="reset_options" v-show="showResetBtn">옵션 초기화</v-btn>
       </div>
 
       <div id="options" class="mt-1" v-show="showMoreOptions">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">시작지점</span>
-          </div>
-          <input type="number" class="form-control" aria-label="start point" id="start" />
-          <div class="input-group-append">
-            <span class="input-group-text">초</span>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">종료지점</span>
-          </div>
-          <input type="number" class="form-control" aria-label="end point" id="end" />
-          <div class="input-group-append">
-            <span class="input-group-text">초</span>
-          </div>
-        </div>
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="autoplay" />
-          <label class="custom-control-label" for="autoplay">자동실행(음소거)</label>
-        </div>
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="disablekb" />
-          <label class="custom-control-label" for="disablekb">키보드로 건너뛰기 금지</label>
-        </div>
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="controls" checked />
-          <label class="custom-control-label" for="controls">타임라인 표시</label>
-        </div>
+        <v-text-field v-model="start" label="시작지점" suffix="초" type="number"></v-text-field>
+        <v-text-field v-model="end" label="종료지점" suffix="초" type="number"></v-text-field>
+
+        <v-switch v-model="autoplay" label="자동실행(음소거)" color="info" hide-details></v-switch>
+        <v-switch v-model="keyboardDisable" label="키보드로 건너뛰기 금지" color="info" hide-details></v-switch>
+        <v-switch v-model="showTimeline" label="타임라인 표시" color="info" hide-details></v-switch>
       </div>
-      <div class="row">
-        <!-- <div class="col-12"> -->
-        <button id="convert-btn" class="btn btn-primary mx-auto" onclick="convert_url()">변환</button>
-        <!-- </div> -->
-      </div>
+      <v-btn @click="convert_url" :disabled="!!!inputUrl">변환</v-btn>
       <div class="row mt-3" id="converted_title" style="display: none;">
         <div class="col-12">
           <h5>변환된 링크</h5>
@@ -141,6 +105,25 @@ export default {
       inputUrl: null,
       showMoreOptions: false,
       showResetBtn: false,
+      start: null,
+      end: null,
+      checkboxOpts: [
+        {
+          label: "자동실행(음소거)",
+          value: false
+        },
+        {
+          label: "키보드로 건너뛰기 금지",
+          value: false
+        },
+        {
+          label: "키보드로 건너뛰기 금지",
+          value: false
+        }
+      ],
+      keyboardDisable: false,
+      showTimeline: true,
+      autoplay: false,
       optionBtnText: "옵션 보기",
       notices: [],
       disabledChannels: []
@@ -153,9 +136,9 @@ export default {
   methods: {
     convert_url() {
       if (valid_url(this.inputUrl)) {
-        var nocookie_prefix = "https://www.youtube-nocookie.com/embed/";
-        var temp = origin.split("/");
-        var temp = temp[temp.length - 1];
+        const nocookie_prefix = "https://www.youtube-nocookie.com/embed/";
+        var temp = this.inputUrl.split("/");
+        temp = temp[temp.length - 1];
         if (temp.startsWith("watch")) {
           temp = temp.split("=")[1];
           temp = temp.split("&")[0];
