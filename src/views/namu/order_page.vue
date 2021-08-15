@@ -5,156 +5,38 @@
       <tr>
         <td colspan="2" class="title">Coffee</td>
       </tr>
-      <tr>
-        <td>아메리카노</td>
+      <tr v-for="(coffee, cid) in coffees" :key="cid">
+        <td>{{coffee}}</td>
         <td>
           <button type="button" class="btn btn-outline-primary btn-sm add" id="americano_ice">ICE</button>
           <button type="button" class="btn btn-outline-danger btn-sm add" id="americano_hot">HOT</button>
         </td>
       </tr>
       <tr>
-        <td>바닐라 라떼</td>
-        <td>
-          <button type="button" class="btn btn-outline-primary btn-sm add" id="banila_latte_ice">ICE</button>
-          <button type="button" class="btn btn-outline-danger btn-sm add" id="banila_latte_hot">HOT</button>
-        </td>
-      </tr>
-      <tr>
-        <td>카페라떼</td>
-        <td>
-          <button type="button" class="btn btn-outline-primary btn-sm add" id="cafelatte_ice">ICE</button>
-          <button type="button" class="btn btn-outline-danger btn-sm add" id="cafelatte_hot">HOT</button>
-        </td>
-      </tr>
-      <tr>
-        <td>카페모카</td>
-        <td>
-          <button type="button" class="btn btn-outline-primary btn-sm add" id="cafe_mocca_ice">ICE</button>
-          <button type="button" class="btn btn-outline-danger btn-sm add" id="cafe_mocca_hot">HOT</button>
-        </td>
-      </tr>
-      <tr>
         <td colspan="2" class="title">Latte</td>
       </tr>
-      <tr>
-        <td>초코라떼</td>
+      <tr v-for="(latte, lid) in lattes" :key="lid">
+        <td>{{latte}}</td>
         <td>
           <button type="button" class="btn btn-outline-primary btn-sm add" id="choco_latte_ice">ICE</button>
           <button type="button" class="btn btn-outline-danger btn-sm add" id="choco_latte_hot">HOT</button>
         </td>
       </tr>
-      <tr>
-        <td>말차라떼</td>
-        <td>
-          <button
-            type="button"
-            class="btn btn-outline-primary btn-sm add"
-            id="greentea_latte_ice"
-          >ICE</button>
-          <button
-            type="button"
-            class="btn btn-outline-danger btn-sm add"
-            id="greentea_latte_hot"
-          >HOT</button>
-        </td>
-      </tr>
+
       <tr>
         <td colspan="2" class="title">Ade</td>
       </tr>
       <tr>
-        <td>
-          <button type="button" class="btn btn-outline-primary btn-sm ade" id="ice_tea">복숭아 아이스티</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-primary btn-sm ade" id="ice_tea">청포도 에이드</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" class="btn btn-outline-primary btn-sm ade">레몬 에이드</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-primary btn-sm ade">망고 에이드</button>
+        <td v-for="(ade, index) in ades" :key="index">
+          <button type="button" class="btn btn-outline-primary btn-sm ade" id="ice_tea">{{ade}}</button>
         </td>
       </tr>
       <tr>
         <td colspan="2" class="title">Tea</td>
       </tr>
-      <tr>
+      <tr v-for="(tea, index) in teas" :key="index">
         <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">팬넬</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">그린앤젤</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">클래식그린</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">자스민</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">마운틴허브</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">루이보스 바닐라</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">로즈힙</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">얼그레이</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">버베나</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">다즐링</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">케모마일</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">잉글리쉬 브렉퍼스트</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">실버라임 블라썸</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">레드베리</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">페퍼민트</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">원더드림</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">스윗진저</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">레몬스카이</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm ade">아쌈</button>
+          <button type="button" class="btn btn-outline-danger btn-sm ade">{{tea}}</button>
         </td>
       </tr>
     </table>
@@ -173,14 +55,47 @@
         id="order_fail"
         style="display: none;"
       >주문이나 요청사항을 입력해주세요 :)</div>
-      <ul id="kart"></ul>
+      <ul id="kart">
+        <li v-for="order in orders" :key="order.id">
+          {{order}}
+          <span class="cancel">
+            <svg
+              class="bi bi-x-square"
+              width="1em"
+              height="1em"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
+              />
+            </svg>
+          </span>
+        </li>
+      </ul>
       <h4>요청사항</h4>
-      <textarea name="request" id="request" cols="30" rows="4" placeholder="다른 필요한게 있으면 적어주세요 :)"></textarea>
+      <textarea
+        name="request"
+        id="request"
+        cols="30"
+        rows="4"
+        placeholder="다른 필요한게 있으면 적어주세요 :)"
+        v-model="request"
+      ></textarea>
       <br />
       <button class="btn btn-outline-info" id="order">주문</button>
     </div>
     <form action="/namu/order_msg" method="post" style="display: none;" id="order_form">
-      {% csrf_token %}
       <textarea name="order_list" id="order_list" cols="30" rows="10"></textarea>
     </form>
   </div>
@@ -188,7 +103,7 @@
 
 <script>
 export default {
-  name: "Namu",
+  name: "OrderPage",
   created() {},
   data() {
     return {
@@ -215,58 +130,39 @@ export default {
         "스윗진저",
         "레몬스카이",
         "아쌈"
-      ]
+      ],
+      orderFail: false,
+      orders: [],
+      request: null
     };
   },
-  methods: {}
+  methods: {
+    addMenu(menu) {
+      this.$log.debug(menu);
+      this.orders.push(menu);
+      this.orderFail = false;
+    },
+    cancelMenu(idx) {
+      this.orders.pop(idx);
+    },
+    sendOrder() {
+      this.orderFail = false;
+      if (this.validOrder()) {
+        // api
+      }
+    },
+    validOrder() {
+      if (!!!this.orders && !!!this.request) {
+        this.orderFail = true;
+        return false;
+      }
+      return true;
+    }
+  }
 };
 
-$(".add").click(function() {
-  console.log("add btn clicked");
-  $("#order_fail").hide();
-  let menu = $(this)
-    .closest("td")
-    .prev()
-    .text();
-  let order_option = $(this).text();
-  console.log(order_option);
-  if (!order_option.includes("추가")) {
-    menu += " " + order_option;
-  }
-  let delete_icon =
-    ' <span class="cancel"><svg class="bi bi-x-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
-            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>\
-            <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>\
-            <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>\
-          </svg></span>';
-  menu = "<li>" + menu + delete_icon + "</li>";
-  $("#kart").append(menu);
-});
-$(".ade").click(function() {
-  console.log("ade btn clicked");
-  $("#order_fail").hide();
-  let menu = $(this).text();
-  let delete_icon =
-    ' <span class="cancel"><svg class="bi bi-x-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
-            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>\
-            <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>\
-            <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>\
-          </svg></span>';
-  menu = "<li>" + menu + delete_icon + "</li>";
-  $("#kart").append(menu);
-});
-$(document).on("click", "span.cancel", function() {
-  console.log("cancel clicked");
-  let item = $(this).parent("li");
-  item.remove();
-});
-$("#request").click(function() {
-  $("#order_fail").hide();
-});
-
-$("#order").click(function() {
+function order() {
   if (valid_order()) {
-    console.log("send order msg");
     let kart = $("#kart").children("li");
     let order_list = [];
     jQuery.each(kart, function(i, val) {
@@ -288,17 +184,6 @@ $("#order").click(function() {
     $("#kart").empty();
     $("#order_form").submit();
   }
-});
-function valid_order() {
-  let kart = $("#kart").text();
-  kart = $.trim(kart);
-  let extra = $("#request").val();
-  if ((kart == "") & (extra == "")) {
-    console.log("empty");
-    $("#order_fail").show();
-    return false;
-  }
-  return true;
 }
 </script>
 
