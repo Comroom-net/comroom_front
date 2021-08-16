@@ -74,7 +74,7 @@
         class="alert alert-primary"
         role="alert"
         id="order_success"
-        style="display: none;"
+        v-show="isSending"
       >주문처리 중 잠시만 기다려주세요 :)</div>
       <div
         class="alert alert-danger"
@@ -93,7 +93,7 @@
       <h4>요청사항</h4>
       <v-textarea solo name="request" label="다른 필요한게 있으면 적어주세요 :)" v-model="request"></v-textarea>
       <br />
-      <button class="btn btn-outline-info" @click="sendOrder">주문</button>
+      <button class="btn btn-outline-info" @click="sendOrder" :disabled="isSending">주문</button>
     </div>
     <form action="/namu/order_msg" method="post" style="display: none;" id="order_form">
       <textarea name="order_list" id="order_list" cols="30" rows="10"></textarea>
@@ -144,7 +144,8 @@ export default {
       orderFail: false,
       orders: [],
       request: null,
-      room: null
+      room: null,
+      isSending: false
     };
   },
   methods: {
@@ -159,6 +160,7 @@ export default {
     sendOrder() {
       this.orderFail = false;
       if (this.validOrder()) {
+        this.isSending = true;
         api.sendOrder(this);
         this.orders = [];
         this.request = null;
