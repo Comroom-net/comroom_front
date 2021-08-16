@@ -73,13 +73,14 @@
               name="new_ch"
               type="text"
               class="form-control"
-              placeholder="채널명"
+              placeholder="현재 보수중입니다. ssamko@kakao.com로 제보해주세요."
               aria-label="채널명"
               aria-describedby="button-addon2"
               required
+              disabled
             />
             <div class="input-group-append">
-              <button class="btn btn-outline-info" type="submit" id="button-addon2">전송</button>
+              <button class="btn btn-outline-info" type="submit" id="button-addon2" disabled>전송</button>
             </div>
           </div>
         </form>
