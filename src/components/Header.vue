@@ -16,7 +16,7 @@
           <b-nav-item href="/howto">How to</b-nav-item>
           <b-nav-item href="/FAQ">FAQ</b-nav-item>
           <b-nav-item-dropdown text="ETC">
-            <b-dropdown-item href="/etc/nocookie">유튜브nocookie</b-dropdown-item>
+            <b-dropdown-item href="/nocookie">유튜브nocookie</b-dropdown-item>
             <b-dropdown-item href="#" disabled>G-suite</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
