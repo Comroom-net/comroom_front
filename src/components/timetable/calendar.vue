@@ -70,11 +70,16 @@
           <template v-slot:event="{event}">
             <div class="fill-height pl-2">{{event.schoolTime}}교시 {{event.name}}</div>
           </template>
-          <template v-slot:day-label="{day}">
+          <template v-slot:day-label-header="{day}">
             <!-- <v-btn color="primary" fab small dark>{{day}}</v-btn>
             <v-btn fab x-small color="cyan">
               <v-icon>mdi-plus</v-icon>
             </v-btn>-->
+          </template>
+          <template #day-header v-if="type == 'day'">
+            <div class="pa-3">
+              <h4>{{ rooms[roomNo].description }}</h4>
+            </div>
           </template>
         </v-calendar>
         <v-menu
