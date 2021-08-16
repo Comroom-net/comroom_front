@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>{{room}}방</h3>
     <h4>MENU</h4>
     <v-container>
       <v-row>
