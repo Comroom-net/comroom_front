@@ -34,6 +34,10 @@ export default {
     ETC_NOTICE_NOCOOKIE_URL: "/etc/nocookie/",
     ETC_DISABLED_CHANNEL_URL: "/etc/disabled-ch/",
 
+    /** NAMU **/
+    NAMU_ORDER_URL: "/namu/api/order/",
+    NAMU_TEST_ORDER_URL: "/namu/api/msg-test/",
+
     /** users **/
     USERS_ME_URL: "/users/me", //회원 정보 확인
     USERS_USERINFO_URL: (id) => { //회원 정보 갱신
