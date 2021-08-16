@@ -134,8 +134,22 @@ export default new Router({
     },
     {
         path: '/namu',
-        component: OrderPage
-    }
+        component: OrderPage,
+        beforeEnter: (to, from, next) => {
+            if (Vue.prototype.$session.get('namuRoom') == null) {
+                next('/')
+            } else next()
+        }
+    },
+    {
+        path: '/namu/room/:name',
+        beforeEnter: (to, from, next) => {
+            const name = to.params.name
+            Vue.prototype.$session.set('namuRoom', name)
+            next('/namu')
+        }
+    },
+
 
     ]
 })
