@@ -1,25 +1,44 @@
 <template>
   <div>
+    <h3>{{room}}방</h3>
     <h4>MENU</h4>
     <v-container>
       <v-row>
         <v-col colspan="2" class="title">Coffee</v-col>
       </v-row>
-      <v-row v-for="(coffee, cid) in coffees" :key="cid">
+      <v-row v-for="(coffee, cid) in coffees" :key="'coffee' + cid">
         <v-col>{{coffee}}</v-col>
         <v-col>
-          <button type="button" class="btn btn-outline-primary btn-sm add" id="americano_ice">ICE</button>
-          <button type="button" class="btn btn-outline-danger btn-sm add" id="americano_hot">HOT</button>
+          <button
+            type="button"
+            class="btn btn-outline-primary btn-sm add"
+            @click="addMenu(coffee, 'ICE')"
+          >ICE</button>
+          <button
+            type="button"
+            class="btn btn-outline-danger btn-sm add"
+            @click="addMenu(coffee, 'HOT')"
+          >HOT</button>
         </v-col>
       </v-row>
       <v-row>
         <v-col colspan="2" class="title">Latte</v-col>
       </v-row>
-      <v-row v-for="(latte, lid) in lattes" :key="lid">
+      <v-row v-for="(latte, lid) in lattes" :key="'latte' + lid">
         <v-col>{{latte}}</v-col>
         <v-col>
-          <button type="button" class="btn btn-outline-primary btn-sm add" id="choco_latte_ice">ICE</button>
-          <button type="button" class="btn btn-outline-danger btn-sm add" id="choco_latte_hot">HOT</button>
+          <button
+            type="button"
+            class="btn btn-outline-primary btn-sm add"
+            id="choco_latte_ice"
+            @click="addMenu(latte, 'ICE')"
+          >ICE</button>
+          <button
+            type="button"
+            class="btn btn-outline-danger btn-sm add"
+            id="choco_latte_hot"
+            @click="addMenu(latte, 'HOT')"
+          >HOT</button>
         </v-col>
       </v-row>
 
@@ -27,16 +46,24 @@
         <v-col colspan="2" class="title">Ade</v-col>
       </v-row>
       <v-row>
-        <v-col v-for="(ade, index) in ades" :key="index" cols="6" lg="3">
-          <button type="button" class="btn btn-outline-primary btn-sm ade" id="ice_tea">{{ade}}</button>
+        <v-col v-for="(ade, index) in ades" :key="'ade' + index" cols="6" lg="3">
+          <button
+            type="button"
+            class="btn btn-outline-primary btn-sm ade"
+            @click="addMenu(ade)"
+          >{{ade}}</button>
         </v-col>
       </v-row>
       <v-row>
         <v-col colspan="2" class="title">Tea</v-col>
       </v-row>
       <v-row>
-        <v-col v-for="(tea, index) in teas" :key="index" cols="6" lg="3">
-          <button type="button" class="btn btn-outline-danger btn-sm ade">{{tea}}</button>
+        <v-col v-for="(tea, index) in teas" :key="'tea' + index" cols="6" lg="3">
+          <button
+            type="button"
+            class="btn btn-outline-danger btn-sm ade"
+            @click="addMenu(tea)"
+          >{{tea}}</button>
         </v-col>
       </v-row>
     </v-container>
@@ -53,47 +80,20 @@
         class="alert alert-danger"
         role="alert"
         id="order_fail"
-        style="display: none;"
+        v-show="orderFail"
       >주문이나 요청사항을 입력해주세요 :)</div>
       <ul id="kart">
-        <li v-for="order in orders" :key="order.id">
+        <li v-for="(order, idx) in orders" :key="idx">
           {{order}}
-          <span class="cancel">
-            <svg
-              class="bi bi-x-square"
-              width="1em"
-              height="1em"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"
-              />
-            </svg>
-          </span>
+          <v-btn fab text small color="grey darken-2" @click="cancelMenu(idx)">
+            <v-icon small>mdi-close</v-icon>
+          </v-btn>
         </li>
       </ul>
       <h4>요청사항</h4>
-      <textarea
-        name="request"
-        id="request"
-        cols="30"
-        rows="4"
-        placeholder="다른 필요한게 있으면 적어주세요 :)"
-        v-model="request"
-      ></textarea>
+      <v-textarea solo name="request" label="다른 필요한게 있으면 적어주세요 :)" v-model="request"></v-textarea>
       <br />
-      <button class="btn btn-outline-info" id="order">주문</button>
+      <button class="btn btn-outline-info" @click="sendOrder">주문</button>
     </div>
     <form action="/namu/order_msg" method="post" style="display: none;" id="order_form">
       <textarea name="order_list" id="order_list" cols="30" rows="10"></textarea>
@@ -102,9 +102,13 @@
 </template>
 
 <script>
+import api from "Api/functions/namu";
+
 export default {
   name: "OrderPage",
-  created() {},
+  created() {
+    this.room = this.$session.get("namuRoom");
+  },
   computed: {
     cols() {
       const { lg, sm } = this.$vuetify.breakpoint;
@@ -139,58 +143,37 @@ export default {
       ],
       orderFail: false,
       orders: [],
-      request: null
+      request: null,
+      room: null
     };
   },
   methods: {
-    addMenu(menu) {
-      this.$log.debug(menu);
-      this.orders.push(menu);
+    addMenu(menu, type = "") {
+      var ordered = menu + " " + type;
+      this.orders.push(ordered);
       this.orderFail = false;
     },
     cancelMenu(idx) {
-      this.orders.pop(idx);
+      this.orders.splice(idx, 1);
     },
     sendOrder() {
       this.orderFail = false;
       if (this.validOrder()) {
-        // api
+        api.sendOrder(this);
+        this.orders = [];
+        this.request = null;
+        return;
       }
+      this.orderFail = true;
     },
     validOrder() {
-      if (!!!this.orders && !!!this.request) {
-        this.orderFail = true;
+      if (!this.orders.length && !!!this.request) {
         return false;
       }
       return true;
     }
   }
 };
-
-function order() {
-  if (valid_order()) {
-    let kart = $("#kart").children("li");
-    let order_list = [];
-    jQuery.each(kart, function(i, val) {
-      let menu = val.innerHTML.split("<")[0];
-      console.log(menu);
-      order_list.push(menu);
-    });
-    console.log(order_list);
-    let msg = order_list.join("\n");
-    console.log(msg);
-    let extra = $("#request").val();
-    if (extra != "") {
-      extra_msg = "\n추가)\n" + extra;
-      msg += extra_msg;
-    }
-    // send post to telegram api
-    $("#order_list").val(msg);
-    $("#order_success").show();
-    $("#kart").empty();
-    $("#order_form").submit();
-  }
-}
 </script>
 
 <style>
