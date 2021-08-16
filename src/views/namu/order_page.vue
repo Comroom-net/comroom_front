@@ -1,45 +1,45 @@
 <template>
   <div>
     <h4>MENU</h4>
-    <table>
-      <tr>
-        <td colspan="2" class="title">Coffee</td>
-      </tr>
-      <tr v-for="(coffee, cid) in coffees" :key="cid">
-        <td>{{coffee}}</td>
-        <td>
+    <v-container>
+      <v-row>
+        <v-col colspan="2" class="title">Coffee</v-col>
+      </v-row>
+      <v-row v-for="(coffee, cid) in coffees" :key="cid">
+        <v-col>{{coffee}}</v-col>
+        <v-col>
           <button type="button" class="btn btn-outline-primary btn-sm add" id="americano_ice">ICE</button>
           <button type="button" class="btn btn-outline-danger btn-sm add" id="americano_hot">HOT</button>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" class="title">Latte</td>
-      </tr>
-      <tr v-for="(latte, lid) in lattes" :key="lid">
-        <td>{{latte}}</td>
-        <td>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col colspan="2" class="title">Latte</v-col>
+      </v-row>
+      <v-row v-for="(latte, lid) in lattes" :key="lid">
+        <v-col>{{latte}}</v-col>
+        <v-col>
           <button type="button" class="btn btn-outline-primary btn-sm add" id="choco_latte_ice">ICE</button>
           <button type="button" class="btn btn-outline-danger btn-sm add" id="choco_latte_hot">HOT</button>
-        </td>
-      </tr>
+        </v-col>
+      </v-row>
 
-      <tr>
-        <td colspan="2" class="title">Ade</td>
-      </tr>
-      <tr>
-        <td v-for="(ade, index) in ades" :key="index">
+      <v-row>
+        <v-col colspan="2" class="title">Ade</v-col>
+      </v-row>
+      <v-row>
+        <v-col v-for="(ade, index) in ades" :key="index" cols="6" lg="3">
           <button type="button" class="btn btn-outline-primary btn-sm ade" id="ice_tea">{{ade}}</button>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" class="title">Tea</td>
-      </tr>
-      <tr v-for="(tea, index) in teas" :key="index">
-        <td>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col colspan="2" class="title">Tea</v-col>
+      </v-row>
+      <v-row>
+        <v-col v-for="(tea, index) in teas" :key="index" cols="6" lg="3">
           <button type="button" class="btn btn-outline-danger btn-sm ade">{{tea}}</button>
-        </td>
-      </tr>
-    </table>
+        </v-col>
+      </v-row>
+    </v-container>
     <hr />
     <div class="selected">
       <h4>주문목록</h4>
@@ -105,6 +105,12 @@
 export default {
   name: "OrderPage",
   created() {},
+  computed: {
+    cols() {
+      const { lg, sm } = this.$vuetify.breakpoint;
+      return lg ? [3, 9] : sm ? [9, 3] : [6, 6];
+    }
+  },
   data() {
     return {
       coffees: ["아메리카노", "바닐라 라떼", "카페 라떼", "카페모카"],
