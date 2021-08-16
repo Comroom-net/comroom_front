@@ -24,6 +24,7 @@ export default {
                 component.isSending = false
                 Vue.$log.debug(response)
                 Vue.$log.debug(response.data)
+                component.$router.push({ name: 'namuSuccess' })
             })
             .catch((err) => {
                 Vue.$log.error(err)
