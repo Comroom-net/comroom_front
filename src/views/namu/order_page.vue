@@ -7,8 +7,8 @@
         <v-col colspan="2" class="title">Coffee</v-col>
       </v-row>
       <v-row v-for="(coffee, cid) in coffees" :key="'coffee' + cid">
-        <v-col>{{coffee}}</v-col>
-        <v-col>
+        <v-col class="pb-1 pt-0">{{coffee}}</v-col>
+        <v-col class="pb-1 pt-0">
           <button
             type="button"
             class="btn btn-outline-primary btn-sm add"
@@ -25,8 +25,8 @@
         <v-col colspan="2" class="title">Latte</v-col>
       </v-row>
       <v-row v-for="(latte, lid) in lattes" :key="'latte' + lid">
-        <v-col>{{latte}}</v-col>
-        <v-col>
+        <v-col class="pb-1 pt-0">{{latte}}</v-col>
+        <v-col class="pb-1 pt-0">
           <button
             type="button"
             class="btn btn-outline-primary btn-sm add"
@@ -46,7 +46,7 @@
         <v-col colspan="2" class="title">Ade</v-col>
       </v-row>
       <v-row>
-        <v-col v-for="(ade, index) in ades" :key="'ade' + index" cols="6" lg="3">
+        <v-col v-for="(ade, index) in ades" :key="'ade' + index" cols="6" lg="3" class="pa-1">
           <button
             type="button"
             class="btn btn-outline-primary btn-sm ade"
@@ -58,7 +58,7 @@
         <v-col colspan="2" class="title">Tea</v-col>
       </v-row>
       <v-row>
-        <v-col v-for="(tea, index) in teas" :key="'tea' + index" cols="6" lg="3">
+        <v-col v-for="(tea, index) in teas" :key="'tea' + index" cols="6" lg="3" class="pa-1">
           <button
             type="button"
             class="btn btn-outline-danger btn-sm ade"
