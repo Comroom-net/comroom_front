@@ -20,7 +20,12 @@
             </template>
             <v-list v-model="roomNo" mandatory>
               <v-list-item @click="changeRoom(index)" v-for="(room, index) in rooms" :key="index">
-                <v-list-item-title>{{room.name}}</v-list-item-title>
+                <v-tooltip right>
+                  <template #activator="{on, attrs}">
+                    <v-list-item-title v-bind="attrs" v-on="on">{{room.name}}</v-list-item-title>
+                  </template>
+                  <span>{{ room.description }}</span>
+                </v-tooltip>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -65,6 +70,7 @@
           @click:event="showEvent"
           @click:more="viewDay"
           @click:date="viewDay"
+          @click:day-category="viewDay"
           @change="updateRange"
         >
           <template v-slot:event="{event}">
