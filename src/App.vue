@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <v-app>
-      <Header />
+      <Header v-if="!isNamu" />
       <b-container>
-        <router-view />
+        <router-view @headerChange="headerChange" />
       </b-container>
       <Footer />
     </v-app>
@@ -19,6 +19,16 @@ export default {
   components: {
     Header,
     Footer
+  },
+  data() {
+    return {
+      isNamu: false
+    };
+  },
+  methods: {
+    headerChange() {
+      this.isNamu = !this.isNamu;
+    }
   }
 };
 </script>
