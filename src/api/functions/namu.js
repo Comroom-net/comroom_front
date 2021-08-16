@@ -21,6 +21,7 @@ export default {
 
         api.post(REQUEST_URL, reqData)
             .then((response) => {
+                component.isSending = false
                 Vue.$log.debug(response)
                 Vue.$log.debug(response.data)
             })
