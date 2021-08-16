@@ -23,7 +23,10 @@ import TimeMap from '@/components/admin/timeMap'
 import TimetableManager from '@/components/admin/timetableManager'
 import RoomManager from '@/components/admin/roomManager'
 
+import Namu from '@/views/namu/namu'
 import OrderPage from '@/views/namu/order_page'
+import OrderSuccess from '@/views/namu/order_success'
+import NamuInvalid from '@/views/namu/invalid'
 
 Vue.use(Router)
 
@@ -134,20 +137,37 @@ export default new Router({
     },
     {
         path: '/namu',
-        component: OrderPage,
-        beforeEnter: (to, from, next) => {
-            if (Vue.prototype.$session.get('namuRoom') == null) {
-                next('/')
-            } else next()
-        }
-    },
-    {
-        path: '/namu/room/:name',
-        beforeEnter: (to, from, next) => {
-            const name = to.params.name
-            Vue.prototype.$session.set('namuRoom', name)
-            next('/namu')
-        }
+        component: Namu,
+        children: [
+            {
+                path: '',
+                component: OrderPage,
+                beforeEnter: (to, from, next) => {
+                    if (Vue.prototype.$session.get('namuRoom') == null) {
+                        next({ name: 'namuInvalid' })
+                    } else next()
+                }
+            },
+            {
+                path: 'room/:name',
+                beforeEnter: (to, from, next) => {
+                    const name = to.params.name
+                    Vue.prototype.$session.set('namuRoom', name)
+                    next('/namu')
+                }
+            },
+            {
+                path: 'success',
+                component: OrderSuccess,
+                name: 'namuSuccess'
+            },
+            {
+                path: 'invalid',
+                component: NamuInvalid,
+                name: 'namuInvalid'
+            },
+        ]
+
     },
 
 
