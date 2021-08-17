@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import store from './store'
 import App from './App'
 import router from './router'
 
@@ -21,10 +22,11 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VueSession)
 
+
 // vue logger
 const vueLoggerOptions = {
     isEnabled: true,
-    logLevel: isProduction ? 'error' : 'debug',    //logLevels :  ['debug', 'info', 'warn', 'error', 'fatal']
+    logLevel: isProduction ? 'error' : 'debug', //logLevels :  ['debug', 'info', 'warn', 'error', 'fatal']
     stringifyArguments: false,
     showLogLevel: true,
     showMethodName: true,
@@ -38,8 +40,9 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
     vuetify,
-    el: '#app',
+    store,
     router,
+    el: '#app',
     components: { App },
     template: '<App/>'
 })
