@@ -14,7 +14,7 @@
           <v-menu bottom right>
             <template v-slot:activator="{ on, attrs }">
               <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
-                <span>{{ rooms[roomNo].name }}</span>
+                <span>{{ thisRoom.name }}</span>
                 <v-icon right>mdi-menu-down</v-icon>
               </v-btn>
             </template>
@@ -134,12 +134,20 @@ export default {
   props: {
     date: String
   },
+  computed: {
+    comrooms() {
+      return this.$store.state.comrooms;
+    },
+    thisRoom() {
+      return this.rooms[this.roomNo];
+    }
+  },
   data: () => ({
     startTime: "09:10",
     roomNo: 0,
     rooms: [
       {
-        id: 1,
+        id: 0,
         name: "컴룸"
       }
     ],
@@ -158,12 +166,14 @@ export default {
     selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
-    events: []
+    events: [],
+    start: null,
+    end: null
   }),
-  mounted() {
-    this.$refs.calendar.checkChange();
+  beforeCreate() {
     api.get_comroom(this);
     api.get_start_time(this);
+    // this.$refs.calendar.checkChange();
   },
   methods: {
     showEvent({ nativeEvent, event }) {

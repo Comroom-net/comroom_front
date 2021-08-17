@@ -134,8 +134,23 @@ export default {
         api.get(REQUEST_URL + component.$session.get('school_id'))
             .then((response) => {
                 Vue.$log.debug(response)
+                component.events = []
                 component.rooms = response.data
                 component.$log.debug('rooms:', component.rooms)
+                this.get_monthly(component)
+                this.get_fixed_monthly(component)
+            })
+            .catch((err) => {
+                Vue.$log.error(err)
+            })
+    },
+    getComroom(component) {
+        const REQUEST_URL = API_URL.SCHOOL_GET_COMROOMS_URL;
+
+        api.get(REQUEST_URL + localStorage.getItem("schoolId"))
+            .then((response) => {
+                Vue.$log.debug(response)
+                component.$store.commit("setComrooms", response.data)
             })
             .catch((err) => {
                 Vue.$log.error(err)
@@ -302,7 +317,9 @@ export default {
         api.get(REQUEST_URL, { params: params })
             .then(response => {
                 Vue.$log.debug("checkschool", response)
-                component.$session.set("school_id", response.data["school_id"]);
+                let schoolId = response.data["school_id"]
+                component.$session.set("school_id", schoolId);
+                localStorage.setItem("schoolId", schoolId)
                 component.valid_school = true
                 component.$router.push({ name: 'timetable' })
 
