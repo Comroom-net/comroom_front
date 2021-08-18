@@ -1,18 +1,16 @@
 <template>
   <div>
-    <h3>공지사항</h3>
-    <div class="row mt-5">
-      <div class="col-12">
-        <ul>
-          <div v-for="notice in notices" :key="notice.id">
-            <li>
-              <span v-html="notice.context"></span>
-              <small class="text-muted">- {{notice.last_update | formatDate}}</small>
-            </li>
-          </div>
-        </ul>
-      </div>
-    </div>
+    <h4 class="mt-5">공지사항</h4>
+    <v-card class="notice">
+      <v-list>
+        <v-list-item two-line v-for="notice in notices" :key="notice.id">
+          <v-list-item-content class="py-2">
+            <v-list-item-title v-html="notice.context" class="text-wrap"></v-list-item-title>
+            <v-list-item-subtitle>{{notice.last_update | formatDate}}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-card>
   </div>
 </template>
 
@@ -40,3 +38,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.notice {
+  text-align: left;
+}
+/* .wrap-text {
+  -webkit-line-clamp: unset !important;
+  white-space: normal;
+} */
+</style>
