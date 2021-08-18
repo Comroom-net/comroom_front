@@ -67,23 +67,35 @@
       <div class="col-sm-8">
         혹시 재생 안되는 영상이 있는 채널은 제보해주세요.
         <br />검토 후 공지하겠습니다.
-        <form action method="post">
-          <div class="input-group mb-3">
-            <input
-              name="new_ch"
-              type="text"
-              class="form-control"
-              placeholder="현재 보수중입니다. ssamko@kakao.com로 제보해주세요."
-              aria-label="채널명"
-              aria-describedby="button-addon2"
-              required
-              disabled
-            />
-            <div class="input-group-append">
-              <button class="btn btn-outline-info" type="submit" id="button-addon2" disabled>전송</button>
-            </div>
+        <div class="input-group mb-3">
+          <input
+            name="new_ch"
+            type="text"
+            class="form-control"
+            placeholder="불가 채널 공유"
+            aria-label="채널명"
+            aria-describedby="button-addon2"
+            v-model="newCh"
+            required
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-info"
+              id="button-addon2"
+              @click="sendCh"
+              :disabled="isSending"
+            >
+              <v-progress-circular indeterminate color="info" :size="20" v-if="isSending" />
+              <span v-if="!isSending">전송</span>
+            </button>
           </div>
-        </form>
+        </div>
+        <v-snackbar v-model="snackbar" :timeout="2500">
+          제보되었습니다. 감사합니다 :)
+          <template v-slot:action="{ attrs }">
+            <v-btn color="info" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
+          </template>
+        </v-snackbar>
       </div>
     </div>
   </div>
@@ -129,7 +141,10 @@ export default {
       disabledChannels: [],
       result: null,
       isInvalid: false,
-      isCopied: false
+      isCopied: false,
+      isSending: false,
+      newCh: null,
+      snackbar: false
     };
   },
   created() {
@@ -137,6 +152,10 @@ export default {
     api.getDisabledChannel(this);
   },
   methods: {
+    sendCh() {
+      this.isSending = true;
+      api.newCh(this);
+    },
     convert_url() {
       if (this.valid_url(this.inputUrl)) {
         const nocookie_prefix = "https://www.youtube-nocookie.com/embed/";
