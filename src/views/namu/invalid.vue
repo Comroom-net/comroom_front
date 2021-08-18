@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 p:first-child {
   text-align: center;
   font-size: 1.3em;
