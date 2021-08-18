@@ -10,7 +10,6 @@
         school
       )}&s_code=${s_code}`">시간표</v-btn>
           <v-btn @click="copyLink">링크 복사</v-btn>
-          <p v-if="copied">복사완료</p>
         </div>
         <div v-if="username" style="display: inline;">
           <activeHome v-if="is_active" />
@@ -27,6 +26,12 @@
       </div>
     </div>
     <Notice />
+    <v-snackbar v-model="snackbar" :timeout="2000">
+      {{notiTxt}}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="info" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -49,7 +54,8 @@ export default {
       school: null,
       s_code: null,
       api_host: window.location.origin,
-      copied: false
+      notiTxt: null,
+      snackbar: false
     };
   },
   methods: {
@@ -85,7 +91,8 @@ export default {
       school_url.select();
 
       var successful = document.execCommand("copy");
-      this.copied = successful ? true : false;
+      this.notiTxt = "링크가 복사되었습니다 :)";
+      this.snackbar = successful ? true : false;
       school_url.setAttribute("type", "hidden");
     },
     logout() {
