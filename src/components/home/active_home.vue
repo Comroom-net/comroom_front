@@ -1,8 +1,11 @@
 <template>
-  <div class="text-center">
+  <div class="text-center" style="display: inline;">
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-bind="attrs" v-on="on">관리자 메뉴</v-btn>
+        <v-btn v-bind="attrs" v-on="on">
+          관리자 메뉴
+          <v-icon>mdi-menu-down</v-icon>
+        </v-btn>
       </template>
       <v-list>
         <v-list-item v-for="(item, index) in adminItems" :key="index">

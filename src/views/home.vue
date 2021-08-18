@@ -3,7 +3,7 @@
     <div class="row mt-5">
       <div class="col-12">
         <h2>Hello {{username ? username : "stranger"}}</h2>
-        <div v-if="school">
+        <div v-if="school" style="display: inline;">
           <p>{{api_host}}/timetable?school={{encodeURI(school)}}&s_code={{s_code}}</p>
           <input id="schoolUrl" type="hidden" />
           <v-btn :to="`timetable?school=${encodeURI(
@@ -12,14 +12,14 @@
           <v-btn @click="copyLink">링크 복사</v-btn>
           <p v-if="copied">복사완료</p>
         </div>
-        <div v-if="username">
+        <div v-if="username" style="display: inline;">
           <activeHome v-if="is_active" />
           <div v-else>
             <p>이메일 인증을 완료해주세요.</p>
           </div>
           <v-btn color="cyan" @click="logout">로그아웃</v-btn>
         </div>
-        <div v-if="!username">
+        <div v-if="!username" style="display: inline;">
           <v-btn to="login">관리자 로그인</v-btn>
           <v-btn to="school/privacy-consent">관리자 등록</v-btn>
           <v-btn @click="ex_login">샘플계정 로그인</v-btn>
