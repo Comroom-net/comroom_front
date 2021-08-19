@@ -160,9 +160,13 @@ export default {
         // TODO: add fixed timetable
         const REQUEST_URL = API_URL.TIMETABLE_URL;
 
+        const roomId = component.rooms[component.roomNo].id
+
+        if (roomId == 0) return
+
         let cal_info = {
             school: component.$session.get("school_id"),
-            room: component.rooms[component.roomNo].id,
+            room: roomId,
             year: component.year,
             month: component.month
         }
