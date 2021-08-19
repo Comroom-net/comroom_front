@@ -4,6 +4,7 @@
       <Header v-if="!isNamu" />
       <b-container>
         <router-view @headerChange="headerChange" />
+        <Message></Message>
       </b-container>
       <Footer />
     </v-app>
@@ -13,16 +14,19 @@
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Message from "@/components/message";
 
 export default {
   name: "App",
   components: {
     Header,
-    Footer
+    Footer,
+    Message
   },
   data() {
     return {
-      isNamu: false
+      isNamu: false,
+      fab: false
     };
   },
   methods: {
@@ -61,5 +65,8 @@ body {
 
 .kakao-ads {
   max-width: 1140px;
+}
+
+.to-ssamko {
 }
 </style>
