@@ -26,4 +26,21 @@ export default {
                 Vue.$log.debug(error);
             })
     },
+    sendMsg(component) {
+        const REQUEST_URL = API_URL.SEND_MSG_URL;
+
+        const reqData = {
+            sender: component.sender,
+            contact: component.contact,
+            msg: component.msg
+        }
+
+        api.post(REQUEST_URL, reqData)
+            .then((response) => {
+                component.$log.debug(response)
+            }).catch((error) => {
+                Vue.$log.debug(error);
+            })
+    },
+
 }

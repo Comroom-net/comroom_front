@@ -38,6 +38,9 @@ export default {
     NAMU_ORDER_URL: "/namu/api/order/",
     NAMU_TEST_ORDER_URL: "/namu/api/msg-test/",
 
+    /** COMMON **/
+    SEND_MSG_URL: "/api/send-msg/",
+
     /** users **/
     USERS_ME_URL: "/users/me", //회원 정보 확인
     USERS_USERINFO_URL: (id) => { //회원 정보 갱신
