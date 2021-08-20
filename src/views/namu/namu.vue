@@ -17,7 +17,7 @@ export default {
     document.title = "느린나무2호점";
     this.$emit("headerChange");
     if (this.$session.has("namuRoom")) {
-      this.room = this.$session.get("namuRoom") + "방";
+      this.room = this.$session.get("namuRoom");
     }
   },
   data() {
