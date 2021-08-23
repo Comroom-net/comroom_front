@@ -173,7 +173,6 @@ export default {
   beforeCreate() {
     api.get_comroom(this);
     api.get_start_time(this);
-    // this.$refs.calendar.checkChange();
   },
   methods: {
     showEvent({ nativeEvent, event }) {
