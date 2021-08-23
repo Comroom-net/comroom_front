@@ -1,7 +1,7 @@
 <template>
   <div data-app>
-    <Calendar v-show="valid_school" />
-    <div v-show="!valid_school">
+    <Calendar v-if="valid_school" />
+    <div v-if="!valid_school">
       {{error_msg}}
       {{school}}
     </div>
