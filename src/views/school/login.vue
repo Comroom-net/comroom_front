@@ -28,15 +28,23 @@
             />
           </div>
           <button class="btn btn-primary" @click="login()">로그인</button>
-        
-        <!-- <a id="reset_btn" role="button" data-toggle="modal" data-target="#resetModal"> -->
-        <a href="/forgot-password">
-          <small>
-            <u>비밀번호가 기억나지 않아요</u>
-          </small>
-        </a>
-        <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-        <!-- <button href="#" @click="signOut()">Sign out</button> -->
+        <br>
+        <v-menu
+          v-model="forgotPopup"
+          :close-on-content-click="false"
+          :nudge-width="200"
+          offset-x
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <small
+            v-bind="attrs"
+            v-on="on">
+              <u>비밀번호가 기억나지 않아요</u>
+            </small>
+          </template>
+
+          <forgotPassword/>
+        </v-menu>
       </div>
     </div>
   </div>
@@ -44,11 +52,14 @@
 
 <script>
 import api from "Api/functions/school";
+import ForgotPassword from "@/components/common/forgot_password";
 
 export default {
   name: "Login",
+  components: {
+    ForgotPassword: ForgotPassword
+  },
   created() {
-    
     window.onSignIn = this.onSignIn;
     window.signOut = this.signOut;
   },
@@ -57,6 +68,7 @@ export default {
       user: null,
       password: null,
       error: null,
+      forgotPopup: null,
     }
   },
   methods: {
