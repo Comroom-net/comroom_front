@@ -2,7 +2,7 @@
   <v-container>
     <h1>학교 관리자 등록</h1>
     
-    <v-form ref="form">
+    <v-form ref="form" lazy-validation>
       <v-select
         v-model="reqData.province"
         :items="provinces"
@@ -139,9 +139,10 @@ export default {
         ea: null,
         user: null,
         password: null,
+        re_password: null,
         realname: null,
         email: null
-      }
+      },
     };
   },
   methods: {
@@ -153,7 +154,7 @@ export default {
         ea: [this.rules.required, this.rules.number, this.rules.ea],
         user: [this.rules.required, this.rules.counter],
         password: [this.rules.required],
-        re_password: [this.rules.required],
+        re_password: [this.rules.required, (this.reqData.password === this.reqData.re_password) || '비밀번호가 일치하지 않습니다.'],
         realname: [this.rules.required, this.rules.counter],
         email: [this.rules.required, this.rules.email]
       }
