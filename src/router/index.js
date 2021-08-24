@@ -10,7 +10,6 @@ import Nocookie from '@/views/common/nocookie'
 
 import School from '@/views/school/school'
 import Login from '@/views/school/login'
-import ForgotPassword from '@/views/school/forgot_password'
 import PrivacyConsent from '@/views/school/privacy_consent'
 import Register from '@/views/school/register'
 import UserActive from '@/views/school/user_active'
@@ -67,11 +66,6 @@ export default new Router({
         path: '/login',
         name: 'login',
         component: Login
-    },
-    {
-        path: '/forgot-password',
-        name: 'forgot-passowrd',
-        component: ForgotPassword
     },
     {
         path: '/timetable',
