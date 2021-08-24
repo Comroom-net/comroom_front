@@ -82,18 +82,15 @@ export default {
             .then((response) => {
                 Vue.$log.debug(`response ok ${response.status}`);
                 //api 호출한 component(Login.Vue)의 callback method 호출
-                component.onRegisterSuccess(response);
-                return;
+                component.$router.push("/")
             }).catch((error) => {
-                Vue.$log.debug(error);
-                // this.$toasted.show("Something went wrong", {duration: 3000});
-                // TODO : 401 에러에 대해서 핸들링 해야합니다. charlie 
-                component.onRegisterFalied();
-                // if (error.response) {
-                //     component.onLoginFalied(error.response.status);
-                // } else {
-                //     component.onLoginFalied(500);
-                // }
+                component.$log.error("register failed")
+                if (error.response.status == 400) {
+                    component.error = error.response.data.message
+                    component.snackbar = true
+                } else {
+                    Vue.$log.debug(error);
+                }
             })
     }
 
