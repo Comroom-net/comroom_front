@@ -4,8 +4,9 @@
       <Header v-if="!isNamu" />
       <b-container>
         <router-view @headerChange="headerChange" />
-        <Message></Message>
+        <!-- <Message></Message> -->
       </b-container>
+      <!-- <Ssamko-btn></Ssamko-btn> -->
       <Footer />
     </v-app>
   </div>
@@ -15,13 +16,15 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Message from "@/components/message";
+import SsamkoBtn from "@/components/ssamko_btn";
 
 export default {
   name: "App",
   components: {
     Header,
     Footer,
-    Message
+    Message,
+    SsamkoBtn
   },
   data() {
     return {
