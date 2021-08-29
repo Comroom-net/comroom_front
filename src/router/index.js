@@ -13,6 +13,7 @@ import Login from '@/views/school/login'
 import PrivacyConsent from '@/views/school/privacy_consent'
 import Register from '@/views/school/register'
 import UserActive from '@/views/school/user_active'
+import ResetPassword from '@/components/common/reset_password'
 
 import Timetable from '@/views/timetable/timetable'
 
@@ -94,6 +95,12 @@ export default new Router({
                 path: 'active/:token',
                 name: 'user-active',
                 component: UserActive,
+                props: (route) => ({ token: route.params.token })
+            },
+            {
+                path: 'reset-password/:token',
+                name: 'reset-password',
+                component: ResetPassword,
                 props: (route) => ({ token: route.params.token })
             },
         ]
