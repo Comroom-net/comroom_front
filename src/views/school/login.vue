@@ -5,45 +5,49 @@
         <h1>학교관리자 로그인</h1>
       </div>
     </div>
-    <div class="row mt-5"
-    v-if="error">
+    <div class="row mt-5" v-if="error">
       <div class="col-12">{{ error }}</div>
     </div>
     <div class="row mt-5">
       <div class="col-12">
-        
-          <div class="form-group">
-            <label for="id_user">아이디</label>
-            <input type="text" class="form-control" id="id_user" placeholder="아이디" name="user" v-model="user"/>
-          </div>
-          <div class="form-group">
-            <label for="id_password">비밀번호</label>
-            <input
-              type="password"
-              class="form-control"
-              id="id_password"
-              placeholder="비밀번호"
-              name="password"
-              v-model="password"
-            />
-          </div>
-          <button class="btn btn-primary" @click="login()">로그인</button>
-        <br>
+        <div class="form-group">
+          <label for="id_user">아이디</label>
+          <input
+            type="text"
+            class="form-control"
+            id="id_user"
+            placeholder="아이디"
+            name="user"
+            v-model="user"
+          />
+        </div>
+        <div class="form-group">
+          <label for="id_password">비밀번호</label>
+          <input
+            type="password"
+            class="form-control"
+            id="id_password"
+            placeholder="비밀번호"
+            name="password"
+            v-model="password"
+          />
+        </div>
+        <button class="btn btn-primary" @click="login()">로그인</button>
+        <br />
         <v-menu
           v-model="forgotPopup"
           :close-on-content-click="false"
           :nudge-width="200"
           offset-x
+          disabled
         >
           <template v-slot:activator="{ on, attrs }">
-            <small
-            v-bind="attrs"
-            v-on="on">
+            <small v-bind="attrs" v-on="on">
               <u>비밀번호가 기억나지 않아요</u>
             </small>
           </template>
 
-          <forgotPassword/>
+          <forgotPassword />
         </v-menu>
       </div>
     </div>
@@ -68,18 +72,17 @@ export default {
       user: null,
       password: null,
       error: null,
-      forgotPopup: null,
-    }
+      forgotPopup: null
+    };
   },
   methods: {
     login() {
       let login_info = {
         user: this.user,
         password: this.password
-      }
-      this.$log.debug(login_info)
-      api.login(this, login_info)
-      
+      };
+      this.$log.debug(login_info);
+      api.login(this, login_info);
     },
     signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
