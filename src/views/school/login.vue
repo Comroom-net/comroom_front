@@ -34,20 +34,14 @@
         </div>
         <button class="btn btn-primary" @click="login()">로그인</button>
         <br />
-        <v-menu
-          v-model="forgotPopup"
-          :close-on-content-click="false"
-          :nudge-width="200"
-          offset-x
-          disabled
-        >
+        <v-menu v-model="forgotPopup" :close-on-content-click="false" :nudge-width="200" offset-x>
           <template v-slot:activator="{ on, attrs }">
             <small v-bind="attrs" v-on="on">
               <u>비밀번호가 기억나지 않아요</u>
             </small>
           </template>
 
-          <forgotPassword />
+          <forgotPassword @cancel="close" />
         </v-menu>
       </div>
     </div>
@@ -76,6 +70,9 @@ export default {
     };
   },
   methods: {
+    close() {
+      this.forgotPopup = false;
+    },
     login() {
       let login_info = {
         user: this.user,
