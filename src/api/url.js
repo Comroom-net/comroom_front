@@ -23,6 +23,8 @@ export default {
     SCHOOL_GET_COMROOMS_URL: "/school/api/comrooms/",
     COMROOM_URL: "/school/comroom/",
     SCHOOL_GET_ALL_TIMETABLE_URL: "/school/api/get-all-timetable/",
+    SCHOOL_FORGOT_PASSWORD_URL: "/school/api/forgot-password/",
+    SCHOOL_RESET_PASSWORD_URL: "/school/api/reset-password/",
 
     /** timetable **/
     TIMETABLE_VALID_URL: "/timetable/api/",
