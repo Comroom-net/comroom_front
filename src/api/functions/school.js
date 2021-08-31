@@ -78,7 +78,11 @@ export default {
             })
             .catch(err => {
                 Vue.$log.debug(err);
-                component.error = err;
+                if (err.response.status == 404) {
+                    component.error = "아이디 혹은 비밀번호를 다시 확인해주세요"
+                } else {
+                    component.error = err;
+                }
             });
 
     },
