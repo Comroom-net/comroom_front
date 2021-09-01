@@ -11,7 +11,7 @@
           <div class="card-header">무료인가요?</div>
           <div class="card-body">
             <h5 class="card-title">네, 완전 무료입니다.</h5>
-            <p class="card-text">앞으로도 쭉 무료로 제공될 예정이며, 서버(GCP)운영비용은 후원을 통해 충당할 예정입니다.</p>
+            <p class="card-text">앞으로도 쭉 무료로 제공될 예정이며, 서버 운영비용(월 4만원)은 후원을 통해 충당할 예정입니다.</p>
             <!-- <img src="/media/images/qrcodes/kakaopay_1000w.png" alt="1000won" width="20%"> -->
             <h6>--후원하기--</h6>
             <img src="static/faq/kakaopay_2000w.png" alt="2000won" width="20%" />
@@ -27,7 +27,7 @@
           <div class="card-body">
             <h5 class="card-title">학교당 한 분만 가입하시면 됩니다.</h5>
             <p class="card-text">학교 관리자로 한 분이 가입하시고, 링크만 공유하면 별다른 로그인 절차없이 바로 이용가능합니다.</p>
-            <a href="/howto" class="btn btn-primary">사이트 이용방법</a>
+            <v-btn @click="$router.push('/school/privacy-consent')">관리자 등록 바로가기</v-btn>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
           <div class="card-body">
             <h5 class="card-title">무료로 서비스를 제공하기 위함입니다.</h5>
             <p class="card-text">
-              현재 컴룸닷넷 사이트는 구글 클라우드 컴퓨팅을 이용해 서버를 운영하고 있고, 이용량에 따라서 매달 요금이 부과됩니다.
+              현재 컴룸닷넷 사이트는 AWS를 이용해 서버를 운영하고 있고, 이용량에 따라서 매달 요금이 부과됩니다.
               <br />따라서 무분별한 가입을 제한하고, 악성 트래픽 공격에 대비하기 위해 메일 인증이라는 절차를 만들었습니다.
               <br />번거롭더라도 양질의 컨텐츠 이용을 위해 양해바랍니다.
             </p>
