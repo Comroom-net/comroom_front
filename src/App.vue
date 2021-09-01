@@ -4,7 +4,7 @@
       <Header v-if="!isNamu" />
       <b-container>
         <router-view @headerChange="headerChange" />
-        <!-- <Message></Message> -->
+        <Message></Message>
       </b-container>
       <!-- <Ssamko-btn></Ssamko-btn> -->
       <Footer />
