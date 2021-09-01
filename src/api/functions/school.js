@@ -11,7 +11,44 @@ import API_URL from "Api/url";
  * **/
 
 export default {
+    resetPassword(component) {
+        const REQUEST_URL = API_URL.SCHOOL_RESET_PASSWORD_URL;
 
+        const reqData = {
+            newPassword: component.newPassword,
+            token: component.token
+        }
+
+        api.post(REQUEST_URL, reqData)
+            .then(response => {
+                Vue.$log.debug(response);
+                component.$router.push("/")
+            })
+            .catch(err => {
+                Vue.$log.debug(err);
+                // TODO: error page로 이동
+            });
+
+    },
+    forgotPassword(component) {
+        const REQUEST_URL = API_URL.SCHOOL_FORGOT_PASSWORD_URL;
+
+        const reqData = {
+            email: component.email,
+            realname: component.realname
+        }
+
+        api.post(REQUEST_URL, reqData)
+            .then(response => {
+                Vue.$log.debug(response);
+                component.$router.push("/")
+            })
+            .catch(err => {
+                Vue.$log.debug(err);
+                // TODO: error page로 이동
+            });
+
+    },
     /**샘플 로그인 ( Home component에서 호출 )
      * @param component : 해당 api 를 호출한 component 객체
      * */
@@ -41,7 +78,11 @@ export default {
             })
             .catch(err => {
                 Vue.$log.debug(err);
-                component.error = err;
+                if (err.response.status == 404) {
+                    component.error = "아이디 혹은 비밀번호를 다시 확인해주세요"
+                } else {
+                    component.error = err;
+                }
             });
 
     },

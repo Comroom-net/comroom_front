@@ -65,12 +65,12 @@ api.interceptors.response.use(
                     location.href = "/";
                     break;
                     //Not Found
-                case 404:
+                    // case 404:
 
-                    //not found page로 redirect
-                    Vue.$router.push('/not-found');
+                    //     //not found page로 redirect
+                    //     Vue.$router.push('/not-found');
 
-                    break;
+                    //     break;
 
                     //Internal Server Error
                 case 500:
