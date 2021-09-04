@@ -10,8 +10,11 @@
     >
       <v-card-title>
         <v-icon large left>mdi-new-box</v-icon>
-        <span class="text-h6">{{card.date}}</span>
+        <span class="text-h6">{{card.title}}</span>
       </v-card-title>
+      <v-card-subtitle>
+        <span class="text-h6">{{card.date}}</span>
+      </v-card-subtitle>
 
       <v-card-text class="text-h5 font-weight-bold">
         {{card.context}}
@@ -34,9 +37,9 @@
           <v-spacer />
 
           <v-row align="center" justify="end">
-            <v-icon class="mr-1" @click="card.like++">mdi-heart-outline</v-icon>
+            <!-- <v-icon class="mr-1" @click="card.like++">mdi-heart-outline</v-icon>
             <v-icon class="mr-1">mdi-heart</v-icon>
-            <span class="subheading mr-2">{{card.like}}</span>
+            <span class="subheading mr-2">{{card.like}}</span>-->
           </v-row>
         </v-list-item>
       </v-card-actions>
@@ -52,21 +55,26 @@ export default {
       cards: [
         {
           date: "2021-09-02",
-          context: "bug fix - fixedtimetable limit offset 70으로 증가",
+          title: "bug fix",
+          context: "월별 시간표 page_size 70으로 증가",
           like: 1
         },
         {
           date: "2021-09-01",
+          title: "메뉴 한글화",
           context: "메뉴 한글화",
           like: 1
         },
         {
           date: "2021-08-20",
-          context: "메세지 버튼",
+          title: "메세지 버튼",
+          context:
+            "화면 우측 하단에 개발자에게 간편하게 메세지를 보낼 수 있는 버튼 추가",
           like: 10
         },
         {
           date: "2021-08-15",
+          title: "2.0 배포",
           context: "2.0 배포 완료",
           like: 20
         }
