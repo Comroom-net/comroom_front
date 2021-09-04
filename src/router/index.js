@@ -28,148 +28,152 @@ import OrderPage from '@/views/namu/order_page'
 import OrderSuccess from '@/views/namu/order_success'
 import NamuInvalid from '@/views/namu/invalid'
 
+import UpdateHistory from '@/views/develop/update_history'
+
 Vue.use(Router)
 
 export default new Router({
     mode: 'history',
     routes: [{
-        path: '/',
-        name: 'home',
-        component: home
-    },
-    {
-        path: '/about',
-        name: 'about',
-        component: About
+            path: '/',
+            name: 'home',
+            component: home
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: About
 
-    },
-    {
-        path: '/howto',
-        name: 'howto',
-        component: Howto
-    },
-    {
-        path: '/whatis',
-        name: 'whatis',
-        component: Whatis
-    },
-    {
-        path: '/faq',
-        name: 'faq',
-        component: Faq
-    },
-    {
-        path: '/nocookie',
-        name: 'nocookie',
-        component: Nocookie
-    },
-    {
-        path: '/login',
-        name: 'login',
-        component: Login
-    },
-    {
-        path: '/timetable',
-        name: 'timetable',
-        component: Timetable,
-        props: (route) => ({
-            school: route.query.school,
-            s_code: route.query.s_code,
-        }),
-    },
-    {
-        path: '/school',
-        component: School,
-        children: [
-            {
-                path: 'privacy-consent',
-                name: 'privacy-consent',
-                component: PrivacyConsent
-            },
-            {
-                path: 'register',
-                name: 'register',
-                component: Register
-            },
-            {
-                path: 'active/:token',
-                name: 'user-active',
-                component: UserActive,
-                props: (route) => ({ token: route.params.token })
-            },
-            {
-                path: 'reset-password/:token',
-                name: 'reset-password',
-                component: ResetPassword,
-                props: (route) => ({ token: route.params.token })
-            },
-        ]
-    },
-    {
-        path: '/admin',
-        component: Admin,
-        children: [
-            {
-                path: 'fixed',
-                name: 'fixedTime',
-                component: FixedTime
-            },
-            {
-                path: 'map-time',
-                name: 'timeMap',
-                component: TimeMap
-            },
-            {
-                path: 'room',
-                name: 'roomManager',
-                component: RoomManager
-            },
-            {
-                path: 'timetable',
-                name: 'timeManager',
-                component: TimetableManager
-            },
-        ]
-    },
-    {
-        path: '/search',
-        component: Timetable,
-        props: (route) => ({ school: route.query.school })
-    },
-    {
-        path: '/namu',
-        component: Namu,
-        children: [
-            {
-                path: '',
-                component: OrderPage,
-                beforeEnter: (to, from, next) => {
-                    if (Vue.prototype.$session.get('namuRoom') == null) {
-                        next({ name: 'namuInvalid' })
-                    } else next()
-                }
-            },
-            {
-                path: 'room/:name',
-                beforeEnter: (to, from, next) => {
-                    const name = to.params.name
-                    Vue.prototype.$session.set('namuRoom', name)
-                    next('/namu')
-                }
-            },
-            {
-                path: 'success',
-                component: OrderSuccess,
-                name: 'namuSuccess'
-            },
-            {
-                path: 'invalid',
-                component: NamuInvalid,
-                name: 'namuInvalid'
-            },
-        ]
+        },
+        {
+            path: '/howto',
+            name: 'howto',
+            component: Howto
+        },
+        {
+            path: '/whatis',
+            name: 'whatis',
+            component: Whatis
+        },
+        {
+            path: '/faq',
+            name: 'faq',
+            component: Faq
+        },
+        {
+            path: '/nocookie',
+            name: 'nocookie',
+            component: Nocookie
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/develop',
+            name: 'develop',
+            component: UpdateHistory
+        },
+        {
+            path: '/timetable',
+            name: 'timetable',
+            component: Timetable,
+            props: (route) => ({
+                school: route.query.school,
+                s_code: route.query.s_code,
+            }),
+        },
+        {
+            path: '/school',
+            component: School,
+            children: [{
+                    path: 'privacy-consent',
+                    name: 'privacy-consent',
+                    component: PrivacyConsent
+                },
+                {
+                    path: 'register',
+                    name: 'register',
+                    component: Register
+                },
+                {
+                    path: 'active/:token',
+                    name: 'user-active',
+                    component: UserActive,
+                    props: (route) => ({ token: route.params.token })
+                },
+                {
+                    path: 'reset-password/:token',
+                    name: 'reset-password',
+                    component: ResetPassword,
+                    props: (route) => ({ token: route.params.token })
+                },
+            ]
+        },
+        {
+            path: '/admin',
+            component: Admin,
+            children: [{
+                    path: 'fixed',
+                    name: 'fixedTime',
+                    component: FixedTime
+                },
+                {
+                    path: 'map-time',
+                    name: 'timeMap',
+                    component: TimeMap
+                },
+                {
+                    path: 'room',
+                    name: 'roomManager',
+                    component: RoomManager
+                },
+                {
+                    path: 'timetable',
+                    name: 'timeManager',
+                    component: TimetableManager
+                },
+            ]
+        },
+        {
+            path: '/search',
+            component: Timetable,
+            props: (route) => ({ school: route.query.school })
+        },
+        {
+            path: '/namu',
+            component: Namu,
+            children: [{
+                    path: '',
+                    component: OrderPage,
+                    beforeEnter: (to, from, next) => {
+                        if (Vue.prototype.$session.get('namuRoom') == null) {
+                            next({ name: 'namuInvalid' })
+                        } else next()
+                    }
+                },
+                {
+                    path: 'room/:name',
+                    beforeEnter: (to, from, next) => {
+                        const name = to.params.name
+                        Vue.prototype.$session.set('namuRoom', name)
+                        next('/namu')
+                    }
+                },
+                {
+                    path: 'success',
+                    component: OrderSuccess,
+                    name: 'namuSuccess'
+                },
+                {
+                    path: 'invalid',
+                    component: NamuInvalid,
+                    name: 'namuInvalid'
+                },
+            ]
 
-    },
+        },
 
 
     ]

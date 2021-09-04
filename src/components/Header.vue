@@ -11,9 +11,10 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item href="/" active>HOME</b-nav-item>
-          <b-nav-item href="/about">Made by</b-nav-item>
-          <b-nav-item href="/whatis">What is?</b-nav-item>
-          <b-nav-item href="/howto">How to</b-nav-item>
+          <b-nav-item href="/about">개발자</b-nav-item>
+          <b-nav-item href="/develop">개발현황</b-nav-item>
+          <b-nav-item href="/whatis">사이트 소개</b-nav-item>
+          <b-nav-item href="/howto">이용방법</b-nav-item>
           <b-nav-item href="/FAQ">FAQ</b-nav-item>
           <b-nav-item-dropdown text="ETC">
             <b-dropdown-item href="/nocookie">유튜브nocookie</b-dropdown-item>
