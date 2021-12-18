@@ -183,7 +183,7 @@ export default {
       formData.append("roll_file", this.$refs.roll_file.files[0]);
       formData.append("whole_school", !this.showEachClass);
       axios
-        .post("/api/g-suite/convert", formData)
+        .post("/etc/g-suite", formData)
         .then((response) => {
           this.result = response.data.result;
           this.result_url = response.data.resultUrl;
