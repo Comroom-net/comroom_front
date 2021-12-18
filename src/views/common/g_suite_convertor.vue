@@ -21,7 +21,6 @@
     <div class="row mt-2">
       <div class="col-12">
         <form action="" method="post" enctype="multipart/form-data">
-          <input type="checkbox" name="whole_school" id="whole_school" hidden />
           <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
               <a
@@ -45,6 +44,7 @@
               <span class="input-group-text" id="school-span">학교명</span>
             </div>
             <input
+              v-model="school"
               type="text"
               name="school"
               id="school"
@@ -64,6 +64,7 @@
             <div class="col-6">
               <div class="input-group mb-3">
                 <input
+                  v-model="grade"
                   type="number"
                   class="form-control"
                   placeholder="학년"
@@ -81,6 +82,7 @@
             <div class="col-6">
               <div class="input-group mb-3">
                 <input
+                  v-model="classN"
                   type="number"
                   class="form-control"
                   placeholder="반"
@@ -129,9 +131,10 @@
     </div>
     <div class="row mt-5" v-if="fileExist">
       <div class="col-12">
-        <a :href="resultUrl">파일 받기 </a>
-
-        <a :href="resultUrl">{{ result_url.title }}</a>
+        <a :href="resultUrl">
+          파일 받기 <br />
+          {{ fileTitle }}
+        </a>
       </div>
     </div>
     <div class="alert alert-danger mt-3" role="alert" v-if="errors != ''">
@@ -160,6 +163,9 @@ export default {
       errors: "",
       showEachClass: true,
       fileExist: false,
+      school: "",
+      grade: "",
+      classN: "",
     };
   },
   methods: {
@@ -175,7 +181,7 @@ export default {
       formData.append("grade", this.grade);
       formData.append("classN", this.classN);
       formData.append("roll_file", this.$refs.roll_file.files[0]);
-      formData.append("whole_school", this.whole_school);
+      formData.append("whole_school", !this.showEachClass);
       axios
         .post("/api/g-suite/convert", formData)
         .then((response) => {
