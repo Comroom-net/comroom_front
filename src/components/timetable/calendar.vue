@@ -115,7 +115,7 @@
               <v-spacer></v-spacer>
               <v-btn
                 icon
-                @click="cancelTime(selectedEvent.id)"
+                @click="showDeleteModal = true"
                 v-show="selectedEvent.id"
               >
                 <v-icon>mdi-delete-outline</v-icon>
@@ -133,6 +133,7 @@
               >
             </v-card-actions>
           </v-card>
+          <deleteModal v-if="showDeleteModal" />
         </v-menu>
       </v-sheet>
     </v-col>
@@ -143,11 +144,13 @@
 <script>
 import api from "Api/functions/timetable";
 import newTime from "@/components/timetable/newTime";
+import deleteModal from "@/components/timetable/deleteModal";
 
 export default {
   name: "Calendar",
   components: {
     newTime,
+    deleteModal,
   },
   props: {
     date: String,
@@ -187,6 +190,7 @@ export default {
     events: [],
     start: null,
     end: null,
+    showDeleteModal: false,
   }),
   beforeCreate() {
     api.get_comroom(this);
