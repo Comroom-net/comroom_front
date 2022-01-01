@@ -3,14 +3,18 @@
     <v-col>
       <v-sheet height="64">
         <v-toolbar flat>
-          <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">Today</v-btn>
+          <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday"
+            >Today</v-btn
+          >
           <v-btn fab text small color="grey darken-2" @click="prev">
             <v-icon small>mdi-chevron-left</v-icon>
           </v-btn>
           <v-btn fab text small color="grey darken-2" @click="next">
             <v-icon small>mdi-chevron-right</v-icon>
           </v-btn>
-          <v-toolbar-title v-if="$refs.calendar">{{ $refs.calendar.title }}</v-toolbar-title>
+          <v-toolbar-title v-if="$refs.calendar">{{
+            $refs.calendar.title
+          }}</v-toolbar-title>
           <v-menu bottom right>
             <template v-slot:activator="{ on, attrs }">
               <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
@@ -19,10 +23,16 @@
               </v-btn>
             </template>
             <v-list v-model="roomNo" mandatory>
-              <v-list-item @click="changeRoom(index)" v-for="(room, index) in rooms" :key="index">
+              <v-list-item
+                @click="changeRoom(index)"
+                v-for="(room, index) in rooms"
+                :key="index"
+              >
                 <v-tooltip right>
-                  <template #activator="{on, attrs}">
-                    <v-list-item-title v-bind="attrs" v-on="on">{{room.name}}</v-list-item-title>
+                  <template #activator="{ on, attrs }">
+                    <v-list-item-title v-bind="attrs" v-on="on">{{
+                      room.name
+                    }}</v-list-item-title>
                   </template>
                   <span>{{ room.description }}</span>
                 </v-tooltip>
@@ -73,10 +83,12 @@
           @click:day-category="viewDay"
           @change="updateRange"
         >
-          <template v-slot:event="{event}">
-            <div class="fill-height pl-2">{{event.schoolTime}}교시 {{event.name}}</div>
+          <template v-slot:event="{ event }">
+            <div class="fill-height pl-2">
+              {{ event.schoolTime }}교시 {{ event.name }}
+            </div>
           </template>
-          <template v-slot:day-label-header="{day}">
+          <template v-slot:day-label-header="{ day }">
             <!-- <v-btn color="primary" fab small dark>{{day}}</v-btn>
             <v-btn fab x-small color="cyan">
               <v-icon>mdi-plus</v-icon>
@@ -96,23 +108,29 @@
         >
           <v-card color="grey lighten-4" min-width="350px" flat>
             <v-toolbar :color="selectedEvent.color" dark>
-              <v-btn icon>
+              <v-btn icon v-show="false">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn icon>
+              <v-btn
+                icon
+                @click="cancelTime(selectedEvent.id)"
+                v-show="selectedEvent.id"
+              >
                 <v-icon>mdi-delete-outline</v-icon>
               </v-btn>
-              <v-btn icon>
+              <v-btn icon v-show="false">
                 <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
             </v-toolbar>
             <v-card-text>
-              <span v-html="selectedEvent.details"></span>
+              <span v-html="selectedEvent.details"> </span>
             </v-card-text>
             <v-card-actions>
-              <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
+              <v-btn text color="secondary" @click="selectedOpen = false"
+                >Cancel</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-menu>
@@ -129,10 +147,10 @@ import newTime from "@/components/timetable/newTime";
 export default {
   name: "Calendar",
   components: {
-    newTime
+    newTime,
   },
   props: {
-    date: String
+    date: String,
   },
   computed: {
     comrooms() {
@@ -140,7 +158,7 @@ export default {
     },
     thisRoom() {
       return this.rooms[this.roomNo];
-    }
+    },
   },
   data: () => ({
     startTime: "09:10",
@@ -148,8 +166,8 @@ export default {
     rooms: [
       {
         id: 0,
-        name: "컴룸"
-      }
+        name: "컴룸",
+      },
     ],
     month: 5,
     year: 2020,
@@ -158,7 +176,7 @@ export default {
     typeToLabel: {
       month: "Month",
       week: "Week",
-      day: "Day"
+      day: "Day",
     },
     mode: "stack",
     weekday: [1, 2, 3, 4, 5],
@@ -168,7 +186,7 @@ export default {
     selectedOpen: false,
     events: [],
     start: null,
-    end: null
+    end: null,
   }),
   beforeCreate() {
     api.get_comroom(this);
@@ -227,7 +245,10 @@ export default {
       this.events = [];
       api.get_monthly(this);
       api.get_fixed_monthly(this);
-    }
-  }
+    },
+    cancelTime(idx) {
+      api.delete_time(this, idx);
+    },
+  },
 };
 </script>

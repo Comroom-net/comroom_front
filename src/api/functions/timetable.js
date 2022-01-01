@@ -185,6 +185,7 @@ export default {
                     let name = `${event.grade}학년 ${event.classNo}반`
                     const realTime = get_realtime(event.time - 1)
                     events.push({
+                        id: event.id,
                         name: name,
                         start: new Date(`${event.date}T${realTime[0]}`),
                         end: new Date(`${event.date}T${realTime[1]}`),
