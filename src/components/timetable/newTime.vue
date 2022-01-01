@@ -4,14 +4,24 @@
       <template v-slot:activator="{ on: menu, attrs }">
         <v-tooltip bottom>
           <template v-slot:activator="{ on: tooltip }">
-            <v-btn color="primary" outlined v-bind="attrs" v-on="{ ...tooltip, ...menu }">사용 신청</v-btn>
+            <v-btn
+              color="primary"
+              outlined
+              v-bind="attrs"
+              v-on="{ ...tooltip, ...menu }"
+              >사용 신청</v-btn
+            >
           </template>
           <span>시간표 등록</span>
         </v-tooltip>
       </template>
       <v-card min-width="200px" flat :loading="loading">
         <template slot="progress">
-          <v-progress-linear color="teal lighten-3" height="10" indeterminate></v-progress-linear>
+          <v-progress-linear
+            color="teal lighten-3"
+            height="10"
+            indeterminate
+          ></v-progress-linear>
         </template>
 
         <v-toolbar color="blue dark-4 white--text">
@@ -24,20 +34,27 @@
         </v-toolbar>
 
         <v-card-text>
-          <v-text-field :value="date" label="날짜" outlined disabled></v-text-field>
+          <v-text-field
+            :value="date"
+            label="날짜"
+            outlined
+            disabled
+          ></v-text-field>
           <p>시간</p>
           <div>
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn v-bind="attrs" v-on="on">
-                  {{times[newTime][0]}} - {{times[newTime][1]}}
+                  {{ times[newTime][0] }} - {{ times[newTime][1] }}
                   <v-icon>mdi-menu-down</v-icon>
                 </v-btn>
               </template>
               <v-list>
                 <v-list-item-group v-model="newTime" mandatory>
                   <v-list-item v-for="(time, index) in times" :key="index">
-                    <v-list-item-title>{{ time[0] }} - {{time[1]}}</v-list-item-title>
+                    <v-list-item-title
+                      >{{ time[0] }} - {{ time[1] }}</v-list-item-title
+                    >
                   </v-list-item>
                 </v-list-item-group>
               </v-list>
@@ -50,7 +67,9 @@
             column
             mandatory
           >
-            <v-chip v-for="grade in grades" :key="grade" :value="grade">{{grade}}</v-chip>
+            <v-chip v-for="grade in grades" :key="grade" :value="grade">{{
+              grade
+            }}</v-chip>
           </v-chip-group>
           <v-text-field
             label="반"
@@ -67,7 +86,14 @@
             :rules="[rules.required]"
             :error-messages="errors.teacher"
           ></v-text-field>
-          <p v-show="apiError">{{apiError}}</p>
+          <v-text-field
+            label="확인번호"
+            placeholder="삭제시 사용할 확인번호"
+            v-model="password"
+            :rules="[rules.password, rules.required]"
+            :error-messages="errors.teacher"
+          ></v-text-field>
+          <p v-show="apiError">{{ apiError }}</p>
         </v-card-text>
         <v-card-actions>
           <v-btn text color="primary" @click="addNew">등록</v-btn>
@@ -89,7 +115,7 @@ export default {
   props: {
     date: String,
     roomNo: Number,
-    startTime: String
+    startTime: String,
   },
   mounted() {
     this.makeTimes();
@@ -103,9 +129,10 @@ export default {
       newClass: null,
       newTime: 0,
       teacher: null,
+      password: 1111,
       errors: {
         teacher: null,
-        class: null
+        class: null,
       },
       grades: [1, 2, 3, 4, 5, 6],
       times: [
@@ -115,21 +142,23 @@ export default {
         ["11:30", "12:10"],
         ["12:20", "13:00"],
         ["13:10", "13:50"],
-        ["14:00", "14:40"]
+        ["14:00", "14:40"],
       ],
       rules: {
-        required: value => !!value || "Required.",
-        number: value => {
+        required: (value) => !!value || "Required.",
+        number: (value) => {
           const pattern = /^[0-9]+$/;
           return pattern.test(value) || "숫자를 입력해주세요.";
         },
-        counter: value => value.length <= 20 || "Max 20 characters",
-        email: value => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        password: (value) => value.length <= 16 || "Max 16 characters",
+        counter: (value) => value.length <= 20 || "Max 20 characters",
+        email: (value) => {
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
-        }
+        },
       },
-      apiError: null
+      apiError: null,
     };
   },
   methods: {
@@ -181,11 +210,8 @@ export default {
       this.times = times;
     },
     convertTime(t) {
-      return t
-        .toTimeString()
-        .split(" ")[0]
-        .slice(0, 5);
-    }
-  }
+      return t.toTimeString().split(" ")[0].slice(0, 5);
+    },
+  },
 };
 </script>

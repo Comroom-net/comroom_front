@@ -108,7 +108,7 @@ export default {
                         component.startTime = response.data['start_time']
                     }
                     if (component.isFixedTime) component.makeTimes()
-                        // component.startTime = component.selectTimes.findIndex(ele => ele == response.data['start_time'])
+                    // component.startTime = component.selectTimes.findIndex(ele => ele == response.data['start_time'])
                 }
                 return response.data['start_time']
             })
@@ -179,23 +179,23 @@ export default {
                 Vue.$log.debug(`response ok ${response.status}`);
                 Vue.$log.debug(response['data'])
                 let timetables = response["data"]["results"]
-                    // Vue.$log.debug(`time tables = ${timetables[0].grade}`);
+                // Vue.$log.debug(`time tables = ${timetables[0].grade}`);
                 let events = []
-                timetables.forEach(function(event) {
-                        let name = `${event.grade}학년 ${event.classNo}반`
-                        const realTime = get_realtime(event.time - 1)
-                        events.push({
-                            name: name,
-                            start: new Date(`${event.date}T${realTime[0]}`),
-                            end: new Date(`${event.date}T${realTime[1]}`),
-                            color: get_event_color(event.time - 1),
-                            timed: true,
-                            details: `${event.teacher} 선생님`,
-                            schoolTime: event.time
-                        })
-
+                timetables.forEach(function (event) {
+                    let name = `${event.grade}학년 ${event.classNo}반`
+                    const realTime = get_realtime(event.time - 1)
+                    events.push({
+                        name: name,
+                        start: new Date(`${event.date}T${realTime[0]}`),
+                        end: new Date(`${event.date}T${realTime[1]}`),
+                        color: get_event_color(event.time - 1),
+                        timed: true,
+                        details: `${event.teacher} 선생님`,
+                        schoolTime: event.time
                     })
-                    // component.events = events
+
+                })
+                // component.events = events
                 component.events.push(...events)
             }).catch((error) => {
                 Vue.$log.debug(error);
@@ -215,7 +215,7 @@ export default {
             .then((response) => {
                 let timetables = response["data"]["results"]
                 let events = []
-                timetables.forEach(function(fix) {
+                timetables.forEach(function (fix) {
                     let endDate = new Date(fix.fixed_until).getTime()
                     let fixedDay = fix.fixed_day + 1
                     var tmpDate = new Date(fix.fixed_from)
@@ -291,6 +291,7 @@ export default {
             date: component.date,
             time: component.newTime + 1,
             teacher: component.teacher,
+            password: component.password,
             school: component.$session.get("school_id"),
             roomNo: component.roomNo
         }
