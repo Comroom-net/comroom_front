@@ -113,11 +113,7 @@
               </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn
-                icon
-                @click="showDeleteModal = true"
-                v-show="selectedEvent.id"
-              >
+              <v-btn icon @click="toggleDeleteModal" v-show="selectedEvent.id">
                 <v-icon>mdi-delete-outline</v-icon>
               </v-btn>
               <v-btn icon v-show="false">
@@ -162,6 +158,9 @@ export default {
     thisRoom() {
       return this.rooms[this.roomNo];
     },
+    showDeleteModal() {
+      return this.$store.state.deleteModalOpen;
+    },
   },
   data: () => ({
     startTime: "09:10",
@@ -190,7 +189,6 @@ export default {
     events: [],
     start: null,
     end: null,
-    showDeleteModal: false,
   }),
   beforeCreate() {
     api.get_comroom(this);
@@ -250,8 +248,8 @@ export default {
       api.get_monthly(this);
       api.get_fixed_monthly(this);
     },
-    cancelTime(idx) {
-      api.delete_time(this, idx);
+    toggleDeleteModal() {
+      this.$store.commit("toggleDeleteModal");
     },
   },
 };
