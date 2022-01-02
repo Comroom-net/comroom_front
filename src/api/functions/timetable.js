@@ -192,7 +192,8 @@ export default {
                         color: get_event_color(event.time - 1),
                         timed: true,
                         details: `${event.teacher} 선생님`,
-                        schoolTime: event.time
+                        schoolTime: event.time,
+                        password: event.password,
                     })
 
                 })

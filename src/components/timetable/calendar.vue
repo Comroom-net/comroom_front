@@ -125,11 +125,11 @@
             </v-card-text>
             <v-card-actions>
               <v-btn text color="secondary" @click="selectedOpen = false"
-                >Cancel</v-btn
+                >닫기</v-btn
               >
             </v-card-actions>
           </v-card>
-          <deleteModal v-if="showDeleteModal" />
+          <deleteModal v-if="showDeleteModal" :selectedEvent="selectedEvent" />
         </v-menu>
       </v-sheet>
     </v-col>
