@@ -10,6 +10,9 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
+          <b-nav-item href="https://forms.gle/RDqm8vgrud2NHAaU8" active
+            ><b>운영중단 설문</b></b-nav-item
+          >
           <b-nav-item href="/" active>HOME</b-nav-item>
           <b-nav-item href="/about">개발자</b-nav-item>
           <b-nav-item href="/develop">개발현황</b-nav-item>
