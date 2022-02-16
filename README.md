@@ -1,6 +1,8 @@
-# comroom_front
+# 컴룸닷넷 (frontend)
 
-> A Vue.js project
+> 학교 컴퓨터실(특별실) 예약관리 사이트
+
+[http://comroom.net](http://comroom.net)
 
 ## Build Setup
 
