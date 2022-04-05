@@ -7,7 +7,7 @@ on:
 env:
   ECR_URI: ghcr.io/comroom-net/comroom_front
   REGISTRY: ghcr.io
-  ORG: comroom-net
+  ORG: ${{ github.actor }}
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
