@@ -2,6 +2,12 @@
 
 > A Vue.js project
 
+## Docker
+
+`docker build -t comroom_front https://github.com/Comroom-net/comroom_front.git#main`
+
+`docker run -p 8080:80 comroom_front`
+
 ## Build Setup
 
 ``` bash
