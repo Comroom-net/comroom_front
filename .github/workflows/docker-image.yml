@@ -8,7 +8,7 @@ env:
   ECR_URI: ghcr.io/comroom-net/comroom_front
   REGISTRY: ghcr.io
   ORG: comroom-net
-  IMAGE_NAME: comroom_front
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
 
@@ -25,9 +25,6 @@ jobs:
         registry: ${{ env.REGISTRY }}
         username: ${{ env.ORG }}
         password: ${{ secrets.CR_PAT }}
-    
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $IMAGE_NAME:$(date +%s)
       
     - name: Extract metadata (tags, labels) for Docker
       id: meta
