@@ -1,9 +1,12 @@
 <template>
   <div data-app>
+    <h3>
+      <a href="https://forms.gle/RDqm8vgrud2NHAaU8">컴룸닷넷 운영중단 설문</a>
+    </h3>
     <Calendar v-if="valid_school" />
     <div v-if="!valid_school">
-      {{error_msg}}
-      {{school}}
+      {{ error_msg }}
+      {{ school }}
     </div>
   </div>
 </template>
@@ -15,20 +18,20 @@ import api from "Api/functions/timetable";
 export default {
   name: "Timetable",
   components: {
-    Calendar
+    Calendar,
   },
   props: {
     school: {
-      type: String
+      type: String,
     },
     s_code: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
       error_msg: "ok",
-      valid_school: false
+      valid_school: false,
     };
   },
   mounted() {
@@ -39,6 +42,6 @@ export default {
     } else {
       if (this.$session.get("school_id")) this.valid_school = true;
     }
-  }
+  },
 };
 </script>
