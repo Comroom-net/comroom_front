@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CD
 
 on:
   push:
@@ -8,7 +8,7 @@ env:
   ECR_URI: ghcr.io/comroom-net/comroom_front
   REGISTRY: ghcr.io
   ORG: comroom-net
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: comroom_front
 
 jobs:
 
